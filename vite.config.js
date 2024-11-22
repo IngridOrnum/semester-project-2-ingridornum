@@ -1,18 +1,26 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
-// Export the Vite configuration
 export default defineConfig({
-    base: '/custom-base-path/', // Set this to the path where your app will be deployed
-    server: {
-        proxy: {
-            '/api': {
-                target: 'https://your-api-domain.com', // Replace with your API's base URL
-                changeOrigin: true,
-                secure: false, // Set to true if your API uses HTTPS
+    appType: "mpa",
+    base: "",
+    build: {
+        target: "esnext",
+        rollupOptions: {
+            input: {
+                main: resolve(__dirname, "index.html"),
+                login: resolve(__dirname, "/auth/login/index.html"),
+                register: resolve(__dirname, "/auth/register/index.html"),
+                singleListing: resolve(__dirname, "/single-listing/index.html"),
+                createSingleListing: resolve(__dirname, "/single-listing/create/index.html"),
+                updateSingleListing: resolve(__dirname, "/single-listing/update/index.html"),
+                profile: resolve(__dirname, "/profile/index.html"),
             },
         },
     },
-    build: {
-        outDir: 'dist', // Specify the output directory for the build files
+    server: {
+        hmr: {
+            overlay: false, // Disable error overlay
+        },
     },
 });
