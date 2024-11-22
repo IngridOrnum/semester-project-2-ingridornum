@@ -1,0 +1,15 @@
+ul {
+    background-color: skyblue;
+}
+
+.li-single-listing {
+    width: 140px;
+    height: 140px;
+}
+
+.li-single-listing img {
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}

@@ -20,6 +20,7 @@ async function displayListings (page = 1) {
             listItem.innerHTML =  `
     <div class="li-single-listing-content">
         <img src="${listing.media?.[0]?.url || ""}" alt="${listing.media?.[0]?.alt || "No image"}">
+        <span>${listing.title}</span>
     </div>
     `;
             listingsContainer.appendChild(listItem);
