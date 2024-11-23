@@ -1,24 +1,60 @@
-import {API_KEY, API_LISTINGS} from "../constants.js";
+import {API_LISTINGS} from "../constants.js";
 
-// Search for listings globally
-export async function searchListings(query, limit = 12, page = 1) {
-    const endpoint = query
-        ? `${API_LISTINGS}/search?q=${encodeURIComponent(query)}`
-        : `${API_LISTINGS}?limit=${limit}&page=${page}`;
-    console.log(endpoint);
+export async function searchListings(query) {
+    try {
+        if (!query.trim()) {
+            console.error('Search query is empty or missing. No API call will be made.');
+            return { listings: [] }; // Return empty results gracefully
+        }
 
-    const response = await fetch(endpoint, {
-        headers: {
-            'Authorization': `Bearer ${API_KEY}`, // Add API key if required
-        },
-    });
+        // Construct the endpoint for the search API
+        const endpoint = `${API_LISTINGS}/search?q=${encodeURIComponent(query)}`;
+        console.log('Constructed Endpoint:', endpoint);
 
-    if (!response.ok) {
-        console.log('Response:', response);
-        throw new Error(`Error fetching data: ${response.status}`);
+        // Make the API call
+        const response = await fetch(endpoint);
+
+        if (!response.ok) {
+            console.error('Response Status:', response.status, response.statusText);
+            throw new Error(`Error fetching data: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('API Response Data:', data);
+
+        return {listings: data.data || [] };
+    } catch (error) {
+        console.error('Error in searchListings:', error.message);
+        throw error;
     }
-
-    const data = await response.json();
-    console.log(data);
-    return data;
 }
+
+// import {API_LISTINGS} from "../constants.js";
+//
+// export async function searchListings(query, limit = 12, page = 1) {
+//     const params = new URLSearchParams();
+//     if (query) params.append('q', query);
+//     params.append('limit', limit);
+//     params.append('page', page);
+//
+//     const endpoint = `${API_LISTINGS}/search?${params.toString()}`;
+//     console.log('Constructed Endpoint:', endpoint);
+//
+//     let response;
+//
+//     try {
+//         response = await fetch(endpoint);
+//
+//         if (!response.ok) {
+//             console.log('Response:', response);
+//             throw new Error(`Error fetching data: ${response.status}`);
+//         }
+//
+//         const data = await response.json();
+//         console.log(data);
+//         return data;
+//     } catch (error) {
+//         console.error('Error in searchListings', error.message);
+//         throw error;
+//     }
+// }
