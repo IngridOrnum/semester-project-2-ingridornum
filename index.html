@@ -6,15 +6,14 @@
     <script type="module" src="/main.js" defer></script>
     <link href="/css/styles.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
-    <title>Welcome To Auction Site!</title>
+    <title>Bid Boutique!</title>
   </head>
-  <body>
-    <h1>Welcome!</h1>
+  <body class="flex flex-col items-center w-screen">
+    <h1>Welcome to Bid Boutique!</h1>
     <section class="flex flex-col w-full items-center">
       <div class="flex gap-5">
-        <label for="site-search" class="block">Search for listings:</label>
-        <input type="search" id="site-search" name="q" class="bg-amber-100 border border-black">
-        <button class="border border-slate-900">Search</button>
+        <label for="searchInput" class="block">Search for listings:</label>
+        <input type="text" id="searchInput" name="q" class="bg-amber-100 border border-black">
       </div>
       
       <ul class="listings-container flex flex-wrap p-3"></ul>

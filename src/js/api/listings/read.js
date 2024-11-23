@@ -2,11 +2,12 @@ import {API_KEY, API_LISTINGS} from "../constants.js";
 // import {getKey} from "../auth/getKey.js";
 
 // Fetch and read all listings
-export async function readAllListings(limit = 12, page = 1, tags) {
+export async function readAllListings(limit = 12, page = 1, searchData='') {
     const params = new URLSearchParams({ limit, page });
-    if (tags) {
-        params.append('_tags', tags);
+    if (searchData) {
+        params.append('search', searchData);
     }
+    console.log(`${API_LISTINGS}?${params.toString()}`);
 
     const response = await fetch(`${API_LISTINGS}?${params.toString()}`);
     if (!response.ok) {
@@ -18,6 +19,5 @@ export async function readAllListings(limit = 12, page = 1, tags) {
     console.log(data);
     return data;
 }
-
 
 // Fetch and read single listing
