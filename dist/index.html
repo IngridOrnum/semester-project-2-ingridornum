@@ -6,19 +6,38 @@
     <link href="./css/styles.css" rel="stylesheet">
     <link href="./css/custom.css" rel="stylesheet">
     <title>Bid Boutique!</title>
-    <script type="module" crossorigin src="./assets/main-ozZ4uV0P.js"></script>
+    <script type="module" crossorigin src="./assets/main-CI2KCneQ.js"></script>
   </head>
   <body class="flex flex-col items-center w-screen">
     <h1>Welcome to Bid Boutique!</h1>
     <section class="flex flex-col w-full items-center">
       <div class="flex gap-5">
-        <label for="searchInput" class="block">Search for listings:</label>
-        <input type="text" id="searchInput" name="q" class="bg-amber-100 border border-black">
+        <div class="flex gap-5">
+          <label for="tags-filter">Filter by tag:</label>
+          <select name="tags" id="tags-filter">
+            <option value="" >No filter selected</option>
+            <option value="art" data-tags="painting,sculpture,abstract">Art</option>
+            <option value="books" data-tags="book,fiction,non-fiction,novels">Books</option>
+            <option value="cars" data-tags="car,">Cars</option>
+            <option value="fashion" data-tags="clothes,shoes,accessories">Fashion</option>
+            <option value="interior" data-tags="furniture,decor,lighting">Interior</option>
+            <option value="jewellery" data-tags="rings,necklaces,bracelets">Jewellery</option>
+            <option value="music" data-tags="instruments,vinyl,concert">Music</option>
+            <option value="sports" data-tags="equipment,apparel,outdoor">Sports</option>
+            <option value="toys" data-tags="board-games,dolls,educational">Toys</option>
+            <option value="watches" data-tags="digital,analog,smart">Watches</option>
+          </select>
+        </div>
+        <div class="flex gap-5">
+          <label for="searchInput" class="block">Search for listings:</label>
+          <input type="text" id="searchInput" name="q" class="bg-amber-100 border border-black">
+        </div>
       </div>
-      
       <ul class="listings-container flex flex-wrap p-3"></ul>
       <div class="pagination gap-5">
         <button id="prevPage" class="border border-slate-900">Previous</button>
+        <div id="paginationCount">
+        </div>
         <button id="nextPage" class="border border-slate-900">Next</button>
       </div>
     </section>
