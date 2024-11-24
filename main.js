@@ -12,23 +12,21 @@ async function displayListings(page = 1, searchData = '') {
         let response;
 
         if (searchData.trim()) {
-            // Fetch matching listings with pagination
             response = await searchListings(searchData, listingsPerPage, page);
             allListings = response.listings || [];
             metaData = response.meta || {};
         } else {
-            // Fetch default paginated listings
             console.log('Fetching default paginated listings.');
             response = await readAllListings(listingsPerPage, page);
             allListings = response.listings || response.data || [];
             metaData = response.meta || {};
         }
-
         renderListings(allListings);
         updatePaginationButtons(metaData);
+        updatePaginationCount(metaData)
     } catch (error) {
         console.error('Error displaying listings:', error);
-        renderListings([]); // Display an empty list on error
+        renderListings([]);
     }
 }
 
@@ -56,16 +54,27 @@ function renderListings(listings) {
     });
 }
 
+
 function updatePaginationButtons(meta) {
     const prevButton = document.getElementById('prevPage');
     const nextButton = document.getElementById('nextPage');
 
-    // Safeguard: Disable buttons if meta is missing
+    // Disable buttons if meta is missing
     prevButton.disabled = !meta.previousPage;
     nextButton.disabled = !meta.nextPage;
 }
 
-// Pagination controls
+function updatePaginationCount(meta) {
+    const paginationDivCounter = document.getElementById('paginationCount');
+
+    // Calculate the current range of displayed listings
+    const end = Math.min(meta.currentPage * listingsPerPage, meta.totalCount);
+
+    paginationDivCounter.innerHTML = `
+        <span>Showing ${end} of ${meta.totalCount}</span>
+    `;
+}
+
 document.getElementById('prevPage').addEventListener('click', () => {
     if (metaData.previousPage) {
         currentPage = metaData.previousPage;
@@ -80,12 +89,12 @@ document.getElementById('nextPage').addEventListener('click', () => {
     }
 });
 
-// Search input event listener
 document.getElementById('searchInput').addEventListener('input', async (event) => {
     currentSearchData = event.target.value;
-    currentPage = 1; // Reset to the first page for new input
-    await displayListings(currentPage, currentSearchData); // Fetch listings based on input
+    currentPage = 1;
+    await displayListings(currentPage, currentSearchData);
 });
 
-// Initial call to display listings
+
 displayListings(currentPage);
+

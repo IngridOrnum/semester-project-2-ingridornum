@@ -17,3 +17,4 @@ export async function readAllListings(limit = 12, page = 1) {
 }
 
 
+// Single listing

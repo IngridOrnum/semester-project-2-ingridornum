@@ -1,4 +1,4 @@
-import { API_KEY, API_LISTINGS } from "../constants.js";
+import { API_LISTINGS } from "../constants.js";
 
 // Fetch listings based on search input
 export async function searchListings(query, limit = 12, page = 1) {
