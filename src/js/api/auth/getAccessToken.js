@@ -1,4 +1,4 @@
-export async function getKey() {
+export async function getAccessToken() {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) {
         return accessToken;
