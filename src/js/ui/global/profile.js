@@ -19,8 +19,10 @@ export async function displayUserNav () {
             if (userDisplayNav) {
                 userDisplayNav.innerHTML = `
 <span>Your credits: ${profileData.data.credits}</span>
-                <img src="${profileData.data.avatar.url || '/default-avatar.png'}" alt="User Avatar" style="width:40px; height:40px; border-radius:50%;">
-                    <span>${profileData.data.name}</span>
+<div id="my-profile" class="flex gap-2.5 items-center cursor-pointer">
+<span>${profileData.data.name}</span>
+<img src="${profileData.data.avatar.url || '/default-avatar.png'}" alt="User Avatar" style="width:40px; height:40px; border-radius:50%;">
+</div> 
                 `;
             }
         } catch (error) {
@@ -43,6 +45,10 @@ export async function displayUserNav () {
     }
 }
 
-export function displayCredits () {
-
+export async function openProfilePage() {
+    document.body.addEventListener('click', (event) => {
+        if (event.target.closest('#my-profile')) {
+            window.location.href = '../../../../profile/index.html';
+        }
+    });
 }
