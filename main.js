@@ -5,34 +5,30 @@ let currentPage = 1;
 const listingsPerPage = 12;
 let currentSearchData = '';
 let allListings = [];
-let totalListings = 0;
+let metaData = {};
 
 async function displayListings(page = 1, searchData = '') {
     try {
         let response;
 
         if (searchData.trim()) {
-            // Fetch all matching listings
-            response = await searchListings(searchData);
-
-            totalListings = response.listings?.length || 0; // Set total listings for search results
-
-            // Limit to 12 listings per page for search
-            const startIndex = (page - 1) * listingsPerPage;
-            const endIndex = startIndex + listingsPerPage;
-            allListings = response.listings?.slice(startIndex, endIndex) || [];
+            // Fetch matching listings with pagination
+            response = await searchListings(searchData, listingsPerPage, page);
+            allListings = response.listings || [];
+            metaData = response.meta || {};
         } else {
+            // Fetch default paginated listings
+            console.log('Fetching default paginated listings.');
             response = await readAllListings(listingsPerPage, page);
             allListings = response.listings || response.data || [];
-            totalListings = response.totalListings || 0; // Set total listings from response
+            metaData = response.meta || {};
         }
 
         renderListings(allListings);
-        updatePaginationButtons();
-
+        updatePaginationButtons(metaData);
     } catch (error) {
         console.error('Error displaying listings:', error);
-        renderListings([]);
+        renderListings([]); // Display an empty list on error
     }
 }
 
@@ -60,33 +56,36 @@ function renderListings(listings) {
     });
 }
 
-function updatePaginationButtons() {
+function updatePaginationButtons(meta) {
     const prevButton = document.getElementById('prevPage');
     const nextButton = document.getElementById('nextPage');
 
-    const totalPages = Math.ceil(totalListings / listingsPerPage);
-
-    prevButton.disabled = currentPage <= 1;
-    nextButton.disabled = currentPage >= totalPages;
+    // Safeguard: Disable buttons if meta is missing
+    prevButton.disabled = !meta.previousPage;
+    nextButton.disabled = !meta.nextPage;
 }
 
 // Pagination controls
 document.getElementById('prevPage').addEventListener('click', () => {
-    if (currentPage > 1) {
-        currentPage--;
+    if (metaData.previousPage) {
+        currentPage = metaData.previousPage;
         displayListings(currentPage, currentSearchData);
     }
 });
 
 document.getElementById('nextPage').addEventListener('click', () => {
-    currentPage++;
-    displayListings(currentPage, currentSearchData);
+    if (metaData.nextPage) {
+        currentPage = metaData.nextPage;
+        displayListings(currentPage, currentSearchData);
+    }
 });
 
+// Search input event listener
 document.getElementById('searchInput').addEventListener('input', async (event) => {
     currentSearchData = event.target.value;
     currentPage = 1; // Reset to the first page for new input
     await displayListings(currentPage, currentSearchData); // Fetch listings based on input
 });
 
+// Initial call to display listings
 displayListings(currentPage);
