@@ -1,5 +1,6 @@
 import { searchListings } from "./src/js/api/listings/search.js";
 import { readAllListings } from "./src/js/api/listings/read.js";
+import { readProfile } from "./src/js/api/profile/read.js";
 
 let currentPage = 1;
 const listingsPerPage = 12;
@@ -102,6 +103,29 @@ document.getElementById('loginBtn').addEventListener('click', () => {
 document.getElementById('registerBnt').addEventListener('click', () => {
     window.location = "auth/register/index.html";
 });
+
+async function displayUser () {
+    const loggedInUser = localStorage.getItem('loggedInUsername');
+
+    if (loggedInUser) {
+        try {
+            const profileData = await readProfile(loggedInUser);
+
+            const userDisplayNav = document.getElementById('user-display-nav');
+
+            if (userDisplayNav) {
+                userDisplayNav.innerHTML = `
+                <img src="${profileData.data.avatar.url || '/default-avatar.png'}" alt="User Avatar" style="width:40px; height:40px; border-radius:50%;">
+                    <span>${profileData.data.name}</span>
+                `;
+            }
+        } catch (error) {
+            console.error('Error displaying user profile:', error)
+        }
+    }
+}
+
+displayUser();
 
 displayListings(currentPage);
 
