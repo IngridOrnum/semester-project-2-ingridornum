@@ -1,45 +1,52 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link href="./css/styles.css" rel="stylesheet">
     <link href="./css/custom.css" rel="stylesheet">
     <title>Bid Boutique!</title>
-    <script type="module" crossorigin src="./assets/main-CI2KCneQ.js"></script>
-  </head>
-  <body class="flex flex-col items-center w-screen">
-    <h1>Welcome to Bid Boutique!</h1>
-    <section class="flex flex-col w-full items-center">
-      <div class="flex gap-5">
-        <div class="flex gap-5">
-          <label for="tags-filter">Filter by tag:</label>
-          <select name="tags" id="tags-filter">
-            <option value="" >No filter selected</option>
-            <option value="art" data-tags="painting,sculpture,abstract">Art</option>
-            <option value="books" data-tags="book,fiction,non-fiction,novels">Books</option>
-            <option value="cars" data-tags="car,">Cars</option>
-            <option value="fashion" data-tags="clothes,shoes,accessories">Fashion</option>
-            <option value="interior" data-tags="furniture,decor,lighting">Interior</option>
-            <option value="jewellery" data-tags="rings,necklaces,bracelets">Jewellery</option>
-            <option value="music" data-tags="instruments,vinyl,concert">Music</option>
-            <option value="sports" data-tags="equipment,apparel,outdoor">Sports</option>
-            <option value="toys" data-tags="board-games,dolls,educational">Toys</option>
-            <option value="watches" data-tags="digital,analog,smart">Watches</option>
-          </select>
-        </div>
-        <div class="flex gap-5">
-          <label for="searchInput" class="block">Search for listings:</label>
-          <input type="text" id="searchInput" name="q" class="bg-amber-100 border border-black">
-        </div>
-      </div>
-      <ul class="listings-container flex flex-wrap p-3"></ul>
-      <div class="pagination gap-5">
-        <button id="prevPage" class="border border-slate-900">Previous</button>
-        <div id="paginationCount">
-        </div>
-        <button id="nextPage" class="border border-slate-900">Next</button>
-      </div>
-    </section>
-  </body>
+  <script type="module" crossorigin src="./assets/main-BpsPi7pK.js"></script>
+</head>
+<body>
+    <nav class="flex gap-5">
+      <button class="p-2 border border-slate-900" id="loginBtn" >Login</button>
+      <button class="p-2 border border-slate-900" id="registerBnt">Register</button>
+    </nav>
+    <main class="flex flex-col items-center w-screen">
+        <h1>Welcome to Bid Boutique!</h1>
+        <section class="flex flex-col w-full items-center">
+            <div class="flex gap-5">
+                <div class="flex gap-5">
+                    <label for="tags-filter">Filter by tag:</label>
+                    <select id="tags-filter" name="tags">
+                        <option value="">No filter selected</option>
+                        <option data-tags="painting,sculpture,abstract" value="art">Art</option>
+                        <option data-tags="book,fiction,non-fiction,novels" value="books">Books</option>
+                        <option data-tags="car," value="cars">Cars</option>
+                        <option data-tags="clothes,shoes,accessories" value="fashion">Fashion</option>
+                        <option data-tags="furniture,decor,lighting" value="interior">Interior</option>
+                        <option data-tags="rings,necklaces,bracelets" value="jewellery">Jewellery</option>
+                        <option data-tags="instruments,vinyl,concert" value="music">Music</option>
+                        <option data-tags="equipment,apparel,outdoor" value="sports">Sports</option>
+                        <option data-tags="board-games,dolls,educational" value="toys">Toys</option>
+                        <option data-tags="digital,analog,smart" value="watches">Watches</option>
+                    </select>
+                </div>
+                <div class="flex gap-5">
+                    <label class="block" for="searchInput">Search for listings:</label>
+                    <input class="bg-amber-100 border border-black" id="searchInput" name="q" type="text">
+                </div>
+            </div>
+            <ul class="listings-container flex flex-wrap p-3"></ul>
+            <div class="pagination gap-5 flex">
+                <button class="border border-slate-900" id="prevPage">Previous</button>
+                <div id="paginationCount">
+                </div>
+                <button class="border border-slate-900" id="nextPage">Next</button>
+            </div>
+        </section>
+    </main>
+    <footer></footer>
+</body>
 </html>

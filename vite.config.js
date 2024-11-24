@@ -18,6 +18,11 @@ export default defineConfig({
             },
         },
     },
+    resolve: {
+        alias: {
+            path: "path-browserify", // Replace Node.js `path` with a browser-friendly alternative
+        },
+    },
     server: {
         hmr: {
             overlay: false, // Disable error overlay
