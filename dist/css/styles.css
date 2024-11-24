@@ -574,6 +574,10 @@ video {
   display: flex;
 }
 
+.hidden {
+  display: none;
+}
+
 .min-h-full {
   min-height: 100%;
 }
