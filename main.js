@@ -95,6 +95,13 @@ document.getElementById('searchInput').addEventListener('input', async (event) =
     await displayListings(currentPage, currentSearchData);
 });
 
+document.getElementById('loginBtn').addEventListener('click', () => {
+    window.location = "auth/login/index.html";
+});
+
+document.getElementById('registerBnt').addEventListener('click', () => {
+    window.location = "auth/register/index.html";
+});
 
 displayListings(currentPage);
 
