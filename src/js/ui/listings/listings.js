@@ -1,6 +1,5 @@
 import { searchListings } from "../../api/listings/search.js";
 import {readAllListings} from "../../api/listings/read.js";
-import { readProfile } from "../../api/profile/read.js";
 
 let currentPage = 1;
 const listingsPerPage = 12;
