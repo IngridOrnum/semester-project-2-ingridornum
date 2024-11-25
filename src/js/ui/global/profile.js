@@ -1,6 +1,6 @@
 import {readProfile} from "../../api/profile/read.js";
 
-export async function displayUser () {
+export async function displayUserNav () {
     const loggedInUser = localStorage.getItem('loggedInUsername');
     const logoutBtn = document.getElementById('logoutBtn');
     const loginBtn = document.getElementById('loginBtn');
@@ -18,8 +18,11 @@ export async function displayUser () {
 
             if (userDisplayNav) {
                 userDisplayNav.innerHTML = `
-                <img src="${profileData.data.avatar.url || '/default-avatar.png'}" alt="User Avatar" style="width:40px; height:40px; border-radius:50%;">
-                    <span>${profileData.data.name}</span>
+<span>Your credits: ${profileData.data.credits}</span>
+<div id="my-profile" class="flex gap-2.5 items-center cursor-pointer">
+<span>${profileData.data.name}</span>
+<img src="${profileData.data.avatar.url || '/default-avatar.png'}" alt="User Avatar" style="width:40px; height:40px; border-radius:50%;">
+</div> 
                 `;
             }
         } catch (error) {
@@ -40,4 +43,12 @@ export async function displayUser () {
         const userDisplayNav = document.getElementById('user-display-nav');
         if (userDisplayNav) userDisplayNav.innerHTML = '';
     }
+}
+
+export async function openProfilePage() {
+    document.body.addEventListener('click', (event) => {
+        if (event.target.closest('#my-profile')) {
+            window.location.href = '../../../../profile/index.html';
+        }
+    });
 }
