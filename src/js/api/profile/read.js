@@ -4,6 +4,7 @@ import { getAccessToken } from "../auth/getAccessToken.js";
 export async function readProfile(username) {
     const accessToken = await getAccessToken();
     const options = {
+        method: 'GET',
         headers: {
             'X-Noroff-API-Key': API_KEY,
             Authorization: `Bearer ${accessToken}`,
