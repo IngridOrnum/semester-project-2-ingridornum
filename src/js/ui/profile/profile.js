@@ -23,11 +23,19 @@ export async function profileUpdateForm() {
     const loggedInUser = localStorage.getItem('loggedInUsername');
     const profileData = await readProfile(loggedInUser);
 
+    const editBtn = document.getElementById('edit-profile-btn');
     const profileUpdateForm = document.getElementById('update-profile-form');
     const bioInput = document.getElementById('bio');
     const avatarInput = document.getElementById('avatar');
-    const bannerInput = document.getElementById('banner');
-    const saveChangesBtn = document.getElementById('save-changes-btn');
+    const bannerInput = document.getElementById('banner-url');
+
+    editBtn.addEventListener('click', () => {
+        profileUpdateForm.classList.add('block');
+        profileUpdateForm.classList.remove('hidden')
+        editBtn.classList.add('hidden');
+        editBtn.classList.remove('block');
+    })
+
 
     if (bioInput) bioInput.value = profileData.data.bio || '';
     if (avatarInput) avatarInput.value = profileData.data.avatar?.url || '';
@@ -47,10 +55,15 @@ export async function profileUpdateForm() {
                 const updatedProfile = await updateProfile(loggedInUser, updatedData);
                 console.log('Profile updated successfully:', updatedProfile);
                 await displayUserProfileInfo();
+
+                profileUpdateForm.classList.add('hidden');
+                profileUpdateForm.classList.remove('block')
+                editBtn.classList.add('block');
+                editBtn.classList.remove('hidden');
+
             } catch (error) {
                 console.error('Error updating profile:', error);
             }
         })
     }
-
 }
