@@ -622,6 +622,10 @@ video {
   gap: 0.625rem;
 }
 
+.gap-4 {
+  gap: 1rem;
+}
+
 .gap-5 {
   gap: 1.25rem;
 }
@@ -672,6 +676,10 @@ video {
   padding: 0.5rem;
 }
 
+.p-2\.5 {
+  padding: 0.625rem;
+}
+
 .p-3 {
   padding: 0.75rem;
 }
@@ -694,6 +702,11 @@ video {
 .py-12 {
   padding-top: 3rem;
   padding-bottom: 3rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .text-4xl {
