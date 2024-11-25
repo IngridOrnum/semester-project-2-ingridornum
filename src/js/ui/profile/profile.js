@@ -26,8 +26,7 @@ export async function profileUpdateForm() {
     const profileUpdateForm = document.getElementById('update-profile-form');
     const bioInput = document.getElementById('bio');
     const avatarInput = document.getElementById('avatar');
-    const bannerInput = document.getElementById('banner');
-    const saveChangesBtn = document.getElementById('save-changes-btn');
+    const bannerInput = document.getElementById('banner-url');
 
     if (bioInput) bioInput.value = profileData.data.bio || '';
     if (avatarInput) avatarInput.value = profileData.data.avatar?.url || '';
@@ -52,5 +51,4 @@ export async function profileUpdateForm() {
             }
         })
     }
-
 }
