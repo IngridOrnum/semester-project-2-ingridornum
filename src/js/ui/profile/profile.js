@@ -67,3 +67,17 @@ export async function profileUpdateForm() {
         })
     }
 }
+
+export async function openCreatePage () {
+    const createListingBtn = document.getElementById('create-listing-btn');
+        createListingBtn.addEventListener('click', () => {
+            window.location.href = '../../../../listings/create/index.html';
+        })
+}
+
+export async function openEditPage () {
+    const createListingBtn = document.getElementById('edit-listing-btn');
+    createListingBtn.addEventListener('click', () => {
+        window.location.href = '../../../../listings/edit/index.html';
+    })
+}
