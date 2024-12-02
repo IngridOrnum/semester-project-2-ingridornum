@@ -2,8 +2,8 @@ import{b as p,e as f}from"./constants-C6fMtq7-.js";import{g,r as d}from"./main-a
 <span>Welcome, ${e.data.name}!</span>
 <div class="flex gap-6">
 <span>Credits: ${e.data.credits}</span>
-<span>Listings: ${e.data.count?.listings||"No listings yet."}</span>
-<span>Wins: ${e.data.count?.wins||"No wins yet."}</span>
+<span>Listings: ${e.data._count?.listings||"No listings yet."}</span>
+<span>Wins: ${e.data._count?.wins||"No wins yet."}</span>
 </div>
 <div>${e.data.bio}</div>
                 `)}async function v(){const n=localStorage.getItem("loggedInUsername"),e=await d(n),t=document.getElementById("edit-profile-btn"),a=document.getElementById("update-profile-form"),o=document.getElementById("bio"),i=document.getElementById("avatar"),s=document.getElementById("banner-url");t.addEventListener("click",()=>{a.classList.add("block"),a.classList.remove("hidden"),t.classList.add("hidden"),t.classList.remove("block")}),o&&(o.value=e.data.bio||""),i&&(i.value=e.data.avatar?.url||""),s&&(s.value=e.data.banner?.url||""),a&&a.addEventListener("submit",async l=>{l.preventDefault();const u={bio:o.value,avatar:{url:i.value},banner:{url:s.value}};try{const r=await m(n,u);console.log("Profile updated successfully:",r),await c(),a.classList.add("hidden"),a.classList.remove("block"),t.classList.add("block"),t.classList.remove("hidden")}catch(r){console.error("Error updating profile:",r)}})}async function y(){document.getElementById("create-listing-btn").addEventListener("click",()=>{window.location.href="../../../../listings/create/index.html"})}async function I(){document.getElementById("edit-listing-btn").addEventListener("click",()=>{window.location.href="../../../../listings/edit/index.html"})}c();v();y();I();
