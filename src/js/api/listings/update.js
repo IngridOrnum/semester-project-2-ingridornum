@@ -1,10 +1,9 @@
 import { API_LISTINGS, API_KEY } from "../constants.js";
 import { getAccessToken } from "../auth/getAccessToken.js";
 
-export async function apiUpdateListing () {
+export async function apiUpdateListing (updatedData, listingId) {
     try {
         const accessToken = await getAccessToken();
-        const listingId = localStorage.getItem('listingId');
 
         if(!listingId) {
             throw new Error("Could not find listing");
@@ -16,10 +15,11 @@ export async function apiUpdateListing () {
                 'X-Noroff-API-Key': API_KEY,
                 Authorization: `Bearer ${accessToken}`,
                 'Content-Type': 'application/json',
-            }
+            },
+            body: JSON.stringify(updatedData)
         };
 
-        const response = await fetch(`${API_LISTINGS}/${id}`, options);
+        const response = await fetch(`${API_LISTINGS}/${listingId}`, options);
         const data = await response.json();
 
         if (!response.ok) {
