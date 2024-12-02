@@ -17,6 +17,7 @@ export async function apiDeleteListing (id) {
         const response = await fetch(`${API_LISTINGS}/${id}`, options);
 
         if(!response.ok) {
+            const data = await response.json;
             throw new Error(data.errors ? data.errors[0].message : 'An error occurred while deleting the listing');
         }
 
