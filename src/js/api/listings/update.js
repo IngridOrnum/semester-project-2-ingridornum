@@ -21,7 +21,6 @@ export async function apiUpdateListing () {
 
         const response = await fetch(`${API_LISTINGS}/${id}`, options);
         const data = await response.json();
-        console.log("API Response for listings:", data);
 
         if (!response.ok) {
             console.error("Full API Error Response:", data);

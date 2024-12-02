@@ -47,7 +47,5 @@ export async function readAllListingByUser () {
     }
 
     const result = await response.json();
-    console.log('raw api response', result);
-
     return result.data;
 }
