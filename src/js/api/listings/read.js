@@ -1,6 +1,7 @@
-import { API_KEY, API_LISTINGS } from "../constants.js";
+import {API_KEY, API_LISTINGS, API_PROFILES} from "../constants.js";
+import {getAccessToken} from "../auth/getAccessToken.js";
 
-// Fetch and read all listings
+// Read all listings
 export async function readAllListings(limit = 12, page = 1) {
     const params = new URLSearchParams({ limit, page });
 
@@ -16,5 +17,24 @@ export async function readAllListings(limit = 12, page = 1) {
     };
 }
 
+// Read single listing
 
-// Single listing
+export async function readSingleListing (id) {
+    const accessToken = await getAccessToken();
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-Noroff-API-Key': API_KEY,
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+        },
+    };
+
+    const response = await fetch(`${API_LISTINGS}/listings/${id}`, options)
+    if (!response.ok) {
+        console.error('Failed to fetch profile data:', response);
+        throw new Error(`Error fetching profile data: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+}

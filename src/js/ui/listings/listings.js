@@ -1,5 +1,5 @@
 import { searchListings } from "../../api/listings/search.js";
-import {readAllListings} from "../../api/listings/read.js";
+import { readAllListings } from "../../api/listings/read.js";
 
 let currentPage = 1;
 const listingsPerPage = 12;
@@ -52,6 +52,14 @@ function renderListings(listings) {
         `;
         listingsContainer.appendChild(listItem);
     });
+
+    document.querySelectorAll('.li-single-listing').forEach((singleListing) => {
+        singleListing.addEventListener('click', () => {
+            const listingId = singleListing.getAttribute('id');
+            localStorage.setItem('listingId', listingId);
+            window.location.href = '../../../../single-listing/index.html';
+        })
+    })
 }
 
 

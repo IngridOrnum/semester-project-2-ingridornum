@@ -2,9 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script defer src="../../main.js" type="module"></script>
+    <script defer src="edit.js" type="module"></script>
+    <link href="../../public/css/styles.css" rel="stylesheet">
+    <link href="../../public/css/custom.css" rel="stylesheet">
     <title>Bid Boutique - Edit Listings</title>
 </head>
 <body>
-
+    <nav class="flex gap-5">
+        <button class="hidden p-2 border border-slate-900" id="logoutBtn" >Logout</button>
+        <button class=" p-2 border border-slate-900" id="loginBtn" >Login</button>
+        <button class=" p-2 border border-slate-900" id="registerBnt">Register</button>
+        <div id="user-display-nav" class="flex items-center gap-6"></div>
+    </nav>
+    <main>
+    <h1 class="text-4xl bold">Edit Listings</h1>
+        <div id="listings-container"></div>
+    </main>
 </body>
 </html>
