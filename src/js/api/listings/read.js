@@ -21,6 +21,7 @@ export async function readAllListings(limit = 12, page = 1) {
 
 export async function readSingleListing (id) {
     const accessToken = await getAccessToken();
+
     const options = {
         method: 'GET',
         headers: {
@@ -30,7 +31,7 @@ export async function readSingleListing (id) {
         },
     };
 
-    const response = await fetch(`${API_LISTINGS}/listings/${id}`, options)
+    const response = await fetch(`${API_LISTINGS}/${id}`, options)
     if (!response.ok) {
         console.error('Failed to fetch profile data:', response);
         throw new Error(`Error fetching profile data: ${response.status}`);
