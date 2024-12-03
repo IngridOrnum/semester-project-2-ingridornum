@@ -42,8 +42,8 @@ export async function readAllListingByUser () {
     const response = await fetch(`${API_PROFILES}/${username}/listings`, options)
 
     if (!response.ok) {
-        console.error('Failed to fetch profile data:', response);
-        throw new Error(`Error fetching profile data: ${response.status}`);
+        console.error('Failed to fetch listing data:', response);
+        throw new Error(`Error fetching listing data: ${response.status}`);
     }
 
     const result = await response.json();

@@ -1,4 +1,6 @@
-import {readSingleListing} from "../../api/listings/read.js";
+import { readSingleListing } from "../../api/listings/read.js";
+import { readProfile } from "../../api/profile/read.js";
+import {apiBid} from "../../api/listings/bid.js";
 
 function formatDateTime(isoString) {
     const date = new Date(isoString);
@@ -18,6 +20,24 @@ function formatDateTime(isoString) {
     return `${formattedTime} ${formattedDate}`;
 }
 
+async function getUserCredits () {
+    const loggedInUser = localStorage.getItem('loggedInUsername');
+    if(!loggedInUser) {
+        throw new Error('No logged-in user found');
+    }
+
+    const profileData = await readProfile(loggedInUser);
+    return profileData.data.credits;
+}
+
+async function getHighestBid(bids) {
+    if (bids.length === 0) {
+        return 0;
+    }
+
+    return Math.max(...bids.map(bid => bid.amount));
+}
+
 export async function displaySingleListing () {
     const listingId = localStorage.getItem('listingId');
 
@@ -28,40 +48,78 @@ export async function displaySingleListing () {
 
     try {
         const listing = await readSingleListing(listingId);
+        const highestBid = getHighestBid(listing.data.bids);
+        const userCredits = await getUserCredits();
         const singleListingContainer = document.getElementById('single-listing-container');
 
         console.log(listing.data)
+        console.log('highest bid:', highestBid)
 
         singleListingContainer.innerHTML = `
-<img src="${listing.data.media[0]?.url || ''}" alt="${listing.data.media[0]?.alt || 'image'}">
+    <img src="${listing.data.media[0]?.url || ''}" alt="${listing.data.media[0]?.alt || 'image'}">
     <h1>${listing.data.title}</h1>
     <div class="flex">
         <div class="flex flex-col border border-slate-900 p-2">
-            <span>Bids</span>
-            <span>${listing.data._count?.bids}</span>
+            <span>Highest Bid</span>
+            <span>${highestBid}</span>
         </div>
         <div class="flex flex-col border border-slate-900 p-2">
             <span>Ends at</span>
             <span>${formatDateTime(listing.data.endsAt)}</span>
         </div>
     </div>
-   <div>
-          <div class="flex">
-            <input class="border border-slate-900" type="text">
-            <label for="text"></label>
-            <button class="border border-slate-900 p-2.5">Place Bid</button>
+    <div>
+        <div class="flex">
+            <input id="bid-amount" class="border border-slate-900" type="text">
+            <label for="bid-amount"></label>
+            <button id="place-bid-button" class="border border-slate-900 p-2.5">Place Bid</button>
           </div>
-            <div>
-                <span>Details</span>
-                <div>${listing.data.description}</div>
-            </div>
-            <div>
-                <span>Tags</span>
-                <div>${listing.data.tags?.join(', ')}</div>
-            </div>
+        <div>
+            <span>Details</span>
+            <div>${listing.data.description}</div>
         </div>
-    `
+        <div>
+            <span>Tags</span>
+            <div>${listing.data.tags?.join(', ')}</div>
+        </div>
+    </div>
+    `;
+
+        const bidButton = document.getElementById('place-bid-button');
+        bidButton.addEventListener('click', async () => {
+            const bidInput = document.getElementById('bid-amount');
+            const bidAmount = parseFloat(bidInput.value);
+
+            if(isNaN(bidAmount) || bidAmount <= 0) {
+                alert('Pleace enter a valid bid amount.');
+                return;
+            }
+
+            if(bidAmount <= highestBid) {
+                alert('Your bid must be higher than the current highest bid of ${highestBid} credits.');
+                return;
+            }
+
+            if(bidAmount > userCredits) {
+                alert('You have not enough credits to place this bid.');
+                return;
+            }
+
+            console.log('Placing bid:', { listingId, bidAmount });
+
+            try {
+                const bidResponse = await apiBid(listingId, bidAmount);
+                alert('Bid placed successfully!');
+
+                console.log('bid response', bidResponse);
+                displaySingleListing();
+            } catch (error) {
+                console.error(error);
+                alert('Failed to place bid. Please try again.');
+            }
+        });
     } catch (error) {
+        alert('Failed to place bid. Please try again.');
         console.error('Error displaying single listing:', error);
     }
 }

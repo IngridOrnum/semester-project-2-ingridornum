@@ -11,40 +11,43 @@
 </head>
 <body>
     <nav class="flex gap-5">
-        <button class="hidden p-2 border border-slate-900" id="logoutBtn" >Logout</button>
-        <button class=" p-2 border border-slate-900" id="loginBtn" >Login</button>
+        <button class="hidden p-2 border border-slate-900" id="logoutBtn">Logout</button>
+        <button class=" p-2 border border-slate-900" id="loginBtn">Login</button>
         <button class=" p-2 border border-slate-900" id="registerBnt">Register</button>
-        <div id="user-display-nav" class="flex items-center gap-6"></div>
+        <div class="flex items-center gap-6" id="user-display-nav"></div>
     </nav>
-<main>
-    <h1 class="text-4xl bold items-center">Create Listing</h1>
-<form id="create-listing-form" class="flex flex-col gap-4 items-center">
-    <div>
-        <label for="create-title">Title</label>
-        <input id="create-title" class="border border-slate-900" name="create-title" type="text" required>
-    </div>
-    <div>
-        <label for="create-description">Description</label>
-        <input id="create-description" class="border border-slate-900" name="create-description" type="text">
-    </div>
-    <div>
-        <label for="create-media-URL">Image URL</label>
-        <input id="create-media-URL" class="border border-slate-900" name="create-media-URL" type="text">
-    </div>
-    <div>
-        <label for="create-media-description">Image Description</label>
-        <input id="create-media-description" class="border border-slate-900" name="create-media-description" type="text">
-    </div>
-    <div>
-        <label for="create-tags">Tags</label>
-        <input id="create-tags" class="border border-slate-900" name="create-tags" type="text">
-    </div>
-    <div>
-        <label for="create-endsAt">Listing ends at</label>
-        <input id="create-endsAt" class="border border-slate-900" name="create-endsAt" type="datetime-local" required>
-    </div>
-    <button id="create-listing-form-btn" type="submit" class="border border-slate-900 p-2">Create Listing</button>
-</form>
-</main>
+    <main>
+        <h1 class="text-4xl bold items-center">Create Listing</h1>
+        <form class="flex flex-col gap-4 items-center" id="create-listing-form">
+            <div>
+                <label for="create-title">Title</label>
+                <input class="border border-slate-900" id="create-title" name="create-title" required type="text">
+            </div>
+            <div>
+                <label for="create-description">Description</label>
+                <input class="border border-slate-900" id="create-description" name="create-description" type="text">
+            </div>
+            <div>
+                <label for="create-media-URL">Image URL</label>
+                <input class="border border-slate-900" id="create-media-URL" name="create-media-URL" type="text">
+            </div>
+            <div>
+                <label for="create-media-description">Image Description</label>
+                <input class="border border-slate-900" id="create-media-description" name="create-media-description"
+                       type="text">
+            </div>
+            <div>
+                <label for="create-tags">Tags</label>
+                <input class="border border-slate-900" id="create-tags" name="create-tags" type="text">
+            </div>
+            <div>
+                <label for="create-endsAt">Listing ends at</label>
+                <input class="border border-slate-900" id="create-endsAt" name="create-endsAt" required
+                       type="datetime-local">
+            </div>
+            <button class="border border-slate-900 p-2" id="create-listing-form-btn" type="submit">Create Listing
+            </button>
+        </form>
+    </main>
 </body>
 </html>
