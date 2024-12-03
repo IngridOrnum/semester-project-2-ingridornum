@@ -1,5 +1,5 @@
-import { readSingleListing } from "../../api/listings/read.js";
-import { readProfile } from "../../api/profile/read.js";
+import {readSingleListing} from "../../api/listings/read.js";
+import {readProfile} from "../../api/profile/read.js";
 import {apiBid} from "../../api/listings/bid.js";
 
 function formatDateTime(isoString) {
@@ -20,9 +20,9 @@ function formatDateTime(isoString) {
     return `${formattedTime} ${formattedDate}`;
 }
 
-async function getUserCredits () {
+async function getUserCredits() {
     const loggedInUser = localStorage.getItem('loggedInUsername');
-    if(!loggedInUser) {
+    if (!loggedInUser) {
         throw new Error('No logged-in user found');
     }
 
@@ -38,7 +38,7 @@ async function getHighestBid(bids) {
     return Math.max(...bids.map(bid => bid.amount));
 }
 
-export async function displaySingleListing () {
+export async function displaySingleListing() {
     const listingId = localStorage.getItem('listingId');
 
     if (!listingId) {
@@ -48,12 +48,16 @@ export async function displaySingleListing () {
 
     try {
         const listing = await readSingleListing(listingId);
-        const highestBid = getHighestBid(listing.data.bids);
+        const highestBid = await getHighestBid(listing.data.bids);
         const userCredits = await getUserCredits();
         const singleListingContainer = document.getElementById('single-listing-container');
 
         console.log(listing.data)
         console.log('highest bid:', highestBid)
+
+        const currentTime = new Date();
+        const auctionEndTime = new Date(listing.data.endsAt);
+        const hasAuctionEnded = currentTime > auctionEndTime;
 
         singleListingContainer.innerHTML = `
     <img src="${listing.data.media[0]?.url || ''}" alt="${listing.data.media[0]?.alt || 'image'}">
@@ -61,18 +65,34 @@ export async function displaySingleListing () {
     <div class="flex">
         <div class="flex flex-col border border-slate-900 p-2">
             <span>Highest Bid</span>
-            <span>${highestBid}</span>
+            <span>${highestBid} credits</span>
         </div>
         <div class="flex flex-col border border-slate-900 p-2">
+        ${hasAuctionEnded
+            ?
+            `
+            <span>Ended</span>
+            <span>${formatDateTime(listing.data.endsAt)}</span>
+            `
+            :
+            `
             <span>Ends at</span>
             <span>${formatDateTime(listing.data.endsAt)}</span>
+            `
+        }
         </div>
     </div>
     <div>
         <div class="flex">
-            <input id="bid-amount" class="border border-slate-900" type="text">
-            <label for="bid-amount"></label>
+        ${hasAuctionEnded
+            ?
+            `<div class="border border-red-600 text-red-600 p-2.5">This auction has ended.</div>`
+            :
+            `
+            <input id="bid-amount" class="border border-slate-900" type="text" min="${highestBid + 1}" placeholder="Enter bid amount">
             <button id="place-bid-button" class="border border-slate-900 p-2.5">Place Bid</button>
+            `
+        }
           </div>
         <div>
             <span>Details</span>
@@ -85,39 +105,40 @@ export async function displaySingleListing () {
     </div>
     `;
 
-        const bidButton = document.getElementById('place-bid-button');
-        bidButton.addEventListener('click', async () => {
-            const bidInput = document.getElementById('bid-amount');
-            const bidAmount = parseFloat(bidInput.value);
+        if (!hasAuctionEnded) {
+            const bidButton = document.getElementById('place-bid-button');
+            bidButton.addEventListener('click', async () => {
+                const bidInput = document.getElementById('bid-amount');
+                const bidAmount = parseFloat(bidInput.value);
 
-            if(isNaN(bidAmount) || bidAmount <= 0) {
-                alert('Pleace enter a valid bid amount.');
-                return;
-            }
+                if (isNaN(bidAmount) || bidAmount <= 0) {
+                    alert('Pleace enter a valid bid amount.');
+                    return;
+                }
 
-            if(bidAmount <= highestBid) {
-                alert('Your bid must be higher than the current highest bid of ${highestBid} credits.');
-                return;
-            }
+                if (bidAmount <= highestBid) {
+                    alert('Your bid must be higher than the current highest bid of ${highestBid} credits.');
+                    return;
+                }
 
-            if(bidAmount > userCredits) {
-                alert('You have not enough credits to place this bid.');
-                return;
-            }
+                if (bidAmount > userCredits) {
+                    alert('You have not enough credits to place this bid.');
+                    return;
+                }
 
-            console.log('Placing bid:', { listingId, bidAmount });
+                console.log('Placing bid:', {listingId, bidAmount});
 
-            try {
-                const bidResponse = await apiBid(listingId, bidAmount);
-                alert('Bid placed successfully!');
-
-                console.log('bid response', bidResponse);
-                displaySingleListing();
-            } catch (error) {
-                console.error(error);
-                alert('Failed to place bid. Please try again.');
-            }
-        });
+                try {
+                    const bidResponse = await apiBid(listingId, bidAmount);
+                    alert('Bid placed successfully!');
+                    console.log('bid response', bidResponse);
+                    location.reload();
+                } catch (error) {
+                    console.error(error);
+                    alert('Failed to place bid. Please try again.');
+                }
+            });
+        }
     } catch (error) {
         alert('Failed to place bid. Please try again.');
         console.error('Error displaying single listing:', error);
