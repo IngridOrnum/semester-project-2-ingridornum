@@ -30,7 +30,7 @@ export async function displayListings(page = 1, searchData = '') {
     }
 }
 
-function renderListings(listings) {
+export async function renderListings(listings) {
     const listingsContainer = document.querySelector('.listings-container');
     listingsContainer.innerHTML = '';
 
@@ -55,7 +55,7 @@ function renderListings(listings) {
 
     document.querySelectorAll('.li-single-listing').forEach((singleListing) => {
         singleListing.addEventListener('click', () => {
-            const listingId = singleListing.getAttribute('id');
+            const listingId = singleListing.getAttribute('data-id');
             localStorage.setItem('listingId', listingId);
             window.location.href = '../../../../single-listing/index.html';
         })

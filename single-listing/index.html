@@ -2,7 +2,22 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Title</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script defer src="/main.js" type="module"></script>
+    <script defer src="single-listing.js" type="module"></script>
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+    <title>Single listing</title>
   </head>
-  <body></body>
+  <body>
+    <nav class="flex gap-5">
+      <button class="hidden p-2 border border-slate-900" id="logoutBtn">Logout</button>
+      <button class=" p-2 border border-slate-900" id="loginBtn">Login</button>
+      <button class=" p-2 border border-slate-900" id="registerBnt">Register</button>
+      <div class="flex items-center gap-6" id="user-display-nav"></div>
+    </nav>
+    <main>
+        <div id="single-listing-container"></div>
+    </main>
+  </body>
 </html>

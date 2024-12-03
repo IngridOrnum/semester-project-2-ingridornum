@@ -11,8 +11,8 @@ export async function displayUserProfileInfo() {
 <span>Welcome, ${profileData.data.name}!</span>
 <div class="flex gap-6">
 <span>Credits: ${profileData.data.credits}</span>
-<span>Listings: ${profileData.data.count?.listings || "No listings yet."}</span>
-<span>Wins: ${profileData.data.count?.wins || "No wins yet."}</span>
+<span>Listings: ${profileData.data._count?.listings || "No listings yet."}</span>
+<span>Wins: ${profileData.data._count?.wins || "No wins yet."}</span>
 </div>
 <div>${profileData.data.bio}</div>
                 `;
