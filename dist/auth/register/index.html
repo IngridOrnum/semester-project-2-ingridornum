@@ -6,8 +6,9 @@
     <link href="../../css/styles.css" rel="stylesheet">
     <link href="../../css/custom.css" rel="stylesheet">
     <title>Bid Boutique - Register</title>
-  <script type="module" crossorigin src="../../assets/register-B5EvEZue.js"></script>
-  <link rel="modulepreload" crossorigin href="../../assets/constants-C6fMtq7-.js">
+  <script type="module" crossorigin src="../../assets/register-BQiD5q1h.js"></script>
+  <link rel="modulepreload" crossorigin href="../../assets/constants-BDf8nfUD.js">
+  <link rel="modulepreload" crossorigin href="../../assets/login-c4P-18dJ.js">
 </head>
 <body>
     <h1 class="font-bold text-4xl flex flex-col items-center mt-14">Register</h1>
@@ -19,6 +20,7 @@
                     <label for="username" class="block text-sm/6 font-medium text-gray-900">Username</label>
                     <div class="mt-2">
                         <input id="username" name="username" type="text" autocomplete="username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        <span id="username-alert" class="hidden bold text-red-800">Username must be at least 3 characters long and contain only letters, numbers or underscores.</span>
                     </div>
                 </div>
                 
@@ -26,6 +28,7 @@
                     <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
                     <div class="mt-2">
                         <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        <span id="email-alert" class="hidden bold text-red-800">Email must be a valid Noroff student email.</span>
                     </div>
                 </div>
                 
@@ -35,11 +38,16 @@
                     </div>
                     <div class="mt-2">
                         <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        <span id="password-alert" class="hidden bold text-red-800">Password must be at least 8 characters long.</span>
                     </div>
                 </div>
                 
                 <div>
                     <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register</button>
+                </div>
+                <div class="flex gap-4">
+                    <span>Already have an account?</span>
+                    <span id="login-btn" class="cursor-pointer text-indigo-600">Log In Here</span>
                 </div>
             </form>
         </div>

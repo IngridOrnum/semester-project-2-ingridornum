@@ -24,3 +24,10 @@ export async function onLogin(event) {
         alert('An error occurred. Please try again later.');
     }
 }
+
+export async function openRegisterPage (){
+    const registerBtn = document.getElementById('register-btn');
+    registerBtn.addEventListener('click', () => {
+        window.location.href = '../../../../auth/register/index.html';
+    });
+}
