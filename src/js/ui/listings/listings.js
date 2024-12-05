@@ -1,6 +1,5 @@
 import {searchListings} from "../../api/listings/search.js";
 import {readAllListings} from "../../api/listings/read.js";
-import {API_LISTINGS} from "../../api/constants.js";
 
 const listingsPerPage = 24;
 let currentSearchData = '';
@@ -10,13 +9,13 @@ let isLastPage = false;
 
 export async function loadListings(page = 1, searchData = '') {
     try {
-        const response = await readAllListings(listingsPerPage, page);
+        let response;
 
-        // if (searchData.trim()) {
-        //     response = await searchListings(searchData, listingsPerPage, page);
-        // } else {
-        //     response = await readAllListings(listingsPerPage, page);
-        // }
+        if (searchData.trim()) {
+            response = await searchListings(searchData, listingsPerPage, (page - 1) * listingsPerPage);
+        } else {
+            response = await readAllListings(listingsPerPage, page);
+        }
 
         const newListings = response.listings || [];
         const meta = response.meta || {};
@@ -80,7 +79,7 @@ export async function displayListings(listings) {
 document.getElementById('searchInput').addEventListener('input', async (event) => {
     currentSearchData = event.target.value;
     currentPage = 1;
-    await loadListings(currentOffset, currentSearchData);
+    await loadListings(currentPage, currentSearchData);
 });
 
 document.getElementById('loadMore').addEventListener('click', async () => {
