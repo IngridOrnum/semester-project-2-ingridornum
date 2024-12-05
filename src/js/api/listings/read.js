@@ -5,7 +5,7 @@ import {getAccessToken} from "../auth/getAccessToken.js";
 export async function readAllListings(limit = 24, page = 1,) {
     const params = new URLSearchParams({ limit, page });
 
-    const response = await fetch(`${API_LISTINGS}?${params.toString()}`);
+    const response = await fetch(`${API_LISTINGS}?${params.toString()}&_seller=true&_bids=true`);
     if (!response.ok) {
         throw new Error(`Error fetching data: ${response.status}`);
     }
