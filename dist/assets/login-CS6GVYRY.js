@@ -1,0 +1,1 @@
+import{a as r,b as n}from"./constants-CygYw0oH.js";async function i({email:a,password:t}){try{const o=await fetch(r,{method:"POST",headers:{"Content-Type":"application/json","X-Noroff-API-Key":n},body:JSON.stringify({email:a,password:t})});if(!o.ok)throw new Error("Invalid credentials");return await o.json()}catch(o){throw o}}export{i as l};

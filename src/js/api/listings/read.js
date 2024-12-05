@@ -2,7 +2,7 @@ import {API_KEY, API_LISTINGS} from "../constants.js";
 import {getAccessToken} from "../auth/getAccessToken.js";
 
 // Read all listings
-export async function readAllListings(limit = 12, page = 1) {
+export async function readAllListings(limit = 24, page = 1,) {
     const params = new URLSearchParams({ limit, page });
 
     const response = await fetch(`${API_LISTINGS}?${params.toString()}`);
@@ -31,7 +31,7 @@ export async function readSingleListing (id) {
         },
     };
 
-    const response = await fetch(`${API_LISTINGS}/${id}?_bids=true`, options)
+    const response = await fetch(`${API_LISTINGS}/${id}?_bids=true&_seller=true`, options)
     if (!response.ok) {
         console.error('Failed to fetch profile data:', response);
         throw new Error(`Error fetching profile data: ${response.status}`);

@@ -1,36 +1,51 @@
-import { searchListings } from "../../api/listings/search.js";
-import { readAllListings } from "../../api/listings/read.js";
+import {searchListings} from "../../api/listings/search.js";
+import {readAllListings} from "../../api/listings/read.js";
+import {API_LISTINGS} from "../../api/constants.js";
 
-let currentPage = 1;
-const listingsPerPage = 12;
+const listingsPerPage = 24;
 let currentSearchData = '';
 let allListings = [];
-let metaData = {};
+let currentPage = 0;
+let isLastPage = false;
 
-export async function displayListings(page = 1, searchData = '') {
+export async function loadListings(page = 1, searchData = '') {
     try {
-        let response;
+        const response = await readAllListings(listingsPerPage, page);
 
-        if (searchData.trim()) {
-            response = await searchListings(searchData, listingsPerPage, page);
-            allListings = response.listings || [];
-            metaData = response.meta || {};
+        // if (searchData.trim()) {
+        //     response = await searchListings(searchData, listingsPerPage, page);
+        // } else {
+        //     response = await readAllListings(listingsPerPage, page);
+        // }
+
+        const newListings = response.listings || [];
+        const meta = response.meta || {};
+
+        currentPage = meta.currentPage || 1;
+        isLastPage = meta.isLastPage || false;
+
+        if (page === 1) {
+            allListings = newListings;
         } else {
-            console.log('Fetching default paginated listings.');
-            response = await readAllListings(listingsPerPage, page);
-            allListings = response.listings || response.data || [];
-            metaData = response.meta || {};
+            allListings = [...allListings, ...newListings];
         }
-        renderListings(allListings);
-        updatePaginationButtons(metaData);
-        updatePaginationCount(metaData)
+
+        displayListings(allListings);
+
+        const loadMoreButton = document.getElementById('loadMore');
+        if(newListings.length < listingsPerPage) {
+            loadMoreButton.style.display = 'none';
+        } else {
+            loadMoreButton.style.display = 'block';
+        }
     } catch (error) {
         console.error('Error displaying listings:', error);
-        renderListings([]);
+        displayListings([]);
     }
 }
 
-export async function renderListings(listings) {
+export async function displayListings(listings) {
+    console.log('listings to display:', listings);
     const listingsContainer = document.querySelector('.listings-container');
     listingsContainer.innerHTML = '';
 
@@ -46,7 +61,7 @@ export async function renderListings(listings) {
 
         listItem.innerHTML = `
             <div class="li-single-listing-content">
-                <img src="${listing.media?.[0]?.url || ""}" alt="${listing.media?.[0]?.alt || "No image"}">
+                <img src="${listing.media?.[0]?.url || "https://t3.ftcdn.net/jpg/05/88/70/78/360_F_588707867_pjpsqF5zUNMV1I2g8a3tQAYqinAxFkQp.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
                 <span>${listing.title}</span>
             </div>
         `;
@@ -62,45 +77,16 @@ export async function renderListings(listings) {
     })
 }
 
-
-function updatePaginationButtons(meta) {
-    const prevButton = document.getElementById('prevPage');
-    const nextButton = document.getElementById('nextPage');
-
-    // Disable buttons if meta is missing
-    prevButton.disabled = !meta.previousPage;
-    nextButton.disabled = !meta.nextPage;
-}
-
-function updatePaginationCount(meta) {
-    const paginationDivCounter = document.getElementById('paginationCount');
-
-    // Calculate the current range of displayed listings
-    const end = Math.min(meta.currentPage * listingsPerPage, meta.totalCount);
-
-    paginationDivCounter.innerHTML = `
-        <span>Showing ${end} of ${meta.totalCount}</span>
-    `;
-}
-
-document.getElementById('prevPage').addEventListener('click', () => {
-    if (metaData.previousPage) {
-        currentPage = metaData.previousPage;
-        displayListings(currentPage, currentSearchData);
-    }
-});
-
-document.getElementById('nextPage').addEventListener('click', () => {
-    if (metaData.nextPage) {
-        currentPage = metaData.nextPage;
-        displayListings(currentPage, currentSearchData);
-    }
-});
-
 document.getElementById('searchInput').addEventListener('input', async (event) => {
     currentSearchData = event.target.value;
     currentPage = 1;
-    await displayListings(currentPage, currentSearchData);
+    await loadListings(currentOffset, currentSearchData);
+});
+
+document.getElementById('loadMore').addEventListener('click', async () => {
+   if (!isLastPage) {
+       await loadListings(currentPage + 1);
+   }
 });
 
 document.getElementById('loginBtn').addEventListener('click', () => {
@@ -110,5 +96,3 @@ document.getElementById('loginBtn').addEventListener('click', () => {
 document.getElementById('registerBnt').addEventListener('click', () => {
     window.location = "auth/register/index.html";
 });
-
-displayListings(currentPage)

@@ -6,50 +6,48 @@
     <link href="./css/styles.css" rel="stylesheet">
     <link href="./css/custom.css" rel="stylesheet">
     <title>Bid Boutique!</title>
-  <script type="module" crossorigin src="./assets/main-CdRzvEnT.js"></script>
-  <link rel="modulepreload" crossorigin href="./assets/constants-BDf8nfUD.js">
-  <link rel="modulepreload" crossorigin href="./assets/main-DhbMNFkw.js">
-  <link rel="modulepreload" crossorigin href="./assets/read-BCv6ewA0.js">
+  <script type="module" crossorigin src="./assets/main-y5XxqE2N.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/constants-CygYw0oH.js">
+  <link rel="modulepreload" crossorigin href="./assets/main-yHmyNSKw.js">
+  <link rel="modulepreload" crossorigin href="./assets/read-BoFMuMSX.js">
 </head>
 <body>
     <nav class="flex gap-5">
-        <button class="hidden p-2 border border-slate-900" id="logoutBtn" >Logout</button>
-      <button class=" p-2 border border-slate-900" id="loginBtn" >Login</button>
-      <button class=" p-2 border border-slate-900" id="registerBnt">Register</button>
-        <div id="user-display-nav" class="flex items-center gap-6"></div>
+        <button class="hidden p-2 border border-slate-900" id="logoutBtn">Logout</button>
+        <button class=" p-2 border border-slate-900" id="loginBtn">Login</button>
+        <button class=" p-2 border border-slate-900" id="registerBnt">Register</button>
+        <div class="flex items-center gap-6" id="user-display-nav"></div>
     </nav>
     <main class="flex flex-col items-center w-screen">
         <h1>Welcome to Bid Boutique!</h1>
         <section class="flex flex-col w-full items-center">
             <div class="flex gap-5">
                 <div class="flex gap-5">
-                    <label for="tags-filter">Filter by tag:</label>
+                    <label for="tags-filter">Filter by:</label>
                     <select id="tags-filter" name="tags">
                         <option value="">No filter selected</option>
-                        <option data-tags="painting,sculpture,abstract" value="art">Art</option>
-                        <option data-tags="book,fiction,non-fiction,novels" value="books">Books</option>
-                        <option data-tags="car," value="cars">Cars</option>
-                        <option data-tags="clothes,shoes,accessories" value="fashion">Fashion</option>
-                        <option data-tags="furniture,decor,lighting" value="interior">Interior</option>
-                        <option data-tags="rings,necklaces,bracelets" value="jewellery">Jewellery</option>
-                        <option data-tags="instruments,vinyl,concert" value="music">Music</option>
-                        <option data-tags="equipment,apparel,outdoor" value="sports">Sports</option>
-                        <option data-tags="board-games,dolls,educational" value="toys">Toys</option>
-                        <option data-tags="digital,analog,smart" value="watches">Watches</option>
+                        <option value="active">Active listings</option>
+                        <option value="ended">Ended listings</option>
                     </select>
                 </div>
                 <div class="flex gap-5">
+                    <label for="sort-by">Sort by:</label>
+                    <select id="sort-by" name="sort">
+                        <option value="">No sorting selected</option>
+                        <option value="active">Latest Listings</option>
+                        <option value="ended">Most Popular</option>
+                    </select>
+                </div>
+                <div class="flex gap-5 search-container">
                     <label class="block" for="searchInput">Search for listings:</label>
                     <input class="bg-amber-100 border border-black" id="searchInput" name="q" type="text">
                 </div>
             </div>
             <ul class="listings-container flex flex-wrap p-3"></ul>
-            <div class="pagination gap-5 flex">
-                <button class="border border-slate-900" id="prevPage">Previous</button>
-                <div id="paginationCount">
-                </div>
-                <button class="border border-slate-900" id="nextPage">Next</button>
+            <div class="load-more-container">
+                <button class="border border-slate-900 load-more-btn" id="loadMore">Load More</button>
             </div>
+            
         </section>
     </main>
     <footer></footer>
