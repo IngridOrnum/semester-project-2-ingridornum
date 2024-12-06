@@ -13,5 +13,5 @@ export async function formatDateTime(isoString) {
         hour12: true,
     });
 
-    return `${formattedTime} ${formattedDate}`;
+    return `${formattedDate} ${formattedTime}`;
 }

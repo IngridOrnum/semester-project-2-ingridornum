@@ -1,5 +1,5 @@
-import {searchListings} from "../../api/listings/search.js";
-import {readAllListings} from "../../api/listings/read.js";
+import { searchListings } from "../../api/listings/search.js";
+import { readAllListings, fetchAllListings } from "../../api/listings/read.js";
 import { formatDateTime } from "../global/listings.js";
 
 const listingsPerPage = 24;
@@ -8,32 +8,38 @@ let allListings = [];
 let currentPage = 0;
 let isLastPage = false;
 
-export async function loadListings(page = 1, searchData = '') {
+export async function loadListings(page = 1, searchData = '', sortBy = 'latest') {
     try {
-        let response;
+        let allListings;
 
-        if (searchData.trim()) {
-            response = await searchListings(searchData, listingsPerPage, (page - 1) * listingsPerPage);
+        if (page === 1 && !currentSearchData) {
+            allListings = await fetchAllListings();
+        } else if (currentSearchData) {
+            const response = await searchListings(currentSearchData, 1000);
+            allListings = response.listings;
         } else {
-            response = await readAllListings(listingsPerPage, page);
+            const response = await readAllListings(24, page);
+            allListings = [...allListings, ...response.listings];
         }
 
-        const newListings = response.listings || [];
-        const meta = response.meta || {};
-
-        currentPage = meta.currentPage || 1;
-        isLastPage = meta.isLastPage || false;
-
-        if (page === 1) {
-            allListings = newListings;
+        if(sortBy === 'alphabetical-a-z') {
+            allListings.sort((a, b) => a.title.localeCompare(b.title));
         } else {
-            allListings = [...allListings, ...newListings];
+            // Default: Sort by created date (latest first)
+            allListings = sortByCreated(allListings);
         }
 
-        displayListings(allListings);
+        console.log('Sorted Listings:', allListings);
+
+        // Paginate locally (24 listings per page)
+        const start = (page - 1) * 24;
+        const end = page * 24;
+        const paginatedListings = allListings.slice(start, end);
+
+        displayListings(paginatedListings);
 
         const loadMoreButton = document.getElementById('loadMore');
-        if(newListings.length < listingsPerPage) {
+        if(end >= allListings.length) {
             loadMoreButton.style.display = 'none';
         } else {
             loadMoreButton.style.display = 'block';
@@ -60,15 +66,17 @@ export async function displayListings(listings) {
         const hasAuctionEnded = currentTime > auctionEndTime;
 
         const formattedEndTime = await formatDateTime(listing.endsAt);
+        const formattedCreateTime = await formatDateTime(listing.created);
 
         const listItem = document.createElement('li');
         listItem.classList.add('li-single-listing');
         listItem.setAttribute('data-id', listing.id);
 
         listItem.innerHTML = `
-            <div class="li-single-listing-content border border-slate-900 p-2.5">
+            <div class="li-single-listing-content border border-slate-900 p-2.5 flex flex-col">
                 <img src="${listing.media?.[0]?.url || "https://t3.ftcdn.net/jpg/05/88/70/78/360_F_588707867_pjpsqF5zUNMV1I2g8a3tQAYqinAxFkQp.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
                 <span>${listing.title}</span>
+                <span>Created: ${formattedCreateTime}</span>
                 ${hasAuctionEnded
             ?
             `
@@ -80,7 +88,7 @@ export async function displayListings(listings) {
             <span>${formattedEndTime}</span>
             `
         }
-                <span>Seller: ${listing.seller.name}</span>
+               
             </div>
         `;
         listingsContainer.appendChild(listItem);
@@ -113,4 +121,16 @@ document.getElementById('loginBtn').addEventListener('click', () => {
 
 document.getElementById('registerBnt').addEventListener('click', () => {
     window.location = "auth/register/index.html";
+});
+
+function sortByCreated(listings) {
+    return listings.sort((a, b) => new Date(b.created) - new Date(a.created));
+}
+
+const sortSelector = document.getElementById('select-sorting');
+
+sortSelector.addEventListener('change', async () => {
+    const selectedSort = sortSelector.value;
+
+    await loadListings(1, currentSearchData, selectedSort);
 });

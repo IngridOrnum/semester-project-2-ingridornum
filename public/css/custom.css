@@ -1,11 +1,11 @@
 .li-single-listing {
-    width: 180px;
+    width: 300px;
     height: auto;
 }
 
 .li-single-listing img {
     justify-content: center;
     width: 100%;
-    height: 100px;
+    height: 250px;
     object-fit: cover;
 }

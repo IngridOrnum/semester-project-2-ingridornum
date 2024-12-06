@@ -6,10 +6,10 @@
     <link href="./css/styles.css" rel="stylesheet">
     <link href="./css/custom.css" rel="stylesheet">
     <title>Bid Boutique!</title>
-  <script type="module" crossorigin src="./assets/main-DM7iY5fD.js"></script>
+  <script type="module" crossorigin src="./assets/main-vw1l4taA.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/constants-BDf8nfUD.js">
   <link rel="modulepreload" crossorigin href="./assets/main-DhbMNFkw.js">
-  <link rel="modulepreload" crossorigin href="./assets/listings-C9RmsADW.js">
+  <link rel="modulepreload" crossorigin href="./assets/listings-CuzQzz7Q.js">
 </head>
 <body>
     <nav class="flex gap-5">
@@ -21,33 +21,38 @@
     <main class="flex flex-col items-center w-screen">
         <h1>Welcome to Bid Boutique!</h1>
         <section class="flex flex-col w-full items-center">
-            <div class="flex gap-5">
-                <div class="flex gap-5">
-                    <label for="tags-filter">Filter by:</label>
-                    <select id="tags-filter" name="tags">
-                        <option value="">No filter selected</option>
-                        <option value="active">Active listings</option>
-                        <option value="ended">Ended listings</option>
-                    </select>
+            <div class="flex gap-5 search-container">
+                <label class="block" for="searchInput">Search for listings:</label>
+                <input class="bg-amber-100 border border-black" id="searchInput" name="q" type="text">
+            </div>
+            <div class="flex gap-8">
+                <div class="flex flex-col">
+                    <button>Filter</button>
+                    <ul class="flex gap-5 border border-slate-900 p-2.5">
+                        <li>
+                            <input id="active" name="filter-radio" type="radio" value="active">
+                            <label for="active">Active listings</label>
+                        </li>
+                       <li>
+                           <input id="ended" name="filter-radio" type="radio" value="ended">
+                           <label for="ended">Ended listings</label>
+                       </li>
+                    </ul>
                 </div>
                 <div class="flex gap-5">
-                    <label for="sort-by">Sort by:</label>
-                    <select id="sort-by" name="sort">
-                        <option value="">No sorting selected</option>
-                        <option value="active">Latest Listings</option>
-                        <option value="ended">Most Popular</option>
+                    <button>Sort By</button>
+                    <select id="select-sorting" class="flex gap-5">
+                        <option value="latest" selected>Latest listings</option>
+<!--                        <option value="popular">Most Popular</option>-->
+                        <option value="alphabetical-a-z">Alphabetical (A-Z)</option>
                     </select>
-                </div>
-                <div class="flex gap-5 search-container">
-                    <label class="block" for="searchInput">Search for listings:</label>
-                    <input class="bg-amber-100 border border-black" id="searchInput" name="q" type="text">
                 </div>
             </div>
             <ul class="listings-container flex flex-wrap p-3"></ul>
             <div class="load-more-container">
                 <button class="border border-slate-900 load-more-btn" id="loadMore">Load More</button>
             </div>
-            
+        
         </section>
     </main>
     <footer></footer>
