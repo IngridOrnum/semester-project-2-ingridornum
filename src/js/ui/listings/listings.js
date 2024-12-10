@@ -1,49 +1,30 @@
-import { searchListings } from "../../api/listings/search.js";
-import { readAllListings, fetchAllListings } from "../../api/listings/read.js";
-import { formatDateTime } from "../global/listings.js";
+import {searchListings} from "../../api/listings/search.js";
+import {readAllListings} from "../../api/listings/read.js";
+import {formatDateTime} from "../global/listings.js";
 
-const listingsPerPage = 24;
 let currentSearchData = '';
-let allListings = [];
 let currentPage = 0;
+let listingsPerPage = 24;
+let allListings = [];
+let metaData = [];
 let isLastPage = false;
 
-export async function loadListings(page = 1, searchData = '', sortBy = 'latest') {
+export async function loadListings(page = 1, searchData = '') {
     try {
-        let allListings;
+        let response;
 
-        if (page === 1 && !currentSearchData) {
-            allListings = await fetchAllListings();
-        } else if (currentSearchData) {
-            const response = await searchListings(currentSearchData, 1000);
-            allListings = response.listings;
+        if (searchData.trim()) {
+            response = await searchListings(searchData, listingsPerPage, page);
         } else {
-            const response = await readAllListings(24, page);
-            allListings = [...allListings, ...response.listings];
+            response = await readAllListings(listingsPerPage, page);
         }
 
-        if(sortBy === 'alphabetical-a-z') {
-            allListings.sort((a, b) => a.title.localeCompare(b.title));
-        } else {
-            // Default: Sort by created date (latest first)
-            allListings = sortByCreated(allListings);
-        }
+        const fetchedListings = response.listings || [];
+        metaData = response.meta || [];
+        isLastPage = fetchedListings.length < listingsPerPage;
 
-        console.log('Sorted Listings:', allListings);
-
-        // Paginate locally (24 listings per page)
-        const start = (page - 1) * 24;
-        const end = page * 24;
-        const paginatedListings = allListings.slice(start, end);
-
-        displayListings(paginatedListings);
-
-        const loadMoreButton = document.getElementById('loadMore');
-        if(end >= allListings.length) {
-            loadMoreButton.style.display = 'none';
-        } else {
-            loadMoreButton.style.display = 'block';
-        }
+        allListings = [...allListings, ...fetchedListings]; // Accumulate listings
+        displayListings(fetchedListings);
     } catch (error) {
         console.error('Error displaying listings:', error);
         displayListings([]);
@@ -53,7 +34,6 @@ export async function loadListings(page = 1, searchData = '', sortBy = 'latest')
 export async function displayListings(listings) {
 
     const listingsContainer = document.querySelector('.listings-container');
-    listingsContainer.innerHTML = '';
 
     if (listings.length === 0) {
         listingsContainer.innerHTML = '<p>No listings found.</p>';
@@ -88,31 +68,34 @@ export async function displayListings(listings) {
             <span>${formattedEndTime}</span>
             `
         }
-               
+
             </div>
         `;
         listingsContainer.appendChild(listItem);
-    }
 
-    document.querySelectorAll('.li-single-listing').forEach((singleListing) => {
-        singleListing.addEventListener('click', () => {
-            const listingId = singleListing.getAttribute('data-id');
-            localStorage.setItem('listingId', listingId);
+        listItem.addEventListener('click', () => {
+            localStorage.setItem('listingId', listing.id);
             window.location.href = '../../../../single-listing/index.html';
         })
-    })
+    }
 }
 
+
 document.getElementById('searchInput').addEventListener('input', async (event) => {
-    currentSearchData = event.target.value;
+    currentSearchData = event.target.value.trim();
     currentPage = 1;
     await loadListings(currentPage, currentSearchData);
 });
 
 document.getElementById('loadMore').addEventListener('click', async () => {
-   if (!isLastPage) {
-       await loadListings(currentPage + 1);
-   }
+    if (!isLastPage) {
+        currentPage++;
+        await loadListings(currentPage, currentSearchData);
+    }
+
+    if (isLastPage) {
+        document.getElementById('loadMore').style.display = 'none'; // Hide button when no more listings
+    }
 });
 
 document.getElementById('loginBtn').addEventListener('click', () => {
@@ -123,14 +106,3 @@ document.getElementById('registerBnt').addEventListener('click', () => {
     window.location = "auth/register/index.html";
 });
 
-function sortByCreated(listings) {
-    return listings.sort((a, b) => new Date(b.created) - new Date(a.created));
-}
-
-const sortSelector = document.getElementById('select-sorting');
-
-sortSelector.addEventListener('change', async () => {
-    const selectedSort = sortSelector.value;
-
-    await loadListings(1, currentSearchData, selectedSort);
-});
