@@ -1,24 +1,7 @@
 import {readSingleListing} from "../../api/listings/read.js";
 import {readProfile} from "../../api/profile/read.js";
 import {apiBid} from "../../api/listings/bid.js";
-
-function formatDateTime(isoString) {
-    const date = new Date(isoString);
-
-    const formattedDate = date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: '2-digit',
-    });
-
-    const formattedTime = date.toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true,
-    });
-
-    return `${formattedTime} ${formattedDate}`;
-}
+import { formatDateTime } from "../global/listings.js";
 
 async function getUserCredits() {
     const loggedInUser = localStorage.getItem('loggedInUsername');
@@ -52,15 +35,14 @@ export async function displaySingleListing() {
         const userCredits = await getUserCredits();
         const singleListingContainer = document.getElementById('single-listing-container');
 
-        console.log(listing.data)
-        console.log('highest bid:', highestBid)
-
         const currentTime = new Date();
         const auctionEndTime = new Date(listing.data.endsAt);
         const hasAuctionEnded = currentTime > auctionEndTime;
 
+        const formattedEndTime = await formatDateTime(listing.data.endsAt);
+
         singleListingContainer.innerHTML = `
-    <img src="${listing.data.media[0]?.url || ''}" alt="${listing.data.media[0]?.alt || 'image'}">
+    <img src="${listing.data.media[0]?.url || "https://t3.ftcdn.net/jpg/05/88/70/78/360_F_588707867_pjpsqF5zUNMV1I2g8a3tQAYqinAxFkQp.jpg"}" alt="${listing.data.media[0]?.alt || 'image'}">
     <h1>${listing.data.title}</h1>
     <div class="flex">
         <div class="flex flex-col border border-slate-900 p-2">
@@ -72,12 +54,12 @@ export async function displaySingleListing() {
             ?
             `
             <span>Ended</span>
-            <span>${formatDateTime(listing.data.endsAt)}</span>
+            <span>${formattedEndTime}</span>
             `
             :
             `
             <span>Ends at</span>
-            <span>${formatDateTime(listing.data.endsAt)}</span>
+            <span>${formattedEndTime}</span>
             `
         }
         </div>

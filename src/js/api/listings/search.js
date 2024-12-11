@@ -1,8 +1,8 @@
 import { API_LISTINGS } from "../constants.js";
 
 // Fetch listings based on search input
-export async function searchListings(query, limit = 12, page = 1) {
-    const params = new URLSearchParams({ q: query, limit, page });
+export async function searchListings(query, limit = 24, offset = 0) {
+    const params = new URLSearchParams({ q: query, limit, offset });
 
     const response = await fetch(`${API_LISTINGS}/search?${params.toString()}`);
     if (!response.ok) {

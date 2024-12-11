@@ -1,3 +1,3 @@
-import { displayListings } from "../src/js/ui/listings/listings.js";
+import { loadListings } from "../src/js/ui/listings/listings.js";
 
-displayListings();
+loadListings(1)
