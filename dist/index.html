@@ -6,10 +6,10 @@
     <link href="./css/styles.css" rel="stylesheet">
     <link href="./css/custom.css" rel="stylesheet">
     <title>Bid Boutique!</title>
-  <script type="module" crossorigin src="./assets/main-DcKdHn-q.js"></script>
+  <script type="module" crossorigin src="./assets/main-CScFXMSo.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/constants-BDf8nfUD.js">
   <link rel="modulepreload" crossorigin href="./assets/main-DhbMNFkw.js">
-  <link rel="modulepreload" crossorigin href="./assets/listings-C1U1sMSb.js">
+  <link rel="modulepreload" crossorigin href="./assets/listings-DTA2TBrG.js">
 </head>
 <body>
     <nav class="flex gap-5">
@@ -30,6 +30,10 @@
                     <button>Filter</button>
                     <ul class="flex gap-5 border border-slate-900 p-2.5">
                         <li>
+                            <input id="all" name="filter-radio" type="radio" value="all" checked>
+                            <label for="all">View All</label>
+                        </li>
+                        <li>
                             <input id="active" name="filter-radio" type="radio" value="active">
                             <label for="active">Active listings</label>
                         </li>
@@ -43,8 +47,9 @@
                     <button>Sort By</button>
                     <select id="select-sorting" class="flex gap-5">
                         <option value="latest" selected>Latest listings</option>
-<!--                        <option value="popular">Most Popular</option>-->
-                        <option value="alphabetical-a-z">Alphabetical (A-Z)</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="a-z">Alphabetical (A-Z)</option>
+                        <option value="end-soon">End soon</option>
                     </select>
                 </div>
             </div>
