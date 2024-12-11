@@ -28,6 +28,10 @@
                     <button>Filter</button>
                     <ul class="flex gap-5 border border-slate-900 p-2.5">
                         <li>
+                            <input id="all" name="filter-radio" type="radio" value="all" checked>
+                            <label for="all">View All</label>
+                        </li>
+                        <li>
                             <input id="active" name="filter-radio" type="radio" value="active">
                             <label for="active">Active listings</label>
                         </li>
@@ -41,8 +45,9 @@
                     <button>Sort By</button>
                     <select id="select-sorting" class="flex gap-5">
                         <option value="latest" selected>Latest listings</option>
-<!--                        <option value="popular">Most Popular</option>-->
-                        <option value="alphabetical-a-z">Alphabetical (A-Z)</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="a-z">Alphabetical (A-Z)</option>
+                        <option value="end-soon">End soon</option>
                     </select>
                 </div>
             </div>
