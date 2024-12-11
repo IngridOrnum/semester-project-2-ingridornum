@@ -2,6 +2,9 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
+        css: {
+            postcss: './postcss.config.js', // Ensure your PostCSS config file is setup correctly
+        },
     appType: "mpa",
     base: "",
     build: {

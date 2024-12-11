@@ -91,39 +91,64 @@ export async function loadListings(page = 1, searchData = '', sortOption, filter
 export async function displayListings(listings) {
 
     const listingsContainer = document.querySelector('.listings-container');
+    const listingsCount = document.getElementById('listings-count');
     listingsContainer.innerHTML = '';
 
     if (listings.length === 0) {
         listingsContainer.innerHTML = '<p>No listings found.</p>';
+        listingsCount.innerHTML = '0 of 0 listings'
         return;
     }
 
+    listingsCount.innerHTML = `
+        <span>${listings.length} of ${metaData.totalCount}</span>
+        `;
+
     for (const listing of listings) {
+        const formattedTitle = listing.title.length > 12 ? `${listing.title.substring(0, 12)}...` : listing.title;
         const currentTime = new Date();
         const auctionEndTime = new Date(listing.endsAt);
         const hasAuctionEnded = currentTime > auctionEndTime;
+        const timeDiff = auctionEndTime - currentTime;
+        const days = Math.floor(timeDiff / (100 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % ((100 * 60 * 60 * 24))) / (1000 * 60 * 60));
 
-        const formattedEndTime = await formatDateTime(listing.endsAt);
-        const formattedCreateTime = await formatDateTime(listing.created);
+        const timeRemaining = days > 0
+            ? ` ${days} days & ${hours} hours`
+            : ` ${hours} hours`;
 
         const listItem = document.createElement('li');
         listItem.classList.add('li-single-listing');
         listItem.setAttribute('data-id', listing.id);
 
         listItem.innerHTML = `
-            <div class="li-single-listing-content border border-slate-900 p-2.5 flex flex-col">
-                <img src="${listing.media?.[0]?.url || "https://t3.ftcdn.net/jpg/05/88/70/78/360_F_588707867_pjpsqF5zUNMV1I2g8a3tQAYqinAxFkQp.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
-                <span>${listing.title}</span>
-                <span>Created: ${formattedCreateTime}</span>
-                ${hasAuctionEnded
+            <div class="li-single-listing-content flex flex-col relative rounded-xl border-collapse">
+            <div>
+            ${hasAuctionEnded
             ?
-            `
-            <span class="uppercase text-red-800">Ended</span>
-            `
+            `<div id="ended-notif" class="font-text text-xs text-notif-red absolute m-3 top-0 right-0 px-2 py-1 border border-notif-red bg-notif-bg-red z-1 rounded-full">ENDED</div>
+         `
             :
             `
-            <span>Ends at</span>
-            <span>${formattedEndTime}</span>
+            <div id="active-notif" class=" font-text text-xs text-notif-green absolute m-3 top-0 right-0 px-2 py-1 border border-notif-green bg-notif-bg-green z-1 rounded-full">ACTIVE</div>
+            `
+        }
+</div>
+            <div id="soon-notif" class="hidden font-text text-xs text-notif-yellow absolute m-3 top-0 right-0 px-2 py-1 border border-notif-yellow bg-notif-bg-yellow z-1 rounded-full">END SOON</div>
+            <div id="ended-notif" class="hidden font-text text-xs text-notif-red absolute m-3 top-0 right-0 px-2 py-1 border border-notif-red bg-notif-bg-red z-1 rounded-full">ENDED</div>
+                <img src="${listing.media?.[0]?.url || "https://t3.ftcdn.net/jpg/05/88/70/78/360_F_588707867_pjpsqF5zUNMV1I2g8a3tQAYqinAxFkQp.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
+                <div class="flex flex-col gap-4 p-4 min-h-[112px]">
+                    <span class="font-subtitle text-ui-black text-lg">${formattedTitle}</span>
+                    ${hasAuctionEnded
+                    ?
+            ` <span class="uppercase text-notif-red font-text text-xs">Ended</span>`
+            :
+            `
+                <div class="flex flex-col font-text text-xs gap-1 font-light">
+                    <span>Ends in:</span>
+                    <span> ${timeRemaining}</span>
+                </div>
+            </div>
             `
         }
 
