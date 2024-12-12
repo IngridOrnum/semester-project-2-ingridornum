@@ -49,12 +49,15 @@
         <section class="flex flex-col w-full items-center gap-5">
             <h2 class="text-2xl font-heading pb-4 tablet:text-4xl">Browse Through Listings</h2>
             <div class="flex flex-col">
-                <div class="border border-ui-black p-2 flex bg-ui-white rounded-sm mb-4">
-                    <label class="block" for="searchInput"></label>
-                    <input class="bg-ui-white font-text font-light w-full text-base outline-none"
-                           id="searchInput"
-                           name="q" placeholder="Search for listings" type="text">
-                    <img src="public/assets/icons/listings/search.svg" alt="search icon">
+                <div class="flex">
+                    <div class="border border-ui-black p-2 flex bg-ui-white rounded-l-sm mb-4 w-full">
+                        <img src="public/assets/icons/listings/search.svg" alt="search icon">
+                        <label class="block" for="searchInput"></label>
+                        <input class="bg-ui-white font-text font-light w-full text-base outline-none px-2"
+                               id="searchInput"
+                               name="q" placeholder="Search for listings" type="text">
+                    </div>
+                    <button id="searchButton" type="button" class=" items-center mb-4 font-text font-light border border-ui-black p-2 flex bg-ui-black text-ui-white rounded-r-sm">Search</button>
                 </div>
                 <div class="flex flex-col tablet:w-[450px]">
                     <div class="flex justify-between items-center ">

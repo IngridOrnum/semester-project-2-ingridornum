@@ -2,7 +2,7 @@ import {API_KEY, API_LISTINGS} from "../constants.js";
 import {getAccessToken} from "../auth/getAccessToken.js";
 
 // Read all listings
-export async function readAllListings(limit = 40, page = 1, sortOption = "latest", searchQuery = "") {
+export async function readAllListings(limit = 40, page = 1, sortOption = "latest", searchQuery = "", filterValue = 'all') {
     const params = new URLSearchParams({
         limit,
         page,
@@ -17,6 +17,10 @@ export async function readAllListings(limit = 40, page = 1, sortOption = "latest
     } else if (sortOption === 'a-z') {
         params.append('sort', 'title');
         params.append('sortOrder', 'asc');
+    }
+
+    if (filterValue === 'active') {
+        params.append('_active', 'true');
     }
 
     // Add search query if provided

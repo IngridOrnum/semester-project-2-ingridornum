@@ -9,37 +9,38 @@ let allListings = [];
 let metaData = [];
 let isLastPage = false;
 let sortOption = 'latest';
+let filterValue = 'all';
 
-document.getElementById('searchInput').addEventListener('input', async (event) => {
-    currentSearchData = event.target.value.trim();
-    currentPage = 1;
-    await loadListings(currentPage, currentSearchData, sortOption);
+document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
+    radio.addEventListener('change', async (event) => {
+        filterValue = event.target.value; // Update the global filter value
+        currentPage = 1; // Reset to the first page
+        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+    });
+});
+
+document.getElementById('searchButton').addEventListener('click', async () => {
+    currentSearchData = document.getElementById('searchInput').value.trim();
+    currentPage = 1; // Reset to the first page for a new search
+    await loadListings(currentPage, currentSearchData, sortOption, filterValue); // Fetch and display the listings
 });
 
 document.getElementById('select-sorting').addEventListener('change', async (event) => {
     sortOption = event.target.value;
     currentPage = 1;
-    await loadListings(currentPage, currentSearchData, sortOption);
-});
-
-document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
-    radio.addEventListener('change', async () => {
-        currentPage = 1;
-        allListings = [];
-        await loadListings(currentPage, currentSearchData, sortOption);
-    });
+    await loadListings(currentPage, currentSearchData, sortOption, filterValue);
 });
 
 document.getElementById('loadMore').addEventListener('click', async () => {
     if (!isLastPage) {
         currentPage++;
-        await loadListings(currentPage, currentSearchData, sortOption);
+        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
     } else {
         console.log('No more listings to load');
     }
 });
 
-export async function loadListings(page = 1, searchData = '', sortOption='latest') {
+export async function loadListings(page = 1, searchData = '', sortOption = 'latest', filterValue = 'all') {
     try {
 
         console.log('Current Sort Option:', sortOption);
@@ -47,22 +48,32 @@ export async function loadListings(page = 1, searchData = '', sortOption='latest
         let response;
 
         if (page === 1) {
-            allListings = []; // Clear existing listings if it's a new search or new sort option
+            allListings = [];
         }
 
         const remainingCount = metaData.totalCount - allListings.length;
         const adjustedLimit = remainingCount < listingsPerPage ? remainingCount : listingsPerPage;
 
         if (searchData.trim()) {
-            response = await searchListings(searchData, adjustedLimit, page, sortOption);
+            response = await searchListings(searchData, adjustedLimit, page, sortOption, filterValue);
         } else {
-            response = await readAllListings(adjustedLimit, page, sortOption);
+            response = await readAllListings(adjustedLimit, page, sortOption, filterValue);
         }
 
-        const fetchedListings = response.listings || [];
+        let fetchedListings = response.listings || [];
         console.log('fetched listings', fetchedListings);
 
-        metaData = response.meta || { totalCount: allListings.length + fetchedListings.length }; // Fallback if meta is missing
+        if (filterValue === 'active') {
+            fetchedListings = fetchedListings.filter(listing => {
+                const auctionEndTime = new Date(listing.endsAt);
+                return auctionEndTime > new Date(); // Filter for active listings
+            });
+            // Update totalCount to reflect the active listings count
+            metaData.totalCount = fetchedListings.length + allListings.length;
+        } else {
+            metaData = response.meta || { totalCount: allListings.length + fetchedListings.length }; // Fallback if meta is missing
+        }
+
         isLastPage = allListings.length + fetchedListings.length >= metaData.totalCount; // Check total count
 
         allListings = [...allListings, ...fetchedListings];
@@ -82,7 +93,13 @@ export async function displayListings(listings) {
     const listingsCount = document.querySelectorAll('.listings-count');
     listingsContainer.innerHTML = '';
 
-    console.log('listings to display',listings);
+    if (filterValue === 'active') {
+        listings = listings.filter(listing => {
+            const auctionEndTime = new Date(listing.endsAt);
+            return auctionEndTime > new Date();
+        });
+    }
+
     if (listings.length === 0) {
         console.log("Displaying listings:", listings);
         listingsContainer.innerHTML = '<p>No listings found.</p>';

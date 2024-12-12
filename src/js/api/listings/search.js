@@ -1,12 +1,13 @@
 import { API_LISTINGS } from "../constants.js";
 
 // Fetch listings based on search input
-export async function searchListings(query, limit = 40, page = 1, sortOption = 'latest') {
+export async function searchListings(query, limit = 40, page = 1, sortOption = 'latest', filterValue = 'all') {
 
     const params = new URLSearchParams({
         q: query,
         limit,
-        offset: (page - 1) * limit
+        offset: (page - 1) * limit,
+        _seller: true,
     });
 
     if (sortOption === 'latest') {
@@ -15,6 +16,10 @@ export async function searchListings(query, limit = 40, page = 1, sortOption = '
     } else if (sortOption === 'a-z') {
         params.append('sort', 'title');
         params.append('sortOrder', 'asc');
+    }
+
+    if (filterValue === 'active') {
+        params.append('_active', 'true');
     }
 
     const options = {
