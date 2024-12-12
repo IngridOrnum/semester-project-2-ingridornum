@@ -14,12 +14,14 @@ async function getUserCredits() {
 }
 
 export async function getHighestBid(bids) {
-    if (bids.length === 0) {
-        return 0;
+    if (!bids || !bids.length) {
+        console.log("No bids found.");
+        return "No bids";  // or a suitable default/fallback value
     }
-
-    return Math.max(...bids.map(bid => bid.amount));
+    // Assuming bids is an array of objects, and you want to find the highest bid
+    return Math.max(...bids.map(bid => bid.amount));  // Adjust according to the actual bid object structure
 }
+
 
 export async function displaySingleListing() {
     const listingId = localStorage.getItem('listingId');

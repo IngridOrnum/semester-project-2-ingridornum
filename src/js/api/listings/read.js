@@ -2,15 +2,29 @@ import {API_KEY, API_LISTINGS} from "../constants.js";
 import {getAccessToken} from "../auth/getAccessToken.js";
 
 // Read all listings
-export async function readAllListings(limit = 40, page = 1, sortBy = "created", sortOrder = "desc") {
+export async function readAllListings(limit = 40, page = 1, sortOption = "latest", searchQuery = "", filterValue = 'all') {
     const params = new URLSearchParams({
         limit,
         page,
         _seller: true,
         _bids: true,
-        sort: sortBy,
-        sortOrder: sortOrder
     });
+
+    if (sortOption === 'latest') {
+        params.append('sort', 'created');
+        params.append('sortOrder', 'desc');
+    } else if (sortOption === 'a-z') {
+        params.append('sort', 'title');
+        params.append('sortOrder', 'asc');
+    }
+
+    if (filterValue === 'active') {
+        params.append('_active', 'true');
+    }
+
+    if (searchQuery) {
+        params.append('q', searchQuery);
+    }
 
     const options = {
         method: 'GET'
@@ -23,6 +37,7 @@ export async function readAllListings(limit = 40, page = 1, sortBy = "created", 
     }
 
     const data = await response.json();
+    console.log('API Response in listings:', data);
     return {
         listings: data.data || [],
         meta: data.meta || {},

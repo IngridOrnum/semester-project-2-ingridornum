@@ -21,12 +21,9 @@
     object-fit: cover;
 }
 
-.font-logo {
-    transform: translate(-50%, -50%);
-    left: 0;
-    right: 0;
-    margin: auto
-}
+/*.font-logo {*/
+/*    transform: translate(-50%, -50%);*/
+/*}*/
 
 .btn-primary {
     width: 200px;
