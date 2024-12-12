@@ -9,6 +9,8 @@ export default {
         './single-listing/**/*.html', // All HTML files under single-listing folder
         './single-listing/**/*.js', // All JS files under single-listing folder
         './src/**/*.js', // Any JS files in src
+        "./**/*.{js, html}",
+        "!node_modules"
     ],
     theme: {
         extend: {

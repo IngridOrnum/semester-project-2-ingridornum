@@ -1,6 +1,5 @@
 import {searchListings} from "../../api/listings/search.js";
 import {readAllListings} from "../../api/listings/read.js";
-import {formatDateTime} from "../global/listings.js";
 
 let currentSearchData = '';
 let currentPage = 0;
