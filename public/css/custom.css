@@ -1,11 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=DM+Serif+Display:ital@0;1&family=DM+Serif+Text:ital@0;1&family=Fahkwang:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 .li-single-listing {
-    width: 300px;
-    height: auto;
+    border-radius: 4px;
+    background-color: #FDFDFD;
+    cursor: pointer;
+    min-height: auto;
+    width: 162px;
+    overflow: hidden;
 }
 
-.li-single-listing img {
+.li-single-listing:hover {
+    transition: 2s;
+    background-color: #FDFDFD;
+}
+
+.listing-img {
     justify-content: center;
     width: 100%;
-    height: 250px;
+    height: 162px;
     object-fit: cover;
+}
+
+.font-logo {
+    transform: translate(-50%, -50%);
+    left: 0;
+    right: 0;
+    margin: auto
+}
+
+.btn-primary {
+    width: 200px;
+    height: 38px;
+    background-color: #2E2E2E;
+    font-size: 12px;
+    color: #FEFEFE;
+    font-family: Poppins, sans-serif;
+    border: none;
+    border-radius: 2px;
+}
+
+.btn-primary:hover {
+    background-color: #F7F7F7;
+    color: #2E2E2E;
+    border: 1px solid #2E2E2E;
+}
+
+.btn-lg-primary {
+    width: 400px;
+    height: 58px;
+    background-color: #2E2E2E;
+    font-size: 20px;
+    color: #FEFEFE;
+    font-family: Poppins, sans-serif;
+    border: none;
+    border-radius: 2px;
+}
+
+.login-btn, .logout-btn {
+    background-color: #2E2E2E;
+    color: #F7F7F7;
+    width: 84px;
+    height: 38px;
+    font-family: Poppins, sans-serif;
+    font-size: 14px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+}
+
+.login-btn:hover, .logout-btn:hover {
+    background-color: #7A917F;
+    color: #F7F7F7;
+    border: 1px solid transparent;
+    transition: 0.5s ease-in-out;
+}
+
+.reg-btn {
+    background-color: #F7F7F7;
+    color: #2E2E2E;
+    width: 84px;
+    height: 38px;
+    font-family: Poppins, sans-serif;
+    font-size: 14px;
+    border-radius: 2px;
+    border: 1px solid #2E2E2E;
+}
+
+.reg-btn:hover {
+    background-color: #7A917F;
+    color: #F7F7F7;
+    border: 1px solid transparent;
+    transition: 0.5s ease-in-out;
+}
+
+.line-divider {
+    width: 100%;
+    height: 1px;
+}
+
+@media (min-width: 760px) {
+    .li-single-listing {
+        width: 348px;
+        height: 472px;
+    }
+
+    .listing-img {
+        width: 100%;
+        height: 272px;
+    }
+
+    .btn-primary {
+        width: 280px;
+        height: 44px;
+        font-size: 16px;
+    }
 }

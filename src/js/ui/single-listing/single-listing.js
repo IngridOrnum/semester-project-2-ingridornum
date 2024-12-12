@@ -13,7 +13,7 @@ async function getUserCredits() {
     return profileData.data.credits;
 }
 
-async function getHighestBid(bids) {
+export async function getHighestBid(bids) {
     if (bids.length === 0) {
         return 0;
     }

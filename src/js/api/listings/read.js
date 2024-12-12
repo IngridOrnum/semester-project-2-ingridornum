@@ -12,7 +12,6 @@ export async function readAllListings(limit = 40, page = 1, sortBy = "created", 
         sortOrder: sortOrder
     });
 
-
     const options = {
         method: 'GET'
     };

@@ -5,59 +5,124 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <script defer src="/main.js" type="module"></script>
     <script defer src="/listings/listings.js" type="module"></script>
-    <link href="/css/styles.css" rel="stylesheet">
+    <link href="src/css/input.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
     <title>Bid Boutique!</title>
 </head>
-<body>
-    <nav class="flex gap-5">
-        <button class="hidden p-2 border border-slate-900" id="logoutBtn">Logout</button>
-        <button class=" p-2 border border-slate-900" id="loginBtn">Login</button>
-        <button class=" p-2 border border-slate-900" id="registerBnt">Register</button>
-        <div class="flex items-center gap-6" id="user-display-nav"></div>
+<body class="bg-public">
+    <nav class="flex gap-5 justify-between items-center p-5 relative h-full">
+        <div class="flex gap-4">
+            <button class="hidden logout-btn" id="logoutBtn">Logout</button>
+            <button class="login-btn" id="loginBtn">Login</button>
+            <button class="reg-btn" id="registerBnt">Register</button>
+        </div>
+        <div class="font-logo text-lg cursor-pointer tablet:text-2xl">
+            <a href="#">bid boutique</a>
+        </div>
+        <div class="hidden tablet:flex">
+            <button>
+                <img alt="heart icon" class="h-9 w-9 cursor-pointer" src="public/assets/icons/nav/heart-nav.svg">
+            </button>
+            <button>
+                <img alt="profile icon" class="h-9 w-9 cursor-pointer" src="public/assets/icons/nav/profile-nav.svg">
+            </button>
+            <button>
+                <img alt="menu icon" class="block h-9 w-9 cursor-pointer tablet:hidden"
+                     src="public/assets/icons/nav/menu-nav.svg">
+            </button>
+        </div>
+        <!--        <div class="flex items-center gap-6" id="user-display-nav"></div>-->
     </nav>
-    <main class="flex flex-col items-center w-screen">
-        <h1>Welcome to Bid Boutique!</h1>
-        <section class="flex flex-col w-full items-center">
-            <div class="flex gap-5 search-container">
-                <label class="block" for="searchInput">Search for listings:</label>
-                <input class="bg-amber-100 border border-black" id="searchInput" name="q" type="text">
+    <main class="flex flex-col items-center w-screen p-5 gap-sm">
+        <section class="tablet:flex">
+            <img alt="Painting standing on display with plants"
+                 class="w-screen h-auto object-cover tablet:w-[400px] tablet:h-[400px]"
+                 src="public/assets/images/hero-landing-page.jpeg">
+            <div class="flex flex-col gap-2 text-center tablet:items-center tablet:justify-center tablet:gap-4 tablet:p-4 tablet:max-w-[450px]">
+                <h1 class="text-3xl font-heading p-3 tablet:text-4xl lg:text-6xl">Welcome to Bid Boutique!</h1>
+                <p class="text-base font-textTitle font-light leading-12">Discover a curated collection of exclusive
+                    high-end listings. Elevate
+                    your bidding experience with unmatched professionalism and premium offerings.</p>
             </div>
-            <div class="flex gap-8">
-                <div class="flex flex-col">
-                    <button>Filter</button>
-                    <ul class="flex gap-5 border border-slate-900 p-2.5">
+        </section>
+        <div class="line-divider bg-[#C6CAC7]"></div>
+        <section class="flex flex-col w-full items-center gap-5">
+            <h2 class="text-2xl font-heading pb-4 tablet:text-4xl">Browse Through Listings</h2>
+            <div class="flex flex-col">
+                <div class="border border-ui-black p-2 flex bg-ui-white rounded-sm mb-4">
+                    <label class="block" for="searchInput"></label>
+                    <input class="bg-ui-white font-text font-light w-full text-base"
+                           id="searchInput"
+                           name="q" placeholder="Search for listings" type="text">
+                    <img src="public/assets/icons/listings/search.svg" alt="search icon">
+                </div>
+                <div class="flex flex-col tablet:w-[450px]">
+                    <div class="flex justify-between items-center ">
+                        <div class="flex flex-col items-center">
+                            <button class="flex p-2 border border-ui-black w-fit rounded-sm bg-ui-white">
+                                <span>Filter</span>
+                            </button>
+                            <div class="w-[1px] h-4 bg-[#C6CAC7]"></div>
+                        </div>
+                        <div class="flex gap-1 items-center pb-[14px]">
+                            <img alt="listings count" class="h-5 w-5"
+                                 src="public/assets/icons/listings/listing-count.svg">
+                            <span class="listings-count"></span>
+                        </div>
+                        <div class="flex gap-5 pb-[14px]">
+                            <select class="flex gap-5 font-text bg-ui-white p-2 text-ui-black border border-ui-black rounded-sm"
+                                    id="select-sorting">
+                                <option selected value="latest">Latest listings</option>
+                                <option value="popular">Most Popular</option>
+                                <option value="a-z">A - Z</option>
+                                <option value="end-soon">End soon</option>
+                            </select>
+                        </div>
+                    </div>
+                    <ul class="flex gap-5 border border-[#C6CAC7] p-2.5 rounded-sm bg-ui-white" id="filter-dropdown">
                         <li>
-                            <input id="all" name="filter-radio" type="radio" value="all" checked>
+                            <input checked id="all" name="filter-radio" type="radio" value="all">
                             <label for="all">View All</label>
                         </li>
                         <li>
                             <input id="active" name="filter-radio" type="radio" value="active">
                             <label for="active">Active listings</label>
                         </li>
-                       <li>
-                           <input id="ended" name="filter-radio" type="radio" value="ended">
-                           <label for="ended">Ended listings</label>
-                       </li>
+                        <li>
+                            <input id="ended" name="filter-radio" type="radio" value="ended">
+                            <label for="ended">Ended listings</label>
+                        </li>
                     </ul>
                 </div>
-                <div class="flex gap-5">
-                    <button>Sort By</button>
-                    <select id="select-sorting" class="flex gap-5">
-                        <option value="latest" selected>Latest listings</option>
-                        <option value="popular">Most Popular</option>
-                        <option value="a-z">Alphabetical (A-Z)</option>
-                        <option value="end-soon">End soon</option>
-                    </select>
-                </div>
             </div>
-            <ul class="listings-container flex flex-wrap p-3"></ul>
-            <div class="load-more-container">
-                <button class="border border-slate-900 load-more-btn" id="loadMore">Load More</button>
+            <ul class="listings-container flex flex-wrap w-full items-center justify-center gap-6 tablet:gap-10 tablet:mt-10 max-w-[1200px]"></ul>
+            <div class="load-more-container mt-10 tablet:mt-20">
+                <button class="btn-primary" id="loadMore">Load More</button>
             </div>
-        
+            <div class="flex gap-1 items-center pb-[14px]">
+                <img alt="listings count" class="h-5 w-5" src="public/assets/icons/listings/listing-count.svg">
+                <span class="listings-count"></span>
+            </div>
         </section>
     </main>
-    <footer></footer>
+    <footer class="bg-profile px-5 py-10 mt-16 flex flex-col items-center gap-10 tablet:gap-12 tablet:px-10 tablet:py-12 tablet:mt-20">
+        <div class="font-logo text-xl text-ui-black tablet:text-2xl">bid boutique</div>
+        <div class="line-divider bg-ui-white"></div>
+        <ul class="list-none text-ui-black font-text text-base gap-4 flex flex-col items-center tablet:text-lg">
+            <li class="hover:underline"><a href="#">About</a></li>
+            <li class="hover:underline"><a href="#">Contact</a></li>
+            <li class="hover:underline"><a href="#">FAQ</a></li>
+        </ul>
+        <div class="line-divider bg-ui-white"></div>
+        <div class="flex flex-col items-center gap-6 tablet:flex-row tablet:justify-between tablet:items-center tablet:w-full">
+            <ul class="list-none flex font-text text-base text-ui-black gap-4">
+                <li class="hover:underline"><a href="#">About</a></li>
+                <li class="hover:underline"><a href="#">Contact</a></li>
+                <li class="hover:underline"><a href="#">FAQ</a></li>
+            </ul>
+            <div class="font-text text-ui-black text-sm tablet:text-base">© 2025 bid boutique. All rights reserved.
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
