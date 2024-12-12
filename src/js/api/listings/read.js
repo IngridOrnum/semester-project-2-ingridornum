@@ -10,7 +10,6 @@ export async function readAllListings(limit = 40, page = 1, sortOption = "latest
         _bids: true,
     });
 
-    // Apply sorting based on sortOption
     if (sortOption === 'latest') {
         params.append('sort', 'created');
         params.append('sortOrder', 'desc');
@@ -23,7 +22,6 @@ export async function readAllListings(limit = 40, page = 1, sortOption = "latest
         params.append('_active', 'true');
     }
 
-    // Add search query if provided
     if (searchQuery) {
         params.append('q', searchQuery);
     }
@@ -39,6 +37,7 @@ export async function readAllListings(limit = 40, page = 1, sortOption = "latest
     }
 
     const data = await response.json();
+    console.log('API Response in listings:', data);
     return {
         listings: data.data || [],
         meta: data.meta || {},

@@ -62,10 +62,11 @@
                 <div class="flex flex-col tablet:w-[450px]">
                     <div class="flex justify-between items-center ">
                         <div class="flex flex-col items-center">
-                            <button class="flex p-2 border border-ui-black w-fit rounded-sm bg-ui-white">
+                            <button id="filter-btn" class="flex p-2 border border-ui-black w-fit rounded-sm bg-ui-white items-center gap-2">
+                                <img class="h-5 w-5" src="public/assets/icons/listings/filter.svg" alt="filter icon">
                                 <span>Filter</span>
                             </button>
-                            <div class="w-[1px] h-4 bg-[#C6CAC7]"></div>
+                            <div id="dropdown-line" class="w-[1px] h-4 bg-transparent"></div>
                         </div>
                         <div class="flex gap-1 items-center pb-[14px]">
                             <img alt="listings count" class="h-5 w-5"
@@ -80,14 +81,14 @@
                             </select>
                         </div>
                     </div>
-                    <ul class="flex gap-5 border border-[#C6CAC7] p-2.5 rounded-sm bg-ui-white" id="filter-dropdown">
+                    <ul class="gap-5 border border-[#C6CAC7] p-2.5 rounded-sm bg-ui-white hidden text-ui-black font-text font-light" id="filter-dropdown">
                         <li>
                             <input checked id="all" name="filter-radio" type="radio" value="all">
-                            <label for="all">View All</label>
+                            <label class="cursor-pointer" for="all">View All</label>
                         </li>
                         <li>
                             <input id="active" name="filter-radio" type="radio" value="active">
-                            <label for="active">Only Active listings</label>
+                            <label class="cursor-pointer" for="active">Only Active listings</label>
                         </li>
                     </ul>
                 </div>

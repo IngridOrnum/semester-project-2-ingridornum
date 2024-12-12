@@ -5,11 +5,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link href="./css/custom.css" rel="stylesheet">
     <title>Bid Boutique!</title>
-  <script type="module" crossorigin src="./assets/main-U0opLc0j.js"></script>
+  <script type="module" crossorigin src="./assets/main-Cmx8P9lb.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/constants-BDf8nfUD.js">
   <link rel="modulepreload" crossorigin href="./assets/main-Cx0DgoeT.js">
-  <link rel="modulepreload" crossorigin href="./assets/single-listing-5hPKi9NY.js">
-  <link rel="stylesheet" crossorigin href="./assets/main-C0b5W8jR.css">
+  <link rel="modulepreload" crossorigin href="./assets/single-listing-BkyjH35d.js">
+  <link rel="stylesheet" crossorigin href="./assets/main-DxkqMxEK.css">
 </head>
 <body class="bg-public">
     <nav class="flex gap-5 justify-between items-center p-5">
@@ -64,10 +64,11 @@
                 <div class="flex flex-col tablet:w-[450px]">
                     <div class="flex justify-between items-center ">
                         <div class="flex flex-col items-center">
-                            <button class="flex p-2 border border-ui-black w-fit rounded-sm bg-ui-white">
+                            <button id="filter-btn" class="flex p-2 border border-ui-black w-fit rounded-sm bg-ui-white items-center gap-2">
+                                <img class="h-5 w-5" src="data:image/svg+xml,%3csvg%20width='14'%20height='14'%20viewBox='0%200%2014%2014'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M2.9165%207.00004V2.33337M11.0832%2011.6667V9.91671M2.9165%2011.6667V9.33337M11.0832%207.58337V2.33337M6.99984%204.08337V2.33337M6.99984%2011.6667V6.41671'%20stroke='%232E2E2E'%20stroke-linecap='round'/%3e%3cpath%20d='M2.91667%209.33333C3.561%209.33333%204.08333%208.811%204.08333%208.16667C4.08333%207.52233%203.561%207%202.91667%207C2.27233%207%201.75%207.52233%201.75%208.16667C1.75%208.811%202.27233%209.33333%202.91667%209.33333Z'%20stroke='%232E2E2E'%20stroke-linecap='round'/%3e%3cpath%20d='M7.00016%206.41671C7.64449%206.41671%208.16683%205.89437%208.16683%205.25004C8.16683%204.60571%207.64449%204.08337%207.00016%204.08337C6.35583%204.08337%205.8335%204.60571%205.8335%205.25004C5.8335%205.89437%206.35583%206.41671%207.00016%206.41671Z'%20stroke='%232E2E2E'%20stroke-linecap='round'/%3e%3cpath%20d='M11.0832%209.91671C11.7275%209.91671%2012.2498%209.39437%2012.2498%208.75004C12.2498%208.10571%2011.7275%207.58337%2011.0832%207.58337C10.4388%207.58337%209.9165%208.10571%209.9165%208.75004C9.9165%209.39437%2010.4388%209.91671%2011.0832%209.91671Z'%20stroke='%232E2E2E'%20stroke-linecap='round'/%3e%3c/svg%3e" alt="filter icon">
                                 <span>Filter</span>
                             </button>
-                            <div class="w-[1px] h-4 bg-[#C6CAC7]"></div>
+                            <div id="dropdown-line" class="w-[1px] h-4 bg-transparent"></div>
                         </div>
                         <div class="flex gap-1 items-center pb-[14px]">
                             <img alt="listings count" class="h-5 w-5"
@@ -82,14 +83,14 @@
                             </select>
                         </div>
                     </div>
-                    <ul class="flex gap-5 border border-[#C6CAC7] p-2.5 rounded-sm bg-ui-white" id="filter-dropdown">
+                    <ul class="gap-5 border border-[#C6CAC7] p-2.5 rounded-sm bg-ui-white hidden text-ui-black font-text font-light" id="filter-dropdown">
                         <li>
                             <input checked id="all" name="filter-radio" type="radio" value="all">
-                            <label for="all">View All</label>
+                            <label class="cursor-pointer" for="all">View All</label>
                         </li>
                         <li>
                             <input id="active" name="filter-radio" type="radio" value="active">
-                            <label for="active">Only Active listings</label>
+                            <label class="cursor-pointer" for="active">Only Active listings</label>
                         </li>
                     </ul>
                 </div>

@@ -11,10 +11,20 @@ let isLastPage = false;
 let sortOption = 'latest';
 let filterValue = 'all';
 
+document.getElementById('filter-btn').addEventListener('click', () => {
+    const filterDropdown = document.getElementById('filter-dropdown');
+    const dropdownLine = document.getElementById('dropdown-line');
+
+    filterDropdown.style.display = filterDropdown.style.display === 'flex' ? 'none' : 'flex';
+    dropdownLine.style.backgroundColor = dropdownLine.style.backgroundColor ===  'rgb(198, 202, 199)' ? 'transparent' : 'rgb(198, 202, 199)';
+});
+
 document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
     radio.addEventListener('change', async (event) => {
         filterValue = event.target.value; // Update the global filter value
         currentPage = 1; // Reset to the first page
+        console.log(`Filter Value in API Call: ${filterValue}`);
+
         await loadListings(currentPage, currentSearchData, sortOption, filterValue);
     });
 });
@@ -42,9 +52,7 @@ document.getElementById('loadMore').addEventListener('click', async () => {
 
 export async function loadListings(page = 1, searchData = '', sortOption = 'latest', filterValue = 'all') {
     try {
-
         console.log('Current Sort Option:', sortOption);
-
         let response;
 
         if (page === 1) {
@@ -57,24 +65,14 @@ export async function loadListings(page = 1, searchData = '', sortOption = 'late
         if (searchData.trim()) {
             response = await searchListings(searchData, adjustedLimit, page, sortOption, filterValue);
         } else {
-            response = await readAllListings(adjustedLimit, page, sortOption, filterValue);
+            response = await readAllListings(adjustedLimit, page, sortOption, searchData, filterValue);
         }
 
-        let fetchedListings = response.listings || [];
-        console.log('fetched listings', fetchedListings);
+        const fetchedListings = response.listings || [];
 
-        if (filterValue === 'active') {
-            fetchedListings = fetchedListings.filter(listing => {
-                const auctionEndTime = new Date(listing.endsAt);
-                return auctionEndTime > new Date(); // Filter for active listings
-            });
-            // Update totalCount to reflect the active listings count
-            metaData.totalCount = fetchedListings.length + allListings.length;
-        } else {
-            metaData = response.meta || { totalCount: allListings.length + fetchedListings.length }; // Fallback if meta is missing
-        }
+        metaData = response.meta || { totalCount: allListings.length + fetchedListings.length };
 
-        isLastPage = allListings.length + fetchedListings.length >= metaData.totalCount; // Check total count
+        isLastPage = allListings.length + fetchedListings.length >= metaData.totalCount;
 
         allListings = [...allListings, ...fetchedListings];
         console.log('All Listings After Load:', allListings);
@@ -122,11 +120,17 @@ export async function displayListings(listings) {
         const timeDiff = auctionEndTime - currentTime;
         const days = Math.floor(timeDiff / (100 * 60 * 60 * 24));
         const hours = Math.floor((timeDiff % ((100 * 60 * 60 * 24))) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
         const highestBid = await getHighestBid(listing.bids);
 
-        const timeRemaining = days > 0
-            ? ` ${days} days & ${hours} hours`
-            : ` ${hours} hours`;
+        let timeRemaining = '';
+        if (days > 0) {
+            timeRemaining = `${days} days`;
+        } else if (hours > 0) {
+            timeRemaining = `${hours} hours & ${minutes} minutes`;
+        } else {
+            timeRemaining = `${minutes} minutes`; // Less than an hour left
+        }
 
         const listItem = document.createElement('li');
         listItem.classList.add('li-single-listing');
