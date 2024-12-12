@@ -17,7 +17,7 @@ document.getElementById('searchInput').addEventListener('input', async (event) =
 });
 
 document.getElementById('select-sorting').addEventListener('change', async (event) => {
-    const sortOption = event.target.value;
+    sortOption = event.target.value;
     currentPage = 1;
     await loadListings(currentPage, currentSearchData, sortOption);
 });
@@ -39,8 +39,10 @@ document.getElementById('loadMore').addEventListener('click', async () => {
     }
 });
 
-export async function loadListings(page = 1, searchData = '', sortOption) {
+export async function loadListings(page = 1, searchData = '', sortOption='latest') {
     try {
+
+        console.log('Current Sort Option:', sortOption);
 
         let response;
 
@@ -52,29 +54,19 @@ export async function loadListings(page = 1, searchData = '', sortOption) {
         const adjustedLimit = remainingCount < listingsPerPage ? remainingCount : listingsPerPage;
 
         if (searchData.trim()) {
-            response = await searchListings(searchData, adjustedLimit, currentPage);
+            response = await searchListings(searchData, adjustedLimit, page, sortOption);
         } else {
-            switch (sortOption) {
-                case 'latest':
-                    response = await readAllListings(adjustedLimit, page, 'created', 'desc');
-                    break;
-                case 'a-z':
-                    response = await readAllListings(adjustedLimit, page, 'title', 'asc');
-                    break;
-                default:
-                    response = await readAllListings(adjustedLimit, page)
-            }
+            response = await readAllListings(adjustedLimit, page, sortOption);
         }
 
-        let fetchedListings = response.listings || [];
+        const fetchedListings = response.listings || [];
         console.log('fetched listings', fetchedListings);
 
         metaData = response.meta || { totalCount: allListings.length + fetchedListings.length }; // Fallback if meta is missing
         isLastPage = allListings.length + fetchedListings.length >= metaData.totalCount; // Check total count
 
-        console.log('METADATA', metaData);
-
         allListings = [...allListings, ...fetchedListings];
+        console.log('All Listings After Load:', allListings);
 
         console.log('All Listings:', allListings);
         await displayListings(allListings);
@@ -126,7 +118,7 @@ export async function displayListings(listings) {
         listItem.innerHTML = `
             <div class="li-single-listing-content flex flex-col relative rounded-xl">
                 <div class="flex items-center gap-4 p-2">
-                    <img class="rounded-full h-10 w-10 object-cover" src="${listing.seller?.avatar.url || "public/assets/images/missing-img.jpeg"}" alt="Avatar User">
+                    <img class="rounded-full h-10 w-10 object-cover" src="${listing.seller?.avatar.url || "public/assets/images/missing-img.jpg"}" alt="Avatar User">
                     <span>${listing.seller?.name}</span>
                 </div>
                 <div>
