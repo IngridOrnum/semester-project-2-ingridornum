@@ -6,6 +6,7 @@
     cursor: pointer;
     min-height: auto;
     width: 162px;
+    overflow: hidden;
 }
 
 .li-single-listing:hover {
@@ -13,11 +14,18 @@
     background-color: #FDFDFD;
 }
 
-.li-single-listing img {
+.listing-img {
     justify-content: center;
     width: 100%;
     height: 162px;
     object-fit: cover;
+}
+
+.font-logo {
+    transform: translate(-50%, -50%);
+    left: 0;
+    right: 0;
+    margin: auto
 }
 
 .btn-primary {
@@ -92,9 +100,10 @@
 @media (min-width: 760px) {
     .li-single-listing {
         width: 348px;
+        height: 472px;
     }
 
-    .li-single-listing img {
+    .listing-img {
         width: 100%;
         height: 272px;
     }
