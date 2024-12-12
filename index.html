@@ -10,15 +10,15 @@
     <title>Bid Boutique!</title>
 </head>
 <body class="bg-public">
-    <nav class="flex gap-5 justify-between items-center p-5 relative">
+    <nav class="flex gap-5 justify-between items-center p-5">
         <div class="flex gap-4">
             <button class="hidden logout-btn" id="logoutBtn">Logout</button>
             <button class="login-btn" id="loginBtn">Login</button>
             <button class="reg-btn" id="registerBnt">Register</button>
         </div>
-        <div class="absolute font-logo text-lg cursor-pointer tablet:text-2xl">
-            <a href="#">bid boutique</a>
-        </div>
+            <div class="font-logo text-lg cursor-pointer tablet:text-2xl">
+                <a href="#">bid boutique</a>
+            </div>
         <div class="hidden tablet:flex">
             <button>
                 <img alt="heart icon" class="h-9 w-9 cursor-pointer" src="public/assets/icons/nav/heart-nav.svg">
@@ -51,7 +51,7 @@
             <div class="flex flex-col">
                 <div class="border border-ui-black p-2 flex bg-ui-white rounded-sm mb-4">
                     <label class="block" for="searchInput"></label>
-                    <input class="bg-ui-white font-text font-light w-full text-base"
+                    <input class="bg-ui-white font-text font-light w-full text-base outline-none"
                            id="searchInput"
                            name="q" placeholder="Search for listings" type="text">
                     <img src="public/assets/icons/listings/search.svg" alt="search icon">
@@ -86,11 +86,7 @@
                         </li>
                         <li>
                             <input id="active" name="filter-radio" type="radio" value="active">
-                            <label for="active">Active listings</label>
-                        </li>
-                        <li>
-                            <input id="ended" name="filter-radio" type="radio" value="ended">
-                            <label for="ended">Ended listings</label>
+                            <label for="active">Only Active listings</label>
                         </li>
                     </ul>
                 </div>
