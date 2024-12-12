@@ -12,6 +12,11 @@ export default {
     ],
     theme: {
         extend: {
+            screens: {
+                tablet: '760px',
+                laptop: '',
+                desktop: ''
+            },
             fontFamily: {
                 logo: ['Fahkwang', 'sans-serif'],
                 heading: ['DM Serif Display', 'sans-serif'],

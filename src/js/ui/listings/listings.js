@@ -105,7 +105,7 @@ export async function displayListings(listings) {
         `;
 
     for (const listing of listings) {
-        const formattedTitle = listing.title.length > 12 ? `${listing.title.substring(0, 12)}...` : listing.title;
+        const formattedTitle = listing.title.length > 10 ? `${listing.title.substring(0, 10)}...` : listing.title;
         const currentTime = new Date();
         const auctionEndTime = new Date(listing.endsAt);
         const hasAuctionEnded = currentTime > auctionEndTime;
@@ -126,26 +126,26 @@ export async function displayListings(listings) {
             <div>
             ${hasAuctionEnded
             ?
-            `<div id="ended-notif" class="font-text text-xs text-notif-red absolute m-3 top-0 right-0 px-2 py-1 border border-notif-red bg-notif-bg-red z-1 rounded-full">ENDED</div>
+            `<div id="ended-notif" class="font-text text-xs text-notif-red absolute m-3 top-0 right-0 px-2 py-1 border border-notif-red bg-notif-bg-red z-1 rounded-full tablet:text-base">ENDED</div>
          `
             :
             `
-            <div id="active-notif" class=" font-text text-xs text-notif-green absolute m-3 top-0 right-0 px-2 py-1 border border-notif-green bg-notif-bg-green z-1 rounded-full">ACTIVE</div>
+            <div id="active-notif" class=" font-text text-xs text-notif-green absolute m-3 top-0 right-0 px-2 py-1 border border-notif-green bg-notif-bg-green z-1 rounded-full tablet:text-base">ACTIVE</div>
             `
         }
 </div>
             <div id="soon-notif" class="hidden font-text text-xs text-notif-yellow absolute m-3 top-0 right-0 px-2 py-1 border border-notif-yellow bg-notif-bg-yellow z-1 rounded-full">END SOON</div>
             <div id="ended-notif" class="hidden font-text text-xs text-notif-red absolute m-3 top-0 right-0 px-2 py-1 border border-notif-red bg-notif-bg-red z-1 rounded-full">ENDED</div>
-                <img src="${listing.media?.[0]?.url || "https://t3.ftcdn.net/jpg/05/88/70/78/360_F_588707867_pjpsqF5zUNMV1I2g8a3tQAYqinAxFkQp.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
+                <img src="${listing.media?.[0]?.url || "public/assets/images/missing-img.jpeg"}" alt="${listing.media?.[0]?.alt || "No image"}">
                 <div class="flex flex-col gap-4 p-4 min-h-[112px]">
-                    <span class="font-subtitle text-ui-black text-lg">${formattedTitle}</span>
+                    <span class="font-subtitle text-ui-black text-lg tablet:text-2xl">${formattedTitle}</span>
                     ${hasAuctionEnded
                     ?
-            ` <span class="uppercase text-notif-red font-text text-xs">Ended</span>`
+            ` <span class="uppercase text-notif-red font-text text-xs tablet:text-base">Ended</span>`
             :
             `
-                <div class="flex flex-col font-text text-xs gap-1 font-light">
-                    <span>Ends in:</span>
+                <div class="flex flex-col font-text text-xs gap-1 font-light tablet:text-base tablet:flex-row">
+                    <span class="font-medium">Ends in:</span>
                     <span> ${timeRemaining}</span>
                 </div>
             </div>
