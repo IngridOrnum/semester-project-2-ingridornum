@@ -11,29 +11,34 @@
     <title>Bid Boutique!</title>
 </head>
 <body class="bg-public">
-    <nav class="flex gap-5 justify-between items-center p-5">
-        <div class="flex gap-4">
-            <button class="hidden logout-btn" id="logoutBtn">Logout</button>
-            <button class="login-btn" id="loginBtn">Login</button>
-            <button class="reg-btn" id="registerBnt">Register</button>
+    <nav class="flex gap-5 justify-between items-center p-5 relative">
+        <div class="font-logo text-lg cursor-pointer tablet:text-2xl">
+            <a href="#">bid boutique</a>
         </div>
-            <div class="font-logo text-lg cursor-pointer tablet:text-2xl">
-                <a href="#">bid boutique</a>
+        <div class="flex">
+            <div class="flex gap-4">
+                <button class="hidden logout-btn" id="logoutBtn">Logout</button>
+                <button class="login-btn" id="loginBtn">Login</button>
+                <button class="reg-btn" id="registerBnt">Register</button>
             </div>
-        <div class="hidden tablet:flex">
-            <button>
-                <img alt="heart icon" class="h-9 w-9 cursor-pointer" src="public/assets/icons/nav/heart-nav.svg">
-            </button>
             <button>
                 <img alt="profile icon" class="h-9 w-9 cursor-pointer" src="public/assets/icons/nav/profile-nav.svg">
             </button>
             <button>
-                <img alt="menu icon" class="block h-9 w-9 cursor-pointer tablet:hidden"
-                     src="public/assets/icons/nav/menu-nav.svg">
+                <img alt="menu icon" class="block h-9 w-9 cursor-pointer" src="public/assets/icons/nav/menu-nav.svg">
             </button>
         </div>
-        <!--        <div class="flex items-center gap-6" id="user-display-nav"></div>-->
     </nav>
+    <div class="absolute w-full h-full items-center bg-[#7A917F] z-10 tablet:w-fit tablet:h-fit right-0 top-[78px] p-5 tablet:p-10">
+        <div class="flex flex-col gap-4 items-center">
+            <div class="flex flex-col items-center gap-6" id="user-display-nav"></div>
+            <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="">My Account</a></button>
+            <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="">Create Listing</a></button>
+            <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="">Edit Listings</a></button>
+            <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="">My Bids & Wins</a></button>
+            <button class="border border-transparent bg-ui-black hover:bg-ui-white hover:border-transparent hover:text-ui-black rounded-sm p-2 text-ui-white font-text w-[160px]"><a href="">Logout</a></button>
+        </div>
+    </div>
     <main class="flex flex-col items-center w-screen p-5 gap-sm">
         <section class="tablet:flex">
             <img alt="Painting standing on display with plants"
@@ -52,22 +57,26 @@
             <div class="flex flex-col">
                 <div class="flex">
                     <div class="border border-ui-black p-2 flex bg-ui-white rounded-l-sm mb-4 w-full">
-                        <img src="public/assets/icons/listings/search.svg" alt="search icon">
+                        <img alt="search icon" src="public/assets/icons/listings/search.svg">
                         <label class="block" for="searchInput"></label>
                         <input class="bg-ui-white font-text font-light w-full text-base outline-none px-2"
                                id="searchInput"
                                name="q" placeholder="Search for listings" type="text">
                     </div>
-                    <button id="searchButton" type="button" class=" items-center mb-4 font-text font-light border border-ui-black p-2 flex bg-ui-black text-ui-white rounded-r-sm">Search</button>
+                    <button class=" items-center mb-4 font-text font-light border border-ui-black p-2 flex bg-ui-black text-ui-white rounded-r-sm" id="searchButton"
+                            type="button">
+                        Search
+                    </button>
                 </div>
                 <div class="flex flex-col tablet:w-[450px]">
                     <div class="flex justify-between items-center ">
                         <div class="flex flex-col items-center">
-                            <button id="filter-btn" class="flex p-2 border border-ui-black w-fit rounded-sm bg-ui-white items-center gap-2">
-                                <img class="h-5 w-5" src="public/assets/icons/listings/filter.svg" alt="filter icon">
+                            <button class="flex p-2 border border-ui-black w-fit rounded-sm bg-ui-white items-center gap-2"
+                                    id="filter-btn">
+                                <img alt="filter icon" class="h-5 w-5" src="public/assets/icons/listings/filter.svg">
                                 <span>Filter</span>
                             </button>
-                            <div id="dropdown-line" class="w-[1px] h-4 bg-transparent"></div>
+                            <div class="w-[1px] h-4 bg-transparent" id="dropdown-line"></div>
                         </div>
                         <div class="flex gap-1 items-center pb-[14px]">
                             <img alt="listings count" class="h-5 w-5"
@@ -82,7 +91,8 @@
                             </select>
                         </div>
                     </div>
-                    <ul class="gap-5 border border-[#C6CAC7] p-2.5 rounded-sm bg-ui-white hidden text-ui-black font-text font-light" id="filter-dropdown">
+                    <ul class="gap-5 border border-[#C6CAC7] p-2.5 rounded-sm bg-ui-white hidden text-ui-black font-text font-light"
+                        id="filter-dropdown">
                         <li>
                             <input checked id="all" name="filter-radio" type="radio" value="all">
                             <label class="cursor-pointer" for="all">View All</label>

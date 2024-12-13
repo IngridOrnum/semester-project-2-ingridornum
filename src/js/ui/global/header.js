@@ -18,10 +18,12 @@ export async function displayUserNav () {
 
             if (userDisplayNav) {
                 userDisplayNav.innerHTML = `
-<span>Your credits: ${profileData.data.credits}</span>
-<div id="my-profile" class="flex gap-2.5 items-center cursor-pointer">
-<span>${profileData.data.name}</span>
-<img src="${profileData.data.avatar.url || '/default-avatar.png'}" alt="User Avatar" style="width:40px; height:40px; border-radius:50%;">
+<div id="my-profile" class="items-center">
+    <div class="flex items-center gap-4">
+        <img src="${profileData.data.avatar.url || '/default-avatar.png'}" alt="User Avatar" class="h-10 w-10 rounded-full object-cover">
+        <span class="font-light font-heading text-ui-white">${profileData.data.name}</span>
+    </div>
+    <span class="font-text font-light text-ui-white pt-4">Your credits: ${profileData.data.credits}</span>
 </div> 
                 `;
             }
