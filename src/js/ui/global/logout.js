@@ -9,6 +9,6 @@ export function setLogoutListener() {
     }
 
     logoutBtn.addEventListener('click', function () {
-        onLogout();
+        onLogout()
     });
 }
