@@ -2,9 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script defer src="/main.js" type="module"></script>
+    <script defer src="update-profile.js" type="module"></script>
+    <link href="../../src/css/input.css" rel="stylesheet">
+    <link href="../../public/css/custom.css" rel="stylesheet">
     <title>Update Profile</title>
 </head>
 <body>
-
+    <nav class="flex gap-5 justify-between items-center bg-public p-5 sticky top-0 z-20">
+        <div class="font-logo text-lg cursor-pointer tablet:text-2xl hover:text-[#7A917F] transition-all ">
+            <a href="#">bid boutique</a>
+        </div>
+        <div class="flex">
+            <div class="flex gap-4">
+                <button class="login-btn" id="loginBtn">Login</button>
+                <button class="reg-btn" id="registerBnt">Register</button>
+            </div>
+            <div id="account-menu">
+                <button id="my-account">
+                    <img alt="profile icon" class="h-9 w-9 cursor-pointer" src="../../public/assets/icons/nav/profile-nav.svg">
+                </button>
+                <button id="menu-btn">
+                    <img alt="menu icon" class="block h-9 w-9 cursor-pointer" src="../../public/assets/icons/nav/menu-nav.svg">
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="hidden justify-center align-middle fixed w-full h-full items-center bg-[#7A917F] z-10 tablet:w-[390px] tablet:py-20 tablet:h-fit right-0 top-[78px] p-5 tablet:p-10 ablet:inset-auto"
+         id="menu-dropdown">
+        <div class="flex flex-col gap-4 items-center justify-center h-full mt-[-40px] tablet:mt-0">
+            <div class="flex flex-col items-center gap-6" id="user-display-nav"></div>
+            <button id="logoutBtn" class="border border-transparent bg-ui-black hover:bg-ui-white hover:border-transparent hover:text-ui-black rounded-sm p-2 text-ui-white font-text w-[160px]"><a>Logout</a></button>
+        </div>
+    </div>
+    <main>
+        <h1>Edit profile</h1>
+        <form id="update-profile-form">
+            <div class="flex flex-col">
+                <label for="bio">Bio:</label>
+                <textarea class="border border-slate-900" cols="4" id="bio" name="bio" rows="4"
+                          type="text"></textarea>
+            </div>
+            <div class="flex flex-col">
+                <label for="avatar">Avatar URL::</label>
+                <input class="border border-slate-900" id="avatar" name="media" type="url">
+            </div>
+            <div class="flex flex-col">
+                <label for="banner-url">Banner URL:</label>
+                <input class="border border-slate-900" id="banner-url" name="banner-url" type="url">
+            </div>
+            <button type="submit" class="p-2.5 border border-slate-900" id="save-changes-btn">Save Changes</button>
+        </form>
+    </main>
+    
 </body>
 </html>
