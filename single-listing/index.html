@@ -1,23 +1,66 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <script defer src="/main.js" type="module"></script>
     <script defer src="single-listing.js" type="module"></script>
     <link href="/css/styles.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
     <title>Single listing</title>
-  </head>
-  <body>
+</head>
+<body>
     <nav class="flex gap-5">
-      <button class="hidden p-2 border border-slate-900" id="logoutBtn">Logout</button>
-      <button class=" p-2 border border-slate-900" id="loginBtn">Login</button>
-      <button class=" p-2 border border-slate-900" id="registerBnt">Register</button>
-      <div class="flex items-center gap-6" id="user-display-nav"></div>
+        <button class="hidden p-2 border border-slate-900" id="logoutBtn">Logout</button>
+        <button class=" p-2 border border-slate-900" id="loginBtn">Login</button>
+        <button class=" p-2 border border-slate-900" id="registerBnt">Register</button>
+        <div class="flex items-center gap-6" id="user-display-nav"></div>
     </nav>
     <main>
+        <div id="carousel" class="relative w-full overflow-hidden">
+            <button class="prev carousel-buttons" >
+                prev
+            </button>
+            <button class="next carousel-buttons" >
+                next
+            </button>
+        </div>
         <div id="single-listing-container"></div>
+        <div id="single-listing-details">
+            <div class="details-dropdown dropdown-btn cursor-pointer">
+                <div class="flex">
+                    <span>Description</span>
+                    <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+                </div>
+            </div>
+            <div class="dropdownContent hidden" id="listing-description"></div>
+            <div class="line-divider"></div>
+            <div class="line-divider bg-[#C6CAC7]"></div>
+            <div class="dropdown-btn cursor-pointer">
+                <div class="flex">
+                    <span>Tags</span>
+                    <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+                </div>
+            </div>
+            <div class="dropdownContent hidden" id="listing-tags"></div>
+            <div class="line-divider bg-[#C6CAC7]"></div>
+            <div class="details-dropdown dropdown-btn cursor-pointer">
+                <div class="flex">
+                    <span>Bid History</span>
+                    <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+                </div>
+            </div>
+            <ul class="dropdownContent hidden" id="listing-bid-history"></ul>
+            <div class="line-divider bg-[#C6CAC7]"></div>
+            <div class="details-dropdown dropdown-btn cursor-pointer">
+                <div class="flex">
+                    <span>About Seller</span>
+                    <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+                </div>
+            </div>
+            <div class="dropdownContent hidden" id="listing-about-seller"></div>
+            <div class="line-divider bg-[#C6CAC7]"></div>
+        </div>
     </main>
-  </body>
+</body>
 </html>
