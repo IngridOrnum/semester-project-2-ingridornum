@@ -5,38 +5,35 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <script defer src="/main.js" type="module"></script>
     <script defer src="/listings/listings.js" type="module"></script>
-    <script crossorigin="anonymous" src="https://kit.fontawesome.com/eaf3f254a9.js"></script>
     <link href="src/css/input.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
     <title>Bid Boutique!</title>
 </head>
 <body class="bg-public">
-    <nav class="flex gap-5 justify-between items-center p-5 relative">
-        <div class="font-logo text-lg cursor-pointer tablet:text-2xl">
+    <nav class="flex gap-5 justify-between items-center bg-public p-5 sticky top-0 z-20">
+        <div class="font-logo text-lg cursor-pointer tablet:text-2xl hover:text-[#7A917F] transition-all ">
             <a href="#">bid boutique</a>
         </div>
         <div class="flex">
             <div class="flex gap-4">
-                <button class="hidden logout-btn" id="logoutBtn">Logout</button>
                 <button class="login-btn" id="loginBtn">Login</button>
                 <button class="reg-btn" id="registerBnt">Register</button>
             </div>
-            <button>
-                <img alt="profile icon" class="h-9 w-9 cursor-pointer" src="public/assets/icons/nav/profile-nav.svg">
-            </button>
-            <button>
-                <img alt="menu icon" class="block h-9 w-9 cursor-pointer" src="public/assets/icons/nav/menu-nav.svg">
-            </button>
+            <div id="account-menu">
+                <button id="my-account">
+                    <img alt="profile icon" class="h-9 w-9 cursor-pointer" src="public/assets/icons/nav/profile-nav.svg">
+                </button>
+                <button id="menu-btn">
+                    <img alt="menu icon" class="block h-9 w-9 cursor-pointer" src="public/assets/icons/nav/menu-nav.svg">
+                </button>
+            </div>
         </div>
     </nav>
-    <div class="absolute w-full h-full items-center bg-[#7A917F] z-10 tablet:w-fit tablet:h-fit right-0 top-[78px] p-5 tablet:p-10">
-        <div class="flex flex-col gap-4 items-center">
+    <div class="hidden justify-center align-middle fixed w-full h-full items-center bg-[#7A917F] z-10 tablet:w-[390px] tablet:py-20 tablet:h-fit right-0 top-[78px] p-5 tablet:p-10 ablet:inset-auto"
+         id="menu-dropdown">
+        <div class="flex flex-col gap-4 items-center justify-center h-full mt-[-40px] tablet:mt-0">
             <div class="flex flex-col items-center gap-6" id="user-display-nav"></div>
-            <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="">My Account</a></button>
-            <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="">Create Listing</a></button>
-            <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="">Edit Listings</a></button>
-            <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="">My Bids & Wins</a></button>
-            <button class="border border-transparent bg-ui-black hover:bg-ui-white hover:border-transparent hover:text-ui-black rounded-sm p-2 text-ui-white font-text w-[160px]"><a href="">Logout</a></button>
+            <button id="logoutBtn" class="border border-transparent bg-ui-black hover:bg-ui-white hover:border-transparent hover:text-ui-black rounded-sm p-2 text-ui-white font-text w-[160px]"><a>Logout</a></button>
         </div>
     </div>
     <main class="flex flex-col items-center w-screen p-5 gap-sm">
@@ -63,7 +60,8 @@
                                id="searchInput"
                                name="q" placeholder="Search for listings" type="text">
                     </div>
-                    <button class=" items-center mb-4 font-text font-light border border-ui-black p-2 flex bg-ui-black text-ui-white rounded-r-sm" id="searchButton"
+                    <button class=" items-center mb-4 font-text font-light border border-ui-black p-2 flex bg-ui-black text-ui-white rounded-r-sm"
+                            id="searchButton"
                             type="button">
                         Search
                     </button>

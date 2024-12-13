@@ -8,13 +8,12 @@ export async function displayUserProfileInfo() {
 
     if (userInfoDiv) {
         userInfoDiv.innerHTML = `
-<span>Welcome, ${profileData.data.name}!</span>
-<div class="flex gap-6">
-<span>Credits: ${profileData.data.credits}</span>
-<span>Listings: ${profileData.data._count?.listings || "No listings yet."}</span>
-<span>Wins: ${profileData.data._count?.wins || "No wins yet."}</span>
-</div>
-<div>${profileData.data.bio}</div>
+    <div class="flex items-center gap-4">
+    <img class="w-full h-[200px] object-cover" src="${profileData.data.banner.url}" alt="Profile Banner">
+        <img class="w-10 h-10 rounded-full object-cover" src="${profileData.data.avatar.url}" alt="Profile Avatar">
+        <span class="font-subtitle text-ui-black text-xl">${profileData.data.name}</span>
+    </div>
+   
                 `;
     }
 }

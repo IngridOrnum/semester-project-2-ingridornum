@@ -8,6 +8,8 @@ export default {
         './profile/**/*.js', // All JS files under the profile folder
         './single-listing/**/*.html', // All HTML files under single-listing folder
         './single-listing/**/*.js', // All JS files under single-listing folder
+        './account/**/*.html',
+        './account/**/*.js',
         './src/**/*.js', // Any JS files in src
         "./**/*.{js, html}",
         "!node_modules"
