@@ -1,7 +1,7 @@
 import {readSingleListing} from "../../api/listings/read.js";
 import {readProfile} from "../../api/profile/read.js";
 import {apiBid} from "../../api/listings/bid.js";
-import { formatDateTime } from "../global/listings.js";
+import {startCountdown} from "../global/listings.js";
 
 async function getUserCredits() {
     const loggedInUser = localStorage.getItem('loggedInUsername');
@@ -41,30 +41,33 @@ export async function displaySingleListing() {
         const auctionEndTime = new Date(listing.data.endsAt);
         const hasAuctionEnded = currentTime > auctionEndTime;
 
-        const formattedEndTime = await formatDateTime(listing.data.endsAt);
+        const timeDiff = auctionEndTime - currentTime;
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+        let timeRemaining = '';
+        if (days > 0) {
+            timeRemaining = `${days} days, ${hours} hours`;
+        } else if (hours > 0) {
+            timeRemaining = `${hours} hours, ${minutes} minutes`;
+        } else {
+            timeRemaining = `${minutes} minutes`; // Less than an hour left
+        }
 
         singleListingContainer.innerHTML = `
-    <img src="${listing.data.media[0]?.url || "https://t3.ftcdn.net/jpg/05/88/70/78/360_F_588707867_pjpsqF5zUNMV1I2g8a3tQAYqinAxFkQp.jpg"}" alt="${listing.data.media[0]?.alt || 'image'}">
     <h1>${listing.data.title}</h1>
     <div class="flex">
         <div class="flex flex-col border border-slate-900 p-2">
             <span>Highest Bid</span>
             <span>${highestBid} credits</span>
         </div>
-        <div class="flex flex-col border border-slate-900 p-2">
-        ${hasAuctionEnded
-            ?
-            `
-            <span>Ended</span>
-            <span>${formattedEndTime}</span>
-            `
-            :
-            `
-            <span>Ends at</span>
-            <span>${formattedEndTime}</span>
-            `
-        }
-        </div>
+       <div class="flex flex-col border border-slate-900 p-2">
+                    <span>${hasAuctionEnded ? 'Ended' : 'Ends in'}:</span>
+                    <span id="countdown">${hasAuctionEnded ? 'Auction has ended' : timeRemaining}</span>
+                </div>
+            </div>
+   
     </div>
     <div>
         <div class="flex">
@@ -78,16 +81,96 @@ export async function displaySingleListing() {
             `
         }
           </div>
-        <div>
-            <span>Details</span>
-            <div>${listing.data.description}</div>
-        </div>
-        <div>
-            <span>Tags</span>
-            <div>${listing.data.tags?.join(', ')}</div>
         </div>
     </div>
     `;
+
+
+        const listingDetails = document.getElementById('listing-description');
+        listingDetails.innerHTML += `
+        <div>${listing.data.description}</div>
+        `;
+
+        const listingTags = document.getElementById('listing-tags');
+        listingTags.innerHTML += `
+        <div>${listing.data.tags}</div>
+        `;
+
+        const listingBidHistory = document.getElementById('listing-bid-history');
+        if (listing.data.bids.length > 0) {
+            listingBidHistory.innerHTML = listing.data.bids.map((bid, index) => `
+                <li>
+                    <span>${index + 1}</span>
+                    <span>${bid.amount} credits</span>
+                    <span>${bid.created}</span>
+                </li>
+            `).join('');
+        } else {
+            listingBidHistory.innerHTML = '<li>No bids have been placed yet.</li>';
+        }
+
+        const listingAboutSeller = document.getElementById('listing-about-seller');
+        listingAboutSeller.innerHTML += `
+        <div class="flex items-center">
+            <img class="rounded-full w-10 h-10" src="${listing.data.seller.avatar.url || "public/assets/images/missing-img.jpg"}" alt="${listing.data.seller.avatar.alt || 'User Avatar'}">
+            <span>${listing.data.seller.name}</span>
+        </div>
+        <div>${listing.data.seller.bio || 'No bio available.'}</div>
+        <form action="../../../../profile/index.html">
+            <button class="">Visit Profile</button>
+        </form>
+        `;
+
+        function updateCarousel(media) {
+            const carousel = document.getElementById('carousel');
+            let imagesHtml = '';
+
+            if (media.length > 0) {
+                imagesHtml = media.map((img, index) => `
+                    <img class="carousel-image" src="${img.url}" alt="${img.alt || 'Image'}" style="display: ${index === 0 ? 'block' : 'none'}">
+                `).join('');
+
+                // Update carousel HTML with the images
+                carousel.innerHTML = imagesHtml;
+
+                // Display the first image by default if only one image is present
+                if (media.length > 1) {
+                    addNavigationButtons();
+                    setUpCarousel();
+                }
+            } else {
+                carousel.innerHTML = `<img class="carousel-image" src="../../../../public/assets/images/missing-img.jpg" alt="No image available" style="display: block;">`;
+            }
+        }
+
+        function addNavigationButtons() {
+            const carousel = document.getElementById('carousel');
+            carousel.insertAdjacentHTML('beforeend', `
+            <button class="prev carousel-buttons">Prev</button>
+            <button class="next carousel-buttons">Next</button>
+            `);
+        }
+
+        function setUpCarousel() {
+            const images = document.querySelectorAll('.carousel-image');
+            const prevButton = document.querySelector('.prev');
+            const nextButton = document.querySelector('.next');
+            let currentImageIndex = 0;
+
+            prevButton.addEventListener('click', () => {
+                images[currentImageIndex].style.display = 'none';
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                images[currentImageIndex].style.display = 'block';
+            });
+
+            nextButton.addEventListener('click', () => {
+                images[currentImageIndex].style.display = 'none';
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                images[currentImageIndex].style.display = 'block';
+            });
+        }
+
+        updateCarousel(listing.data.media);
 
         if (!hasAuctionEnded) {
             const bidButton = document.getElementById('place-bid-button');
@@ -124,7 +207,7 @@ export async function displaySingleListing() {
             });
         }
     } catch (error) {
-        alert('Failed to place bid. Please try again.');
         console.error('Error displaying single listing:', error);
     }
 }
+
