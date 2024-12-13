@@ -1,7 +1,13 @@
 import {readSingleListing} from "../../api/listings/read.js";
 import {readProfile} from "../../api/profile/read.js";
 import {apiBid} from "../../api/listings/bid.js";
-import {startCountdown} from "../global/listings.js";
+
+document.querySelectorAll('.dropdown-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const dropdownContent = button.nextElementSibling;
+        dropdownContent.style.display = dropdownContent.style.display === 'flex' ? 'none' : 'flex';
+    })
+});
 
 async function getUserCredits() {
     const loggedInUser = localStorage.getItem('loggedInUsername');
@@ -84,7 +90,6 @@ export async function displaySingleListing() {
         </div>
     </div>
     `;
-
 
         const listingDetails = document.getElementById('listing-description');
         listingDetails.innerHTML += `

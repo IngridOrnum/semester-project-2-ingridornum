@@ -6,10 +6,10 @@
     <link href="../css/styles.css" rel="stylesheet">
     <link href="../css/custom.css" rel="stylesheet">
     <title>Single listing</title>
-  <script type="module" crossorigin src="../assets/singleListing-BC92RJVT.js"></script>
+  <script type="module" crossorigin src="../assets/singleListing-DSB7XS19.js"></script>
   <link rel="modulepreload" crossorigin href="../assets/constants-BDf8nfUD.js">
   <link rel="modulepreload" crossorigin href="../assets/main-Cx0DgoeT.js">
-  <link rel="modulepreload" crossorigin href="../assets/single-listing-3-eieZGg.js">
+  <link rel="modulepreload" crossorigin href="../assets/single-listing-RBKZY-bu.js">
 </head>
 <body>
     <nav class="flex gap-5">
@@ -29,36 +29,38 @@
         </div>
         <div id="single-listing-container"></div>
         <div id="single-listing-details">
-            <div class="details-dropdown">
+            <div class="details-dropdown dropdown-btn cursor-pointer">
                 <div class="flex">
                     <span>Description</span>
                     <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
                 </div>
-                <div id="listing-description"></div>
             </div>
+            <div class="dropdownContent hidden" id="listing-description"></div>
             <div class="line-divider"></div>
             <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="flex">
-                <span>Tags</span>
-                <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
+            <div class="dropdown-btn cursor-pointer">
+                <div class="flex">
+                    <span>Tags</span>
+                    <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
+                </div>
             </div>
-            <div id="listing-tags"></div>
+            <div class="dropdownContent hidden" id="listing-tags"></div>
             <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="details-dropdown">
+            <div class="details-dropdown dropdown-btn cursor-pointer">
                 <div class="flex">
                     <span>Bid History</span>
                     <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
                 </div>
-                <ul id="listing-bid-history"></ul>
             </div>
+            <ul class="dropdownContent hidden" id="listing-bid-history"></ul>
             <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="details-dropdown">
+            <div class="details-dropdown dropdown-btn cursor-pointer">
                 <div class="flex">
                     <span>About Seller</span>
                     <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
                 </div>
-                <div id="listing-about-seller"></div>
             </div>
+            <div class="dropdownContent hidden" id="listing-about-seller"></div>
             <div class="line-divider bg-[#C6CAC7]"></div>
         </div>
     </main>
