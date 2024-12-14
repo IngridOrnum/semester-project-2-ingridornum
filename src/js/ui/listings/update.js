@@ -1,10 +1,9 @@
 import {apiUpdateListing} from "../../api/listings/update.js";
-import {readSingleListing} from "../../api/listings/read.js";
-import {readAllListingByUser} from "../../api/profile/read.js";
+import {readAllListingByLoggedInUser} from "../../api/profile/read.js";
 
 export async function displayListingsByUser() {
     try {
-        const listings = await readAllListingByUser();
+        const listings = await readAllListingByLoggedInUser();
 
         const listingsContainer = document.getElementById('listings-container');
         listingsContainer.innerHTML = '';

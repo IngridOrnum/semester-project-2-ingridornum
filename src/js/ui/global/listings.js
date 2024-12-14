@@ -16,28 +16,30 @@ export async function formatDateTime(isoString) {
     return `${formattedDate} ${formattedTime}`;
 }
 
-// countdown.js
-export function startCountdown(endTime, elementId) {
-    const end = new Date(endTime);
-    const countdownElement = document.getElementById(elementId);
+export function timeRemaining(endsAt) {
+    const currentTime = new Date();
+    const auctionEndTime = new Date(endsAt);
+    const timeDiff = auctionEndTime - currentTime;
 
-    function updateCountdown() {
-        const now = new Date();
-        const timeLeft = end - now;
-        if (timeLeft < 0) {
-            clearInterval(timer);
-            countdownElement.innerHTML = 'Auction has ended';
-            return;
-        }
-
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m`;
+    if (timeDiff <= 0) {
+        return 'Auction ended';
     }
 
-    updateCountdown(); // Update immediately on call
-    const timer = setInterval(updateCountdown, 60000); // Update every minute
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
 
-    return () => clearInterval(timer); // Return a cleanup function to stop the countdown
+    if (days > 0) {
+        return `${days} days`;
+    } else if (hours > 0) {
+        return `${hours} hours & ${minutes} minutes`;
+    } else {
+        return `${minutes} minutes`;
+    }
+}
+
+export function hasAuctionEnded(endsAt) {
+    const currentTime = new Date();
+    const auctionEndTime = new Date(endsAt);
+    return currentTime > auctionEndTime;
 }

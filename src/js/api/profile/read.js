@@ -21,14 +21,9 @@ export async function readProfile(username) {
     return data;
 }
 
-export async function readAllListingByUser () {
+export async function readAllListingByLoggedInUser (username) {
 
     const accessToken = await getAccessToken();
-    const username = localStorage.getItem('loggedInUsername');
-
-    if(!username) {
-        throw new Error('Username is not found')
-    }
 
     const options = {
         method: 'GET',
@@ -49,3 +44,7 @@ export async function readAllListingByUser () {
     const result = await response.json();
     return result.data;
 }
+
+// export async function readAllListingsByUser () {
+//
+// }
