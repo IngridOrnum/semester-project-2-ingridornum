@@ -20,6 +20,9 @@ export async function displayListingsByUser() {
             listItem.classList.add('listingByUser');
             listItem.setAttribute('data-id', listing.id);
 
+            const mediaURL = listing.media && listing.media.length > 0 ? listing.media[0].url : '';
+            const mediaAlt = listing.media && listing.media.length > 0 ? listing.media[0].alt : '';
+
             listItem.innerHTML = `
 
 <div class="flex flex-col gap-4 border border-slate-900 p-2.5">
@@ -42,7 +45,7 @@ export async function displayListingsByUser() {
         ${ended
                 ?
                 `
-                <span>Auction has ended</span>
+                    <button class="delete-btn border border-slate-900 cursor-pointer">Delete</button>
                 `
                 :
                 `
@@ -65,11 +68,11 @@ export async function displayListingsByUser() {
     </div>
     <div>
         <label for="edit-media-URL">Image URL</label>
-        <input id="edit-media-URL" value="${listing.media[0].url || ''}" class="border border-slate-900" name="edit-media-URL" type="text">
+        <input id="edit-media-URL" value="${mediaURL || ''}" class="border border-slate-900" name="edit-media-URL" type="text">
     </div>
     <div>
         <label for="edit-media-description">Image Description</label>
-        <input id="edit-media-description" value="${listing.media[0].alt || ''}" class="border border-slate-900" name="edit-media-description" type="text">
+        <input id="edit-media-description" value="${mediaAlt || ''}" class="border border-slate-900" name="edit-media-description" type="text">
     </div>
     <div>
         <label for="edit-tags">Tags</label>

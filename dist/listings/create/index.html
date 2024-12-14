@@ -1,21 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <link href="../css/styles.css" rel="stylesheet">
-    <link href="../css/custom.css" rel="stylesheet">
-    <title>Single listing</title>
-  <script type="module" crossorigin src="../assets/singleListing-psKqKz-H.js"></script>
-  <link rel="modulepreload" crossorigin href="../assets/constants-BDf8nfUD.js">
-  <link rel="modulepreload" crossorigin href="../assets/main-btKrpKiE.js">
-  <link rel="modulepreload" crossorigin href="../assets/read-DkcasBTb.js">
-  <link rel="modulepreload" crossorigin href="../assets/listings-UwpdXMdd.js">
+    <title>Bid Boutique - Create New Listing</title>
+  <script type="module" crossorigin src="../../assets/createSingleListing-B0dj-dz5.js"></script>
+  <link rel="modulepreload" crossorigin href="../../assets/constants-BDf8nfUD.js">
+  <link rel="modulepreload" crossorigin href="../../assets/main-btKrpKiE.js">
+  <link rel="stylesheet" crossorigin href="../../assets/input-BPFDi_P_.css">
+  <link rel="stylesheet" crossorigin href="../../assets/custom-Gihs2vY5.css">
 </head>
-<body>
+<body class="bg-profile">
     <nav class="flex gap-5 justify-between items-center bg-public p-5 sticky top-0 z-20">
         <div class="font-logo text-lg cursor-pointer tablet:text-2xl hover:text-[#7A917F] transition-all ">
-            <a href="../">bid boutique</a>
+            <a href="../../">bid boutique</a>
         </div>
         <div class="flex">
             <div class="flex gap-4">
@@ -39,51 +37,39 @@
             <button id="logoutBtn" class="border border-transparent bg-ui-black hover:bg-ui-white hover:border-transparent hover:text-ui-black rounded-sm p-2 text-ui-white font-text w-[160px]"><a>Logout</a></button>
         </div>
     </div>
-    <main>
-        <div id="carousel" class="relative w-full overflow-hidden">
-            <button class="prev carousel-buttons" >
-                prev
+    <main class="flex flex-col items-center">
+        <h1 class="font-heading text-4xl bold items-center">Create Listing</h1>
+        <form class="flex flex-col gap-4" id="create-listing-form">
+            <div class="flex flex-col">
+                <label for="create-title">Title</label>
+                <input class="border border-slate-900" id="create-title" name="create-title" required type="text">
+            </div>
+            <div class="h-5 w-5 text-notif-red"></div>
+            <div class="flex flex-col">
+                <label for="create-description">Description</label>
+                <input class="border border-slate-900" id="create-description" name="create-description" type="text">
+            </div>
+            <div class="flex flex-col">
+                <label for="create-media-URL">Image URL</label>
+                <input class="border border-slate-900" id="create-media-URL" name="create-media-URL" type="text">
+            </div>
+            <div class="flex flex-col">
+                <label for="create-media-description">Image Description</label>
+                <input class="border border-slate-900" id="create-media-description" name="create-media-description"
+                       type="text">
+            </div>
+            <div class="flex flex-col">
+                <label for="create-tags">Tags</label>
+                <input class="border border-slate-900" id="create-tags" name="create-tags" type="text">
+            </div>
+            <div class="flex flex-col">
+                <label for="create-endsAt">Listing ends at</label>
+                <input class="border border-slate-900" id="create-endsAt" name="create-endsAt" required
+                       type="datetime-local">
+            </div>
+            <button class="border border-slate-900 p-2" id="create-listing-form-btn" type="submit">Create Listing
             </button>
-            <button class="next carousel-buttons" >
-                next
-            </button>
-        </div>
-        <div id="single-listing-container"></div>
-        <div id="single-listing-details">
-            <div class="details-dropdown dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>Description</span>
-                    <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
-                </div>
-            </div>
-            <div class="dropdownContent hidden" id="listing-description"></div>
-            <div class="line-divider"></div>
-            <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>Tags</span>
-                    <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
-                </div>
-            </div>
-            <div class="dropdownContent hidden" id="listing-tags"></div>
-            <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="details-dropdown dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>Bid History</span>
-                    <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
-                </div>
-            </div>
-            <ul class="dropdownContent hidden" id="listing-bid-history"></ul>
-            <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="details-dropdown dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>About Seller</span>
-                    <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
-                </div>
-            </div>
-            <div class="dropdownContent hidden" id="listing-about-seller"></div>
-            <div class="line-divider bg-[#C6CAC7]"></div>
-        </div>
+        </form>
     </main>
 </body>
 </html>

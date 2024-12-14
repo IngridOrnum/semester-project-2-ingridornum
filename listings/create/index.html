@@ -5,11 +5,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <script defer src="../../main.js" type="module"></script>
     <script defer src="create.js" type="module"></script>
-    <link href="../../public/css/styles.css" rel="stylesheet">
+    <link href="../../src/css/input.css" rel="stylesheet">
     <link href="../../public/css/custom.css" rel="stylesheet">
     <title>Bid Boutique - Create New Listing</title>
 </head>
-<body>
+<body class="bg-profile">
     <nav class="flex gap-5 justify-between items-center bg-public p-5 sticky top-0 z-20">
         <div class="font-logo text-lg cursor-pointer tablet:text-2xl hover:text-[#7A917F] transition-all ">
             <a href="../../">bid boutique</a>
@@ -21,10 +21,12 @@
             </div>
             <div id="account-menu">
                 <button id="my-account">
-                    <img alt="profile icon" class="h-9 w-9 cursor-pointer" src="../../public/assets/icons/nav/profile-nav.svg">
+                    <img alt="profile icon" class="h-9 w-9 cursor-pointer"
+                         src="../../public/assets/icons/nav/profile-nav.svg">
                 </button>
                 <button id="menu-btn">
-                    <img alt="menu icon" class="block h-9 w-9 cursor-pointer" src="../../public/assets/icons/nav/menu-nav.svg">
+                    <img alt="menu icon" class="block h-9 w-9 cursor-pointer"
+                         src="../../public/assets/icons/nav/menu-nav.svg">
                 </button>
             </div>
         </div>
@@ -33,39 +35,60 @@
          id="menu-dropdown">
         <div class="flex flex-col gap-4 items-center justify-center h-full mt-[-40px] tablet:mt-0">
             <div class="flex flex-col items-center gap-6" id="user-display-nav"></div>
-            <button id="logoutBtn" class="border border-transparent bg-ui-black hover:bg-ui-white hover:border-transparent hover:text-ui-black rounded-sm p-2 text-ui-white font-text w-[160px]"><a>Logout</a></button>
+            <button class="border border-transparent bg-ui-black hover:bg-ui-white hover:border-transparent hover:text-ui-black rounded-sm p-2 text-ui-white font-text w-[160px]"
+                    id="logoutBtn">
+                <a>Logout</a></button>
         </div>
     </div>
-    <main>
-        <h1 class="text-4xl bold items-center">Create Listing</h1>
-        <form class="flex flex-col gap-4 items-center" id="create-listing-form">
-            <div>
-                <label for="create-title">Title</label>
+    <main class="flex flex-col items-center gap-4 p-10">
+        <h1 class="font-heading text-4xl bold items-center">Create Listing</h1>
+        <form class="flex flex-col gap-4" id="create-listing-form">
+            <div class="flex flex-col">
+                <label for="create-title">Title *</label>
                 <input class="border border-slate-900" id="create-title" name="create-title" required type="text">
             </div>
-            <div>
+            <div class="line-divider bg-[#7A917F50]"></div>
+            <div class="flex flex-col">
                 <label for="create-description">Description</label>
                 <input class="border border-slate-900" id="create-description" name="create-description" type="text">
             </div>
-            <div>
-                <label for="create-media-URL">Image URL</label>
-                <input class="border border-slate-900" id="create-media-URL" name="create-media-URL" type="text">
+            <div class="line-divider bg-[#7A917F50]"></div>
+            <div class="flex flex-col gap-4">
+<!--                <div class="flex flex-col">-->
+<!--                        <label for="create-media-URL">Image URL</label>-->
+<!--                        <input class="border border-slate-900" id="create-media-URL" name="create-media-URL"-->
+<!--                               type="text">-->
+<!--                 -->
+<!--                        <label for="create-media-description">Image Description</label>-->
+<!--                        <input class="border border-slate-900" id="create-media-description"-->
+<!--                               name="create-media-description"-->
+<!--                               type="text">-->
+<!--                </div>-->
+                <div id="image-inputs-container">
+                    <div class="line-divider bg-ui-white"></div>
+                    <div class="image-input-set flex flex-col">
+                        <label for="create-media-URL-0">Image URL</label>
+                        <input class="border border-slate-900" id="create-media-URL-0" name="create-media-URL-0" type="text">
+                        <label for="create-media-description-0">Image Description</label>
+                        <input class="border border-slate-900" id="create-media-description-0" name="create-media-description-0" type="text">
+                    </div>
+                </div>
+                <button id="add-image-btn" type="button" class="bg-primary-green w-full p-2 font-light rounded-sm border border-transparent font-text text-ui-white hover:bg-ui-white hover:border-ui-black hover:text-ui-black">
+                    + Add Another Image
+                </button>
             </div>
-            <div>
-                <label for="create-media-description">Image Description</label>
-                <input class="border border-slate-900" id="create-media-description" name="create-media-description"
-                       type="text">
-            </div>
-            <div>
+            <div class="line-divider bg-[#7A917F50]"></div>
+            <div class="flex flex-col">
                 <label for="create-tags">Tags</label>
                 <input class="border border-slate-900" id="create-tags" name="create-tags" type="text">
             </div>
-            <div>
-                <label for="create-endsAt">Listing ends at</label>
+            <div class="line-divider bg-[#7A917F50]"></div>
+            <div class="flex flex-col">
+                <label for="create-endsAt">Listing Ends At *</label>
                 <input class="border border-slate-900" id="create-endsAt" name="create-endsAt" required
                        type="datetime-local">
             </div>
-            <button class="border border-slate-900 p-2" id="create-listing-form-btn" type="submit">Create Listing
+            <button class="btn-primary" id="create-listing-form-btn" type="submit">Create Listing
             </button>
         </form>
     </main>

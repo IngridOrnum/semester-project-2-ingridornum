@@ -1,16 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <link href="../css/styles.css" rel="stylesheet">
-    <link href="../css/custom.css" rel="stylesheet">
-    <title>Single listing</title>
-  <script type="module" crossorigin src="../assets/singleListing-psKqKz-H.js"></script>
-  <link rel="modulepreload" crossorigin href="../assets/constants-BDf8nfUD.js">
-  <link rel="modulepreload" crossorigin href="../assets/main-btKrpKiE.js">
-  <link rel="modulepreload" crossorigin href="../assets/read-DkcasBTb.js">
-  <link rel="modulepreload" crossorigin href="../assets/listings-UwpdXMdd.js">
+    <title>Bid Boutique - Edit Listings</title>
+  <script type="module" crossorigin src="../../assets/updateSingleListing-BBXcZte2.js"></script>
+  <link rel="modulepreload" crossorigin href="../../assets/constants-BDf8nfUD.js">
+  <link rel="modulepreload" crossorigin href="../../assets/main-btKrpKiE.js">
+  <link rel="modulepreload" crossorigin href="../../assets/listings-UwpdXMdd.js">
+  <link rel="stylesheet" crossorigin href="../../assets/updateSingleListing-BgCwV0_s.css">
+  <link rel="stylesheet" crossorigin href="../../assets/custom-Gihs2vY5.css">
 </head>
 <body>
     <nav class="flex gap-5 justify-between items-center bg-public p-5 sticky top-0 z-20">
@@ -40,50 +39,8 @@
         </div>
     </div>
     <main>
-        <div id="carousel" class="relative w-full overflow-hidden">
-            <button class="prev carousel-buttons" >
-                prev
-            </button>
-            <button class="next carousel-buttons" >
-                next
-            </button>
-        </div>
-        <div id="single-listing-container"></div>
-        <div id="single-listing-details">
-            <div class="details-dropdown dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>Description</span>
-                    <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
-                </div>
-            </div>
-            <div class="dropdownContent hidden" id="listing-description"></div>
-            <div class="line-divider"></div>
-            <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>Tags</span>
-                    <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
-                </div>
-            </div>
-            <div class="dropdownContent hidden" id="listing-tags"></div>
-            <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="details-dropdown dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>Bid History</span>
-                    <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
-                </div>
-            </div>
-            <ul class="dropdownContent hidden" id="listing-bid-history"></ul>
-            <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="details-dropdown dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>About Seller</span>
-                    <img alt="arrow icon" src="data:image/svg+xml,%3csvg%20width='30'%20height='30'%20viewBox='0%200%2030%2030'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M8.4375%2011.25L15%2017.8125L21.5625%2011.25'%20stroke='%232E2E2E'/%3e%3c/svg%3e">
-                </div>
-            </div>
-            <div class="dropdownContent hidden" id="listing-about-seller"></div>
-            <div class="line-divider bg-[#C6CAC7]"></div>
-        </div>
+        <h1 class="text-4xl bold">Edit Listings</h1>
+        <ul class="flex flex-col list-none gap-6" id="listings-container"></ul>
     </main>
 </body>
 </html>
