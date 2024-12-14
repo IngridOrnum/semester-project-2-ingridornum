@@ -54,18 +54,7 @@
             </div>
             <div class="line-divider bg-[#7A917F50]"></div>
             <div class="flex flex-col gap-4">
-<!--                <div class="flex flex-col">-->
-<!--                        <label for="create-media-URL">Image URL</label>-->
-<!--                        <input class="border border-slate-900" id="create-media-URL" name="create-media-URL"-->
-<!--                               type="text">-->
-<!--                 -->
-<!--                        <label for="create-media-description">Image Description</label>-->
-<!--                        <input class="border border-slate-900" id="create-media-description"-->
-<!--                               name="create-media-description"-->
-<!--                               type="text">-->
-<!--                </div>-->
                 <div id="image-inputs-container">
-                    <div class="line-divider bg-ui-white"></div>
                     <div class="image-input-set flex flex-col">
                         <label for="create-media-URL-0">Image URL</label>
                         <input class="border border-slate-900" id="create-media-URL-0" name="create-media-URL-0" type="text">
@@ -73,6 +62,7 @@
                         <input class="border border-slate-900" id="create-media-description-0" name="create-media-description-0" type="text">
                     </div>
                 </div>
+                <span id="image-error-message" class="font-text font-light text-notif-red hidden">You can only add 8 images to a listing.</span>
                 <button id="add-image-btn" type="button" class="bg-primary-green w-full p-2 font-light rounded-sm border border-transparent font-text text-ui-white hover:bg-ui-white hover:border-ui-black hover:text-ui-black">
                     + Add Another Image
                 </button>

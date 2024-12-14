@@ -3,17 +3,35 @@ import {apiCreateListing} from "../../api/listings/create.js";
 document.getElementById('add-image-btn').addEventListener('click', () => {
     const imgContainer = document.getElementById('image-inputs-container');
     const newIndex = imgContainer.querySelectorAll('.image-input-set').length;
-    if (newIndex < 8) {
+    const errorMessage = document.getElementById('image-error-message');
+
+    errorMessage.classList.add('hidden');
+
+    if (newIndex >= 8) {
+        errorMessage.classList.remove('hidden')
+    } else {
         const newInputHTML = `
-         <div class="line-divider bg-ui-white"></div>
                     <div class="image-input-set flex flex-col">
-                        <label for="create-media-URL-${newIndex}">Image URL</label>
+                    <div class="line-divider bg-ui-white my-4"></div>
+                        <div class="flex items-center justify-between">
+                            <label for="create-media-URL-${newIndex}">Image URL</label>
+                            <button type="button" class="remove-image-btn font-text text-xs bg-primary-green p-1 items-center text-ui-white underline cursor-pointer">Remove</button>
+                        </div>
                         <input class="border border-slate-900" id="create-media-URL-${newIndex}" name="create-media-URL-${newIndex}" type="text">
                         <label for="create-media-description-${newIndex}">Image Description</label>
                         <input class="border border-slate-900" id="create-media-description-${newIndex}" name="create-media-description-${newIndex}" type="text">
                     </div>
         `;
-        imgContainer.innerHTML += newInputHTML;
+        imgContainer.insertAdjacentHTML("beforeend", newInputHTML);
+    }
+});
+
+document.getElementById('image-inputs-container').addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove-image-btn')) {
+        const imageInputSet = event.target.closest('.image-input-set');
+        if (imageInputSet) {
+            imageInputSet.remove();
+        }
     }
 });
 
