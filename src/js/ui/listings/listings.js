@@ -1,6 +1,7 @@
 import {searchListings} from "../../api/listings/search.js";
 import {readAllListings} from "../../api/listings/read.js";
 import {getHighestBid} from "../single-listing/single-listing.js";
+import {timeRemaining, hasAuctionEnded } from "../global/listings.js";
 
 let currentSearchData = '';
 let currentPage = 0;
@@ -114,23 +115,9 @@ export async function displayListings(listings) {
     });
 
     for (const listing of listings) {
-        const currentTime = new Date();
-        const auctionEndTime = new Date(listing.endsAt);
-        const hasAuctionEnded = currentTime > auctionEndTime;
-        const timeDiff = auctionEndTime - currentTime;
-        const days = Math.floor(timeDiff / (100 * 60 * 60 * 24));
-        const hours = Math.floor((timeDiff % ((100 * 60 * 60 * 24))) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
         const highestBid = await getHighestBid(listing.bids);
-
-        let timeRemaining = '';
-        if (days > 0) {
-            timeRemaining = `${days} days`;
-        } else if (hours > 0) {
-            timeRemaining = `${hours} hours & ${minutes} minutes`;
-        } else {
-            timeRemaining = `${minutes} minutes`; // Less than an hour left
-        }
+        const auctionStatus = hasAuctionEnded(listing.endsAt);
+        const timeLeft = timeRemaining(listing.endsAt);
 
         const listItem = document.createElement('li');
         listItem.classList.add('li-single-listing');
@@ -143,18 +130,17 @@ export async function displayListings(listings) {
                     <span>${listing.seller?.name}</span>
                 </div>
                 <div>
-                    ${hasAuctionEnded
+                    ${auctionStatus
                         ?
                         `<div id="ended-notif" class="font-text text-xs text-notif-red absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-red bg-notif-bg-red z-1 rounded-full tablet:text-base">ENDED</div>`
                         :  
                         `<div id="active-notif" class=" font-text text-xs text-notif-green absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-green bg-notif-bg-green z-1 rounded-full tablet:text-base">ACTIVE</div>`
                     }
                 </div>
-<!--                    <div id="soon-notif" class="hidden font-text text-xs text-notif-yellow absolute m-3 top-0 right-0 px-2 py-1 border border-notif-yellow bg-notif-bg-yellow z-1 rounded-full">END SOON</div>-->
                         <img class="listing-img" src="${listing.media?.[0]?.url || "public/assets/images/missing-img.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
                         <div class="flex flex-col gap-4 p-4 min-h-[112px]">
                         <span class="font-subtitle text-ui-black text-lg tablet:text-2xl overflow-hidden whitespace-nowrap max-w-full">${listing.title}</span>
-                        ${hasAuctionEnded
+                        ${auctionStatus
                         ?
                         ` <span class="uppercase text-notif-red font-text text-xs tablet:text-base">Ended</span>`
                         :
@@ -165,7 +151,7 @@ export async function displayListings(listings) {
                         </div>
                         <div class="flex flex-col font-text text-xs gap-1 font-light tablet:text-base tablet:flex-row">
                             <span class="font-medium">Ends in:</span>
-                            <span> ${timeRemaining}</span>
+                            <span> ${timeLeft}</span>
                         </div>
                 </div>
                 `
@@ -176,7 +162,7 @@ export async function displayListings(listings) {
 
         listItem.addEventListener('click', () => {
             localStorage.setItem('listingId', listing.id);
-            window.location.href = '../../../../single-listing/index.html';
+            window.location.href = '../../../../single-listing/';
         })
     }
 }
