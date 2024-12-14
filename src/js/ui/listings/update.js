@@ -1,15 +1,22 @@
 import {apiUpdateListing} from "../../api/listings/update.js";
 import {readAllListingByLoggedInUser} from "../../api/profile/read.js";
+import {timeRemaining, hasAuctionEnded} from "../global/listings.js";
+import {getHighestBid} from "../global/listings.js";
 
 export async function displayListingsByUser() {
     try {
-        const listings = await readAllListingByLoggedInUser();
+        const loggedInUsername = localStorage.getItem('loggedInUsername');
+        const listings = await readAllListingByLoggedInUser(loggedInUsername);
 
         const listingsContainer = document.getElementById('listings-container');
         listingsContainer.innerHTML = '';
 
         listings.forEach((listing) => {
             const listItem = document.createElement('li');
+            const ended = hasAuctionEnded(listing.endsAt);
+            const timeLeft = timeRemaining(listing.endsAt);
+            const highestBid = listing.highestBid || 'No bids';
+
             listItem.classList.add('listingByUser');
             listItem.setAttribute('data-id', listing.id);
 
@@ -19,13 +26,33 @@ export async function displayListingsByUser() {
 <div class="flex">
 <div class="flex flex-col">
             <span>Title: ${listing.title}</span>
-            <span>Ends at: ${listing.endsAt}</span>
+            ${ended
+                ?
+                `
+                <span>Ended</span>
+                `
+                :
+                `
+                <span>Ends at: ${timeLeft}</span>
+                `
+            }
             <span>Bids: ${listing.count?.bids || '0'}</span>
+            <span>Highest Bid: ${highestBid}</span>
         </div>
-        <div class="flex gap-4">
-            <button class="edit-btn border border-slate-900 cursor-pointer">Edit</button>
-            <button class="delete-btn border border-slate-900 cursor-pointer">Delete</button>
-        </div>
+        ${ended
+                ?
+                `
+                <span>Auction has ended</span>
+                `
+                :
+                `
+               
+                <div class="flex gap-4">
+                    <button class="edit-btn border border-slate-900 cursor-pointer">Edit</button>
+                    <button class="delete-btn border border-slate-900 cursor-pointer">Delete</button>
+                </div>
+                `
+        }
         </div>
         <form class="edit-form hidden" data-id="${listing.id}">
          <div>
@@ -38,11 +65,11 @@ export async function displayListingsByUser() {
     </div>
     <div>
         <label for="edit-media-URL">Image URL</label>
-        <input id="edit-media-URL" value="${listing.media.url || ''}" class="border border-slate-900" name="edit-media-URL" type="text">
+        <input id="edit-media-URL" value="${listing.media[0].url || ''}" class="border border-slate-900" name="edit-media-URL" type="text">
     </div>
     <div>
         <label for="edit-media-description">Image Description</label>
-        <input id="edit-media-description" value="${listing.media.alt || ''}" class="border border-slate-900" name="edit-media-description" type="text">
+        <input id="edit-media-description" value="${listing.media[0].alt || ''}" class="border border-slate-900" name="edit-media-description" type="text">
     </div>
     <div>
         <label for="edit-tags">Tags</label>

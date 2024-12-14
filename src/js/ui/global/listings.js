@@ -43,3 +43,11 @@ export function hasAuctionEnded(endsAt) {
     const auctionEndTime = new Date(endsAt);
     return currentTime > auctionEndTime;
 }
+
+export function getHighestBid(bids) {
+    if (!bids || !bids.length) {
+        return "0";  // or a suitable default/fallback value
+    }
+    // Assuming bids is an array of objects, and you want to find the highest bid
+    return Math.max(...bids.map(bid => bid.amount));  // Adjust according to the actual bid object structure
+}
