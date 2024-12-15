@@ -26,5 +26,41 @@ export async function displayAccountInfo() {
         </div>
     </div>
                 `;
+        function openProfilePage () {
+            const profilePageBtn = document.getElementById('open-profile-page');
+            profilePageBtn.addEventListener('click', () => {
+                localStorage.setItem('profileUsername', profileData.data.name);
+                window.location.href = `../../../../profile/`;
+            })
+        }
+        openProfilePage()
     }
+}
+
+export async function openCreatePage () {
+    const createListingBtn = document.getElementById('create-listing-btn');
+    createListingBtn.addEventListener('click', () => {
+        window.location.href = '../listings/create/';
+    })
+}
+
+export async function openEditPage () {
+    const createListingBtn = document.getElementById('edit-listing-btn');
+    createListingBtn.addEventListener('click', () => {
+        window.location.href = '../listings/edit/';
+    })
+}
+
+export async function openEditProfile () {
+    const editProfileBtn = document.getElementById('edit-profile-btn');
+    editProfileBtn.addEventListener('click', () => {
+        window.location.href = '../profile/update/';
+    })
+}
+
+export async function openBidsWns () {
+    const bidsWinsBtn = document.getElementById('bids-wins-btn');
+    bidsWinsBtn.addEventListener('click', () => {
+        window.location.href = 'wins-and-bids/';
+    })
 }
