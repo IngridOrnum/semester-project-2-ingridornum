@@ -123,7 +123,7 @@ export async function displayListings(listings) {
         listItem.setAttribute('data-id', listing.id);
 
         listItem.innerHTML = `
-            <div class="li-single-listing-content flex flex-col relative rounded-xl">
+            <div class="li-single-listing-content h-[480px] flex flex-col relative cursor-pointer">
                 <div class="flex items-center gap-2 tablet:gap-4 p-2">
                     <img class="rounded-full h-7 w-7 tablet:h-10 tablet:w-10 object-cover" src="${listing.seller?.avatar.url || "public/assets/images/missing-img.jpg"}" alt="Avatar User">
                     <span class="font-text text-ui-black text-sm">${listing.seller?.name}</span>
@@ -136,24 +136,24 @@ export async function displayListings(listings) {
                         `<div id="active-notif" class=" font-text text-xs text-notif-green absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-green bg-notif-bg-green z-1 rounded-full tablet:text-base">ACTIVE</div>`
                     }
                 </div>
-                        <img class="listing-img" src="${listing.media?.[0]?.url || "public/assets/images/missing-img.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
-                        <div class="flex flex-col gap-4 p-4 min-h-[112px]">
-                        <span class="flex justify-center font-subtitle text-ui-black text-lg tablet:text-2xl overflow-hidden whitespace-nowrap max-w-full">${listing.title}</span>
-                        ${auctionStatus
-                        ?
-                        ` <span class="uppercase border flex justify-center rounded-md border-notif-red p-3 text-notif-red font-text text-xs tablet:text-base">Ended</span>`
-                        :
-                        `
-                       <div class="flex gap-5 justify-center items-center">
-                           <div class="flex flex-col w-[110px] tablet:w-[136px] tablet:p-[8px] items-center  py-3 border-2 border-transparent bg-primary-green text-ui-white rounded-md font-text text-xs gap-1 font-light tablet:text-base">
-                                <span class="text[8px] tablet:text-sm uppercase">Highest bid</span>
-                                <span class="text-[14px] tablet:text-lg">${highestBid} credits</span>
-                            </div>
-                            <div class="flex flex-col w-[110px] tablet:w-[136px] tablet:p-[8px] items-center py-3 border-2 border-primary-green text-ui-black rounded-md font-text text-xs gap-1 font-light tablet:text-base">
-                                <span class="text[8px] tablet:text-sm font-medium uppercase">Ends in</span>
-                                <span class="text-[14px] tablet:text-lg"> ${timeLeft}</span>
-                            </div>
-                       </div>
+                <img class="listing-img" src="${listing.media?.[0]?.url || "public/assets/images/missing-img.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
+                <div class="flex flex-col gap-4 p-4 min-h-[112px]">
+                    <span class="flex justify-center font-subtitle text-ui-black text-lg tablet:text-2xl overflow-hidden whitespace-nowrap max-w-full">${listing.title}</span>
+                    ${auctionStatus
+                    ?
+                    ` <span class="uppercase border flex justify-center rounded-md border-notif-red p-3 text-notif-red font-text text-xs tablet:text-base">Ended</span>`
+                    :
+                    `
+                    <div class="flex gap-5 justify-center items-center">
+                        <div class="flex flex-col w-[110px] tablet:w-[136px] tablet:p-[8px] items-center  py-3 border-2 border-transparent bg-primary-green text-ui-white rounded-md font-text text-xs gap-1 font-light tablet:text-base">
+                            <span class="text[8px] tablet:text-sm uppercase">Highest bid</span>
+                            <span class="text-[14px] tablet:text-lg">${highestBid} credits</span>
+                        </div>
+                        <div class="flex flex-col w-[110px] tablet:w-[136px] tablet:p-[8px] items-center py-3 border-2 border-primary-green text-ui-black rounded-md font-text text-xs gap-1 font-light tablet:text-base">
+                            <span class="text[8px] tablet:text-sm font-medium uppercase">Ends in</span>
+                            <span class="text-[14px] tablet:text-lg"> ${timeLeft}</span>
+                        </div>
+                    </div>
                 </div>
                 `
                 }
