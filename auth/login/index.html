@@ -3,46 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/src/css/input.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
+    <link rel="icon" href="../../public/assets/icons/favicon.png">
     <script defer src="login.js" type="module"></script>
     <title>Bid Boutique - Login</title>
 </head>
 <body>
-    <h1 class="font-bold text-4xl flex flex-col items-center mt-14">Login</h1>
-    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-        
-        <div id="login-form" class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="#" method="POST">
-                <div>
-                    <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
-                    <div class="mt-2">
-                        <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
-                    </div>
+    <nav class="flex gap-5 justify-between items-center bg-public p-5 sticky top-0 z-20 tablet:px-10 laptop:px-14">
+            <div class="font-logo text-lg cursor-pointer tablet:text-2xl hover:text-[#7A917F] transition-all flex items-center gap-4">
+                <img class="h-10 w-10" src="../../public/assets/icons/favicon.png" alt="bid boutique logo">
+                <a href="#">bid boutique</a>
+            </div>
+            <div class="flex">
+                <div class="flex gap-4">
+                    <button class="login-btn" id="loginBtn">Login</button>
+                    <button class="reg-btn" id="registerBnt">Register</button>
                 </div>
-                
-                <div>
-                    <div class="flex items-center justify-between">
-                        <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
-                        <div class="text-sm">
-                            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+            </div>
+    </nav>
+    <main>
+        <h1 class="font-bold text-4xl flex flex-col items-center mt-14">Login</h1>
+        <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+            
+            <div id="login-form" class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                <form class="space-y-6" action="#" method="POST">
+                    <div>
+                        <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
+                        <div class="mt-2">
+                            <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
                         </div>
                     </div>
-                    <div class="mt-2">
-                        <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                    
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
+                            <div class="text-sm">
+                                <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                        </div>
                     </div>
-                </div>
-                
-                <div>
-                    <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
-                </div>
-                <div class="flex gap-4">
-                    <span>Don't have an account?</span>
-                    <span id="register-btn" class="cursor-pointer text-indigo-600">Register Here</span>
-                </div>
-            </form>
+                    
+                    <div>
+                        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+                    </div>
+                    <div class="flex gap-4">
+                        <span>Don't have an account?</span>
+                        <span id="register-btn" class="cursor-pointer text-indigo-600">Register Here</span>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-
+    </main>
+    <footer class="bg-profile px-5 py-10 mt-16 flex flex-col items-center gap-10 tablet:gap-12 tablet:px-10 tablet:py-12 tablet:mt-20">
+        <div class="flex flex-col items-center">
+            <img class="h-20 w-20" src="../../public/assets/icons/favicon.png" alt="">
+            <div class="font-logo text-xl text-ui-black tablet:text-2xl">bid boutique</div>
+        </div>
+        <div class="line-divider bg-ui-white"></div>
+        <ul class="list-none text-ui-black uppercase tracking-wider font-light font-text text-base gap-4 flex flex-col items-center tablet:text-lg">
+            <li class="hover:underline"><a href="#">About</a></li>
+            <li class="hover:underline"><a href="#">Contact</a></li>
+            <li class="hover:underline"><a href="#">FAQ</a></li>
+        </ul>
+        <div class="line-divider bg-ui-white"></div>
+        <div class="flex flex-col items-center font-light gap-6 tablet:flex-row tablet:justify-between tablet:items-center tablet:w-full">
+            <ul class="list-none flex font-text text-sm tracking-wider text-ui-black gap-4 tablet:text-base">
+                <li class="hover:underline"><a href="#">Terms</a></li>
+                <li class="hover:underline"><a href="#">Privacy</a></li>
+                <li class="hover:underline"><a href="#">Cookies</a></li>
+            </ul>
+            <div class="font-text text-ui-black text-sm tablet:text-base">© 2025 bid boutique. All rights reserved.
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

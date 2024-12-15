@@ -32,9 +32,9 @@ export function timeRemaining(endsAt) {
     if (days > 0) {
         return `${days} days`;
     } else if (hours > 0) {
-        return `${hours} hours & ${minutes} minutes`;
+        return `${hours} h & ${minutes} min`;
     } else {
-        return `${minutes} minutes`;
+        return `${minutes} min`;
     }
 }
 

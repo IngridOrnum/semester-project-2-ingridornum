@@ -1,6 +1,5 @@
 export function onLogout() {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('loggedInUsername');
+    localStorage.clear();
     alert('You logged out!')
     window.location = '../../../../'
 }

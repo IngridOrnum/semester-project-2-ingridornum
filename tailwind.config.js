@@ -20,8 +20,8 @@ export default {
         extend: {
             screens: {
                 tablet: '760px',
-                laptop: '',
-                desktop: ''
+                laptop: '1024px',
+                desktop: '1400px'
             },
             fontFamily: {
                 logo: ['Fahkwang', 'sans-serif'],

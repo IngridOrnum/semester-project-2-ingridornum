@@ -4,8 +4,7 @@
     border-radius: 4px;
     background-color: #FDFDFD;
     cursor: pointer;
-    min-height: auto;
-    width: 162px;
+    width: 260px;
     overflow: hidden;
 }
 
@@ -22,20 +21,49 @@
 }
 
 .btn-primary {
-    width: 200px;
-    height: 38px;
+    width: 220px;
+    height: 42px;
     background-color: #2E2E2E;
-    font-size: 12px;
+    font-size: 18px;
     color: #FEFEFE;
     font-family: Poppins, sans-serif;
     border: none;
-    border-radius: 2px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 300;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
 .btn-primary:hover {
     background-color: #F7F7F7;
     color: #2E2E2E;
     border: 1px solid #2E2E2E;
+}
+
+.btn-secondary {
+    width: 220px;
+    height: 42px;
+    background-color: #7A917F;
+    font-size: 18px;
+    color: #f7f7f7;
+    font-family: Poppins, sans-serif;
+    border: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 300;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.btn-secondary:hover {
+    background-color: #F7F7F7;
+    color: #7A917F;
+    border: 1px solid #7A917F;
 }
 
 .btn-lg-primary {
@@ -128,7 +156,7 @@ button.prev, button.next {
 @media (min-width: 760px) {
     .li-single-listing {
         width: 348px;
-        height: 472px;
+        height: 480px;
     }
 
     .listing-img {
