@@ -1,6 +1,7 @@
 import {readSingleListing} from "../../api/listings/read.js";
 import {readProfile} from "../../api/profile/read.js";
 import {apiBid} from "../../api/listings/bid.js";
+import {getHighestBid} from "../global/listings.js";
 
 document.querySelectorAll('.dropdown-btn').forEach(button => {
     button.addEventListener('click', () => {
@@ -17,15 +18,6 @@ async function getUserCredits() {
 
     const profileData = await readProfile(loggedInUser);
     return profileData.data.credits;
-}
-
-export async function getHighestBid(bids) {
-    if (!bids || !bids.length) {
-        console.log("No bids found.");
-        return "No bids";  // or a suitable default/fallback value
-    }
-    // Assuming bids is an array of objects, and you want to find the highest bid
-    return Math.max(...bids.map(bid => bid.amount));  // Adjust according to the actual bid object structure
 }
 
 
