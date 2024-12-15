@@ -26,7 +26,7 @@ async function openEditProfile () {
 async function openBidsWns () {
     const bidsWinsBtn = document.getElementById('bids-wins-btn');
     bidsWinsBtn.addEventListener('click', () => {
-        window.location.href = '../profile/bids-wins/';
+        window.location.href = 'wins-and-bids/';
     })
 }
 

@@ -22,8 +22,8 @@ document.getElementById('filter-btn').addEventListener('click', () => {
 
 document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
     radio.addEventListener('change', async (event) => {
-        filterValue = event.target.value; // Update the global filter value
-        currentPage = 1; // Reset to the first page
+        filterValue = event.target.value;
+        currentPage = 1;
         console.log(`Filter Value in API Call: ${filterValue}`);
 
         await loadListings(currentPage, currentSearchData, sortOption, filterValue);
@@ -32,8 +32,8 @@ document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
 
 document.getElementById('searchButton').addEventListener('click', async () => {
     currentSearchData = document.getElementById('searchInput').value.trim();
-    currentPage = 1; // Reset to the first page for a new search
-    await loadListings(currentPage, currentSearchData, sortOption, filterValue); // Fetch and display the listings
+    currentPage = 1;
+    await loadListings(currentPage, currentSearchData, sortOption, filterValue);
 });
 
 document.getElementById('select-sorting').addEventListener('change', async (event) => {
@@ -87,7 +87,6 @@ export async function loadListings(page = 1, searchData = '', sortOption = 'late
 }
 
 export async function displayListings(listings) {
-
     const listingsContainer = document.querySelector('.listings-container');
     const listingsCount = document.querySelectorAll('.listings-count');
     listingsContainer.innerHTML = '';
