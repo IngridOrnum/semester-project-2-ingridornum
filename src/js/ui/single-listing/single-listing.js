@@ -113,10 +113,16 @@ export async function displaySingleListing() {
             <span>${listing.data.seller.name}</span>
         </div>
         <div>${listing.data.seller.bio || 'No bio available.'}</div>
-        <form action="../../../../profile/index.html">
-            <button class="">Visit Profile</button>
-        </form>
+       
+            <button class="visit-profile">Visit Profile</button>
+       
         `;
+
+        const visitProfile = document.querySelector('.visit-profile');
+        visitProfile.addEventListener('click', () => {
+            localStorage.setItem('profileUsername', listing.data.seller.name);
+            window.location.href = '../../../../profile/';
+        })
 
         function updateCarousel(media) {
             const carousel = document.getElementById('carousel');

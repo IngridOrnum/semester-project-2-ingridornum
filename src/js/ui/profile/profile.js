@@ -5,7 +5,8 @@ import {getHighestBid} from "../global/listings.js";
 export async function displayUserProfileInfo() {
     const loggedInUsername = localStorage.getItem('loggedInUsername');
     const profileUsername = localStorage.getItem('profileUsername');
-    const usernameToUse = loggedInUsername || profileUsername;
+
+    const usernameToUse = profileUsername ? profileUsername : loggedInUsername;
 
     if (!usernameToUse) {
         console.error('no username found in localstorage');
@@ -13,7 +14,7 @@ export async function displayUserProfileInfo() {
     }
 
     try {
-        const profileData = await readProfile(loggedInUsername);
+        const profileData = await readProfile(usernameToUse);
         const userInfoDiv = document.getElementById('user-profile-info');
 
         if (userInfoDiv) {
