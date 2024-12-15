@@ -37,7 +37,7 @@ export async function displayUserNav () {
             <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="../../../../account/">My Account</a></button>
             <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="../../../../listings/create/">Create Listing</a></button>
             <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="../../../../listings/edit/">Edit Listings</a></button>
-            <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="">My Bids & Wins</a></button>
+            <button class="border border-[#F7F7F750] rounded-sm p-2 text-ui-white font-light font-text hover:bg-ui-white hover:border-transparent hover:text-ui-black w-[160px]"><a href="../../../../account/wins-and-bids/">My Bids & Wins</a></button>
            
                 `;
                 const closeDropdownBtn = document.getElementById('close-dropdown-btn');

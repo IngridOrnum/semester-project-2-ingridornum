@@ -7,7 +7,7 @@ export async function formatDateTime(isoString) {
         year: '2-digit',
     });
 
-    const formattedTime = date.toLocaleTimeString('en-US', {
+    const formattedTime = date.toLocaleTimeString('en-GB', {
         hour: '2-digit',
         minute: '2-digit',
         hour12: true,
@@ -46,8 +46,7 @@ export function hasAuctionEnded(endsAt) {
 
 export function getHighestBid(bids) {
     if (!bids || !bids.length) {
-        return "0";  // or a suitable default/fallback value
+        return "0";
     }
-    // Assuming bids is an array of objects, and you want to find the highest bid
-    return Math.max(...bids.map(bid => bid.amount));  // Adjust according to the actual bid object structure
+    return Math.max(...bids.map(bid => bid.amount));
 }
