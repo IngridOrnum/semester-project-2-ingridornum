@@ -6,55 +6,55 @@
     <link href="../../css/custom.css" rel="stylesheet">
     <link rel="icon" href="../../assets/favicon-BUX6yV9-.png">
     <title>Bid Boutique - Login</title>
-  <script type="module" crossorigin src="../../assets/login-g46E8djX.js"></script>
-  <link rel="modulepreload" crossorigin href="../../assets/input-BRILGR-m.js">
-  <link rel="modulepreload" crossorigin href="../../assets/login-Cg1Nm8VL.js">
-  <link rel="stylesheet" crossorigin href="../../assets/input-oOtbVK5X.css">
+  <script type="module" crossorigin src="../../assets/login-DMVSgEhj.js"></script>
+  <link rel="modulepreload" crossorigin href="../../assets/input-Ja31UEQ1.js">
+  <link rel="modulepreload" crossorigin href="../../assets/login-BYQkUTGF.js">
+  <link rel="stylesheet" crossorigin href="../../assets/input-CcxMNGhX.css">
 </head>
-<body>
+<body class="bg-public">
     <nav class="flex gap-5 justify-between items-center bg-public p-5 sticky top-0 z-20 tablet:px-10 laptop:px-14">
-            <div class="font-logo text-lg cursor-pointer tablet:text-2xl hover:text-[#7A917F] transition-all flex items-center gap-4">
-                <img class="h-10 w-10" src="../../assets/favicon-BUX6yV9-.png" alt="bid boutique logo">
-                <a href="#">bid boutique</a>
+            <div class="font-logo text-sm cursor-pointer tablet:text-xl hover:text-[#7A917F] transition-all flex items-center gap-2 tablet:gap-4">
+                <img class="h-6 w-6 tablet:h-10 tablet:w-10" src="../../assets/favicon-BUX6yV9-.png" alt="bid boutique logo">
+                <a href="../../">bid boutique</a>
             </div>
             <div class="flex">
-                <div class="flex gap-4">
-                    <button class="login-btn" id="loginBtn">Login</button>
-                    <button class="reg-btn" id="registerBnt">Register</button>
+                <div class="flex gap-2 tablet:gap-4">
+                    <button class="login-btn" id="loginBtn"><a href="#">Login</a></button>
+                    <button class="reg-btn" id="registerBnt"><a href="../register/">Register</a></button>
                 </div>
             </div>
     </nav>
-    <main>
-        <h1 class="font-bold text-4xl flex flex-col items-center mt-14">Login</h1>
-        <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-            
-            <div id="login-form" class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                <form class="space-y-6" action="#" method="POST">
+    <main class="flex flex-col items-center p-6">
+        <h1 class="font-bold font-heading text-4xl mt-14 mb-6 tablet:text-5xl tablet:mb-6">Login</h1>
+        <p class="font-light text-base font-textTitle">Login to view and bid on listings.</p>
+        <div class="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8">
+            <div>
+                <form id="login-form" class="space-y-6" method="POST">
                     <div>
-                        <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
+                        <label for="email" class="font-light font-text text-ui-black">Email address</label>
                         <div class="mt-2">
-                            <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                            <input id="email" name="email" type="email" autocomplete="email" required class="form-input">
                         </div>
                     </div>
                     
                     <div>
                         <div class="flex items-center justify-between">
-                            <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
+                            <label for="password" class="font-light font-text text-ui-black">Password</label>
                             <div class="text-sm">
-                                <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+                                <a href="#" class="font-light font-text text-ui-black hover:underline">Forgot password?</a>
                             </div>
                         </div>
                         <div class="mt-2">
-                            <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6">
+                            <input id="password" name="password" type="password" autocomplete="current-password" required class="form-input">
                         </div>
                     </div>
                     
                     <div>
-                        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+                        <button type="submit" class="btn-auth">Sign in</button>
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-4 font-light text-sm font-text text-ui-black">
                         <span>Don't have an account?</span>
-                        <span id="register-btn" class="cursor-pointer text-indigo-600">Register Here</span>
+                        <span id="register-btn" class="cursor-pointer hover:underline">Register Here</span>
                     </div>
                 </form>
             </div>

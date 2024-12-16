@@ -1,4 +1,4 @@
-import{r as g,a as u}from"./main-CQCJvdNu.js";import{h as m,t as b,g as v}from"./listings-B-nIuWtN.js";async function y(){const c=localStorage.getItem("loggedInUsername"),r=localStorage.getItem("profileUsername"),n=r||c;if(!n){console.error("no username found in localstorage");return}try{const e=await g(n),o=document.getElementById("user-profile-info");if(o){o.innerHTML=`
+import{r as g,a as u}from"./main-DkMhsuuT.js";import{h as m,t as b,g as v}from"./listings-B-nIuWtN.js";async function y(){const c=localStorage.getItem("loggedInUsername"),r=localStorage.getItem("profileUsername"),n=r||c;if(!n){console.error("no username found in localstorage");return}try{const e=await g(n),o=document.getElementById("user-profile-info");if(o){o.innerHTML=`
     <div class="flex flex-col items-center gap-4">
         <img class="w-screen h-[200px] object-cover relative tablet:h-[380px]" src="${e.data.banner.url}" alt="Profile Banner">
         <img class="w-24 h-24 rounded-full object-cover absolute z-1 top-[220px] tablet:w-48 tablet:h-48 tablet:top-[352px]" src="${e.data.avatar.url}" alt="Profile Avatar">
