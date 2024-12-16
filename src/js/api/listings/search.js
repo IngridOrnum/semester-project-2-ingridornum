@@ -1,6 +1,5 @@
 import { API_LISTINGS } from "../constants.js";
 
-// Fetch listings based on search input
 export async function searchListings(query, limit = 40, page = 1, sortOption = 'latest', filterValue = 'all') {
 
     const params = new URLSearchParams({
@@ -23,7 +22,8 @@ export async function searchListings(query, limit = 40, page = 1, sortOption = '
     }
 
     const options = {
-        method: 'GET'
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
     };
 
     const response = await fetch(`${API_LISTINGS}/search?${params.toString()}`, options);

@@ -12,42 +12,6 @@ let isLastPage = false;
 let sortOption = 'latest';
 let filterValue = 'all';
 
-function resetSearchParameters() {
-    currentPage = 1;  // Reset to the first page
-    allListings = []; // Clear all current listings
-    metaData = { totalCount: 0 }; // Reset meta data
-    isLastPage = false; // Reset pagination end flag
-    console.log('Search parameters have been reset');
-}
-
-document.getElementById('filter-btn').addEventListener('click', () => {
-    const filterDropdown = document.getElementById('filter-dropdown');
-    const dropdownLine = document.getElementById('dropdown-line');
-
-    filterDropdown.style.display = filterDropdown.style.display === 'flex' ? 'none' : 'flex';
-    dropdownLine.style.backgroundColor = dropdownLine.style.backgroundColor ===  'rgb(198, 202, 199)' ? 'transparent' : 'rgb(198, 202, 199)';
-});
-
-
-document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
-    radio.addEventListener('change', async (event) => {
-        filterValue = event.target.value;
-        currentPage = 1;
-        console.log(`Filter Value in API Call: ${filterValue}`);
-
-        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
-    });
-});
-
-document.getElementById('loadMore').addEventListener('click', async () => {
-    if (!isLastPage) {
-        currentPage++;
-        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
-    } else {
-        console.log('No more listings to load');
-    }
-});
-
 export async function loadListings(page = 1, searchData = '', sortOption = 'latest', filterValue = 'all') {
     try {
         let response;
@@ -56,7 +20,7 @@ export async function loadListings(page = 1, searchData = '', sortOption = 'late
             allListings = [];
         }
 
-        const adjustedLimit = listingsPerPage; // Always set the limit to 40
+        const adjustedLimit = listingsPerPage;
 
         if (searchData.trim()) {
             response = await searchListings(searchData, adjustedLimit, page, sortOption, filterValue);
@@ -78,84 +42,6 @@ export async function loadListings(page = 1, searchData = '', sortOption = 'late
         await displayListings([]);
     }
 }
-
-
-// export async function loadListings(page = 1, searchData = '', sortOption = 'latest', filterValue = 'all') {
-//     try {
-//         let response;
-//
-//         if (page === 1) {
-//             allListings = [];
-//         }
-//
-//         const remainingCount = metaData.totalCount - allListings.length;
-//         const adjustedLimit = remainingCount < listingsPerPage ? remainingCount : listingsPerPage;
-//
-//         if (searchData.trim()) {
-//             response = await searchListings(searchData, adjustedLimit, page, sortOption, filterValue);
-//         } else {
-//             response = await readAllListings(adjustedLimit, page, sortOption, searchData, filterValue);
-//         }
-//
-//         const fetchedListings = response.listings || [];
-//         metaData = response.meta || { totalCount: allListings.length + fetchedListings.length };
-//         isLastPage = allListings.length + fetchedListings.length >= metaData.totalCount;
-//         allListings = [...allListings, ...fetchedListings];
-//
-//         const loadMoreButton = document.getElementById('loadMore');
-//         if (isLastPage) {
-//             loadMoreButton.disabled = true;
-//         } else {
-//             loadMoreButton.disabled = false;
-//         }
-//
-//         await displayListings(allListings);
-//     } catch (error) {
-//         console.error('Error displaying listings:', error);
-//         await displayListings([]);
-//     }
-// }
-
-document.getElementById('loadMore').addEventListener('click', async () => {
-    if (!isLastPage) {
-        currentPage++;
-        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
-    } else {
-        console.log('No more listings to load');
-        document.getElementById('loadMore').disabled = true; // Disable the button
-    }
-});
-
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-};
-
-document.getElementById('searchButton').addEventListener('click', debounce(async () => {
-    currentSearchData = document.getElementById('searchInput').value.trim();
-    currentPage = 1;
-    await loadListings(currentPage, currentSearchData, sortOption, filterValue);
-}, 300));
-
-document.getElementById('select-sorting').addEventListener('change', async (event) => {
-    sortOption = event.target.value;
-    currentPage = 1;
-    await loadListings(currentPage, currentSearchData, sortOption, filterValue);
-});
-
-document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
-    radio.addEventListener('change', async (event) => {
-        filterValue = event.target.value;
-        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
-    });
-});
 
 export async function displayListings(listings) {
     const listingsContainer = document.querySelector('.listings-container');
@@ -201,20 +87,20 @@ export async function displayListings(listings) {
                 </div>
                 <div>
                     ${auctionStatus
-                        ?
-                        `<div id="ended-notif" class="font-text text-xs text-notif-red absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-red bg-notif-bg-red z-1 rounded-full">ENDED</div>`
-                        :  
-                        `<div id="active-notif" class=" font-text text-xs text-notif-green absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-green bg-notif-bg-green z-1 rounded-full">ACTIVE</div>`
-                    }
+            ?
+            `<div id="ended-notif" class="font-text text-xs text-notif-red absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-red bg-notif-bg-red z-1 rounded-full">ENDED</div>`
+            :
+            `<div id="active-notif" class=" font-text text-xs text-notif-green absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-green bg-notif-bg-green z-1 rounded-full">ACTIVE</div>`
+        }
                 </div>
                 <img class="listing-img" src="${listing.media?.[0]?.url || "public/assets/images/missing-img.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
                 <div class="flex flex-col gap-4 p-4 min-h-[112px]">
                     <span class="flex font-subtitle text-ui-black text-lg tablet:text-2xl overflow-hidden whitespace-nowrap max-w-full">${listing.title}</span>
                     ${auctionStatus
-                    ?
-                    ` <span class="uppercase border flex justify-center rounded-md border-notif-red p-3 text-notif-red font-text text-xs tablet:text-base">Ended</span>`
-                    :
-                    `
+            ?
+            ` <span class="uppercase border flex justify-center rounded-md border-notif-red p-3 text-notif-red font-text text-xs tablet:text-base">Ended</span>`
+            :
+            `
                     <div class="flex gap-5 justify-center items-center">
                         <div class="flex flex-col w-[110px] tablet:w-[136px] tablet:p-[8px] items-center  py-3 border-2 border-transparent bg-primary-green text-ui-white rounded-md font-text text-xs gap-1 font-light ">
                             <span class="text[8px]  uppercase">Highest bid</span>
@@ -227,7 +113,7 @@ export async function displayListings(listings) {
                     </div>
                 </div>
                 `
-                }
+        }
             </div>
         `;
         listingsContainer.appendChild(listItem);
@@ -238,6 +124,75 @@ export async function displayListings(listings) {
         })
     }
 }
+
+document.getElementById('loadMore').addEventListener('click', async () => {
+    if (!isLastPage) {
+        currentPage++;
+        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+    } else {
+        console.log('No more listings to load');
+        document.getElementById('loadMore').disabled = true;
+    }
+});
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+document.getElementById('filter-btn').addEventListener('click', () => {
+    const filterDropdown = document.getElementById('filter-dropdown');
+    const dropdownLine = document.getElementById('dropdown-line');
+
+    filterDropdown.style.display = filterDropdown.style.display === 'flex' ? 'none' : 'flex';
+    dropdownLine.style.backgroundColor = dropdownLine.style.backgroundColor ===  'rgb(198, 202, 199)' ? 'transparent' : 'rgb(198, 202, 199)';
+});
+
+
+document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
+    radio.addEventListener('change', async (event) => {
+        filterValue = event.target.value;
+        currentPage = 1;
+        console.log(`Filter Value in API Call: ${filterValue}`);
+
+        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+    });
+});
+
+document.getElementById('loadMore').addEventListener('click', async () => {
+    if (!isLastPage) {
+        currentPage++;
+        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+    } else {
+        console.log('No more listings to load');
+    }
+});
+
+document.getElementById('searchButton').addEventListener('click', debounce(async () => {
+    currentSearchData = document.getElementById('searchInput').value.trim();
+    currentPage = 1;
+    await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+}, 300));
+
+document.getElementById('select-sorting').addEventListener('change', async (event) => {
+    sortOption = event.target.value;
+    currentPage = 1;
+    await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+});
+
+document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
+    radio.addEventListener('change', async (event) => {
+        filterValue = event.target.value;
+        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+    });
+});
 
 document.getElementById('loginBtn').addEventListener('click', () => {
     window.location = "auth/login/index.html";
