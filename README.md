@@ -38,6 +38,6 @@ For further development of this blog, I would like to add folloging features:
 * Add Favourites page.
 
 ## Deployment and Project Links
-* [Deployed site (deployed on Netlify)]([https://project-exam-1-blog.vercel.app/user/index.html](https://bid-boutique.netlify.app/))
-* [GitHub Repository]([https://github.com/IngridOrnum/project-exam-1-blog](https://github.com/IngridOrnum/semester-project-2-ingridornum))
+* [Deployed site (deployed on Netlify)](https://project-exam-1-blog.vercel.app/user/index.html](https://bid-boutique.netlify.app/))
+* [GitHub Repository](https://github.com/IngridOrnum/project-exam-1-blog](https://github.com/IngridOrnum/semester-project-2-ingridornum))
 
