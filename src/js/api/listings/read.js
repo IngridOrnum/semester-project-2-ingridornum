@@ -27,7 +27,8 @@ export async function readAllListings(limit = 40, page = 1, sortOption = "latest
     }
 
     const options = {
-        method: 'GET'
+        method: 'GET',
+        headers: {'Content-Type': 'application/json'}
     };
 
     const response = await fetch(`${API_LISTINGS}?${params.toString()}`, options);
@@ -46,7 +47,7 @@ export async function readAllListings(limit = 40, page = 1, sortOption = "latest
 
 // Read single listing
 
-export async function readSingleListing (id) {
+export async function readSingleListing(id) {
     const accessToken = await getAccessToken();
 
     const options = {

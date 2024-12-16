@@ -12,56 +12,15 @@ let isLastPage = false;
 let sortOption = 'latest';
 let filterValue = 'all';
 
-document.getElementById('filter-btn').addEventListener('click', () => {
-    const filterDropdown = document.getElementById('filter-dropdown');
-    const dropdownLine = document.getElementById('dropdown-line');
-
-    filterDropdown.style.display = filterDropdown.style.display === 'flex' ? 'none' : 'flex';
-    dropdownLine.style.backgroundColor = dropdownLine.style.backgroundColor ===  'rgb(198, 202, 199)' ? 'transparent' : 'rgb(198, 202, 199)';
-});
-
-document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
-    radio.addEventListener('change', async (event) => {
-        filterValue = event.target.value;
-        currentPage = 1;
-        console.log(`Filter Value in API Call: ${filterValue}`);
-
-        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
-    });
-});
-
-document.getElementById('searchButton').addEventListener('click', async () => {
-    currentSearchData = document.getElementById('searchInput').value.trim();
-    currentPage = 1;
-    await loadListings(currentPage, currentSearchData, sortOption, filterValue);
-});
-
-document.getElementById('select-sorting').addEventListener('change', async (event) => {
-    sortOption = event.target.value;
-    currentPage = 1;
-    await loadListings(currentPage, currentSearchData, sortOption, filterValue);
-});
-
-document.getElementById('loadMore').addEventListener('click', async () => {
-    if (!isLastPage) {
-        currentPage++;
-        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
-    } else {
-        console.log('No more listings to load');
-    }
-});
-
 export async function loadListings(page = 1, searchData = '', sortOption = 'latest', filterValue = 'all') {
     try {
-        console.log('Current Sort Option:', sortOption);
         let response;
 
         if (page === 1) {
             allListings = [];
         }
 
-        const remainingCount = metaData.totalCount - allListings.length;
-        const adjustedLimit = remainingCount < listingsPerPage ? remainingCount : listingsPerPage;
+        const adjustedLimit = listingsPerPage;
 
         if (searchData.trim()) {
             response = await searchListings(searchData, adjustedLimit, page, sortOption, filterValue);
@@ -70,15 +29,13 @@ export async function loadListings(page = 1, searchData = '', sortOption = 'late
         }
 
         const fetchedListings = response.listings || [];
-
         metaData = response.meta || { totalCount: allListings.length + fetchedListings.length };
-
         isLastPage = allListings.length + fetchedListings.length >= metaData.totalCount;
-
         allListings = [...allListings, ...fetchedListings];
-        console.log('All Listings After Load:', allListings);
 
-        console.log('All Listings:', allListings);
+        const loadMoreButton = document.getElementById('loadMore');
+        loadMoreButton.disabled = isLastPage;
+
         await displayListings(allListings);
     } catch (error) {
         console.error('Error displaying listings:', error);
@@ -100,7 +57,7 @@ export async function displayListings(listings) {
 
     if (listings.length === 0) {
         console.log("Displaying listings:", listings);
-        listingsContainer.innerHTML = '<p>No listings found.</p>';
+        listingsContainer.innerHTML = '<p class="text-ui-black font-subtitle text-4xl">No listings found.</p>';
         listingsCount.forEach(counter => {
             counter.innerHTML = '0 of 0 listings'
         })
@@ -109,7 +66,7 @@ export async function displayListings(listings) {
 
     listingsCount.forEach(counter => {
         counter.innerHTML = `
-        <span>${listings.length} of ${metaData.totalCount}</span>
+        <span class="text-ui-black font-text text-sm">${listings.length} of ${metaData.totalCount}</span>
         `;
     });
 
@@ -123,38 +80,40 @@ export async function displayListings(listings) {
         listItem.setAttribute('data-id', listing.id);
 
         listItem.innerHTML = `
-            <div class="li-single-listing-content flex flex-col relative rounded-xl">
-                <div class="flex items-center gap-4 p-2">
-                    <img class="rounded-full h-10 w-10 object-cover" src="${listing.seller?.avatar.url || "public/assets/images/missing-img.jpg"}" alt="Avatar User">
-                    <span>${listing.seller?.name}</span>
+            <div class="li-single-listing-content  flex flex-col relative cursor-pointer">
+                <div class="flex items-center gap-2 tablet:gap-4 p-2">
+                    <img class="rounded-full h-7 w-7 tablet:h-10 tablet:w-10 object-cover" src="${listing.seller?.avatar.url || "public/assets/images/missing-img.jpg"}" alt="Avatar User">
+                    <span class="font-text text-ui-black text-sm">${listing.seller?.name}</span>
                 </div>
                 <div>
                     ${auctionStatus
-                        ?
-                        `<div id="ended-notif" class="font-text text-xs text-notif-red absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-red bg-notif-bg-red z-1 rounded-full tablet:text-base">ENDED</div>`
-                        :  
-                        `<div id="active-notif" class=" font-text text-xs text-notif-green absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-green bg-notif-bg-green z-1 rounded-full tablet:text-base">ACTIVE</div>`
-                    }
+            ?
+            `<div id="ended-notif" class="font-text text-xs text-notif-red absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-red bg-notif-bg-red z-1 rounded-full">ENDED</div>`
+            :
+            `<div id="active-notif" class=" font-text text-xs text-notif-green absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-green bg-notif-bg-green z-1 rounded-full">ACTIVE</div>`
+        }
                 </div>
-                        <img class="listing-img" src="${listing.media?.[0]?.url || "public/assets/images/missing-img.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
-                        <div class="flex flex-col gap-4 p-4 min-h-[112px]">
-                        <span class="font-subtitle text-ui-black text-lg tablet:text-2xl overflow-hidden whitespace-nowrap max-w-full">${listing.title}</span>
-                        ${auctionStatus
-                        ?
-                        ` <span class="uppercase text-notif-red font-text text-xs tablet:text-base">Ended</span>`
-                        :
-                        `
-                        <div class="flex flex-col font-text text-xs gap-1 font-light tablet:text-base tablet:flex-row">
-                            <span class="font-medium">Highest bid:</span>
-                            <span>${highestBid} credits</span>
+                <img class="listing-img" src="${listing.media?.[0]?.url || "public/assets/images/missing-img.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
+                <div class="flex flex-col gap-4 p-4 min-h-[112px]">
+                    <span class="flex font-subtitle text-ui-black text-lg tablet:text-2xl overflow-hidden whitespace-nowrap max-w-full">${listing.title}</span>
+                    ${auctionStatus
+            ?
+            ` <span class="uppercase border flex justify-center rounded-md border-notif-red p-3 text-notif-red font-text text-xs tablet:text-base">Ended</span>`
+            :
+            `
+                    <div class="flex gap-5 justify-center items-center">
+                        <div class="flex flex-col w-[110px] tablet:w-[136px] tablet:p-[8px] items-center  py-3 border-2 border-transparent bg-primary-green text-ui-white rounded-md font-text text-xs gap-1 font-light ">
+                            <span class="text[8px]  uppercase">Highest bid</span>
+                            <span class="text-[14px] ">${highestBid} credits</span>
                         </div>
-                        <div class="flex flex-col font-text text-xs gap-1 font-light tablet:text-base tablet:flex-row">
-                            <span class="font-medium">Ends in:</span>
-                            <span> ${timeLeft}</span>
+                        <div class="flex flex-col w-[110px] tablet:w-[136px] tablet:p-[8px] items-center py-3 border-2 border-primary-green text-ui-black rounded-md font-text text-xs gap-1 font-light ">
+                            <span class="text[8px] font-medium uppercase">Ends in</span>
+                            <span class="text-[14px] "> ${timeLeft}</span>
                         </div>
+                    </div>
                 </div>
                 `
-                }
+        }
             </div>
         `;
         listingsContainer.appendChild(listItem);
@@ -165,6 +124,75 @@ export async function displayListings(listings) {
         })
     }
 }
+
+document.getElementById('loadMore').addEventListener('click', async () => {
+    if (!isLastPage) {
+        currentPage++;
+        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+    } else {
+        console.log('No more listings to load');
+        document.getElementById('loadMore').disabled = true;
+    }
+});
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+document.getElementById('filter-btn').addEventListener('click', () => {
+    const filterDropdown = document.getElementById('filter-dropdown');
+    const dropdownLine = document.getElementById('dropdown-line');
+
+    filterDropdown.style.display = filterDropdown.style.display === 'flex' ? 'none' : 'flex';
+    dropdownLine.style.backgroundColor = dropdownLine.style.backgroundColor ===  'rgb(198, 202, 199)' ? 'transparent' : 'rgb(198, 202, 199)';
+});
+
+
+document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
+    radio.addEventListener('change', async (event) => {
+        filterValue = event.target.value;
+        currentPage = 1;
+        console.log(`Filter Value in API Call: ${filterValue}`);
+
+        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+    });
+});
+
+document.getElementById('loadMore').addEventListener('click', async () => {
+    if (!isLastPage) {
+        currentPage++;
+        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+    } else {
+        console.log('No more listings to load');
+    }
+});
+
+document.getElementById('searchButton').addEventListener('click', debounce(async () => {
+    currentSearchData = document.getElementById('searchInput').value.trim();
+    currentPage = 1;
+    await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+}, 300));
+
+document.getElementById('select-sorting').addEventListener('change', async (event) => {
+    sortOption = event.target.value;
+    currentPage = 1;
+    await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+});
+
+document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
+    radio.addEventListener('change', async (event) => {
+        filterValue = event.target.value;
+        await loadListings(currentPage, currentSearchData, sortOption, filterValue);
+    });
+});
 
 document.getElementById('loginBtn').addEventListener('click', () => {
     window.location = "auth/login/index.html";
