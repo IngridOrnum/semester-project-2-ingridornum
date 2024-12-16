@@ -31,70 +31,85 @@ function buildListingHTML(listing) {
     const timeLeft = timeRemaining(listing.endsAt);
     const highestBid = getHighestBid(listing) || '0';
     return `
-<div class="flex flex-col gap-4 border border-slate-900 p-2.5">
-<div class="flex">
-<div class="flex flex-col">
-            <span>Title: ${listing.title}</span>
+<div class="flex flex-col gap-4 p-2.5 mb-6">
+    <div class="flex justify-between">
+        <div class="flex flex-col text-ui-black font-light gap-2">
+            <span class="font-subtitle text-xl">${listing.title}</span>
             ${ended
-        ?
-        `
-                <span>Ended</span>
-                `
-        :
-        `
-                <span>Ends at: ${timeLeft}</span>
-                `
-    }
-            <span>Bids: ${listing.count?.bids || '0'}</span>
-            <span>Highest Bid: ${highestBid}</span>
+            ?
+            `
+            ´<span>Ended</span>
+            `
+            :
+            `
+            <div class="font-text text-sm">
+                <span class="font-medium">Ends in:</span>
+                <span>${timeLeft}</span>
+            </div>
+            `
+            }
+            <div class="font-text">
+                <span class="font-medium text-sm">Bids:</span> 
+                <span>${listing.count?.bids || '0'}</span>
+            </div>
+            <div class="font-text">
+                <span class="font-medium text-sm">Highest Bid:</span>
+                <span>${highestBid}</span>
+            </div>
         </div>
         ${ended
         ?
         `
-                    <button class="delete-btn border border-slate-900 cursor-pointer">Delete</button>
-                `
+         <button class="delete-btn cursor-pointer bg-ui-black text-ui-white p-2 font-text font-light border border-transparent rounded-sm hover:border-ui-black hover:bg-ui-white hover:text-ui-black">Delete</button>
+         `
         :
         `
-
-                <div class="flex gap-4">
-                    <button class="edit-btn border border-slate-900 cursor-pointer">Edit</button>
-                    <button class="delete-btn border border-slate-900 cursor-pointer">Delete</button>
-                </div>
-                `
-    }
+        <div class="flex flex-col gap-4 justify-center align-middle font-text font-light">
+            <button class="edit-btn cursor-pointer bg-ui-white text-ui-black p-2 border border-transparent rounded-sm hover:text-ui-white hover:bg-ui-black">Edit</button>
+            <button class="delete-btn cursor-pointer bg-ui-black text-ui-white p-2 border border-transparent rounded-sm hover:border-ui-black hover:bg-ui-white hover:text-ui-black">Delete</button>
         </div>
-        <form class="edit-form hidden" data-id="${listing.id}">
+        `
+        }
+        </div>
+        <form class="edit-form hidden flex flex-col items-center" data-id="${listing.id}">
+        <div class="line-divider bg-primary-green my-6"></div>
          <div class="flex flex-col">
-        <label for="edit-title">Title</label>
-        <input id="edit-title" value="${listing.title}" class="border border-slate-900" name="edit-title" type="text" required>
+        <label class="font-text text-ui-black font-light mb-2" for="edit-title">Title</label>
+        <input id="edit-title" value="${listing.title}" class="form-input font-text w-[280px] tablet:w-[480px] mb-4" name="edit-title" type="text" required>
     </div>
     <div class="flex flex-col">
-        <label for="edit-description">Description</label>
-        <input id="edit-description" value="${listing.description || ''}" class="border border-slate-900" name="edit-description" type="text">
+        <label class="font-text text-ui-black font-light mb-2" for="edit-description">Description</label>
+        <input id="edit-description" value="${listing.description || ''}" class="form-input font-text w-[280px] tablet:w-[480px] mb-4" name="edit-description" type="text">
     </div>
     <div>
 <div class="image-container">
                     ${listing.media.map((img, index) => `
-                        <div class="image-input-set" data-index="${index}">
-                            <input class="border border-ui-black" value="${img.url}" name="edit-media-URL-${index}">
-                            <input class="border border-ui-black" value="${img.alt}" name="edit-media-description-${index}">
-                            <button class="remove-image-btn bg-primary-green text-ui-white">Remove</button>
+                        <div class="image-input-set flex flex-col" data-index="${index}">
+                        <div class="line-divider bg-ui-white my-4 w-full"></div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="font-text text-ui-black font-light">Image URL</label>
+                            <button class="remove-image-btn font-text font-light rounded-sm text-xs bg-primary-green p-1 items-center text-ui-white underline cursor-pointer hover:text-ui-black hover:bg-ui-white">Remove</button>
+                        </div>
+                        <input class="form-input font-text w-[280px] tablet:w-[480px] mb-4" value="${img.url}" name="edit-media-URL-${index}">
+                        <label class="font-text text-ui-black font-light mb-2">Image Description</label>
+                        <input class="form-input font-text w-[280px] tablet:w-[480px] mb-4" value="${img.alt}" name="edit-media-description-${index}">
                         </div>
                     `).join('')}
                 </div>
     <span class="image-error-message font-text font-light text-notif-red hidden">You can only add 8 images to a listing.</span>
-                <button id="add-image-btn" type="button" class="bg-primary-green w-full p-2 font-light rounded-sm border border-transparent font-text text-ui-white hover:bg-ui-white hover:border-ui-black hover:text-ui-black">
+                <button id="add-image-btn" type="button" class="mb-6 bg-primary-green w-full p-2 font-light rounded-sm border border-transparent font-text text-ui-white hover:bg-ui-white hover:border-ui-black hover:text-ui-black">
                     + Add Another Image
                 </button>
 </div>
 
     <div class="flex flex-col">
-        <label for="edit-tags">Tags</label>
-        <input id="edit-tags" value="${listing.tags || ''}" class="border border-slate-900" name="edit-tags" type="text">
+        <label class="font-text text-ui-black font-light mb-2" for="edit-tags">Tags</label>
+        <input id="edit-tags" value="${listing.tags.join(', ') || ''}" class="form-input font-text w-[280px] tablet:w-[480px] mb-4" name="edit-tags" type="text">
     </div>
-    <button id="save-btn" type="submit" class="border border-slate-900 p-2">Save Changes</button>
+    <button id="save-btn" type="submit" class="btn-primary">Save Changes</button>
         </form>
 </div>
+<div class="line-divider bg-primary-green"></div>
     `;
 }
 
@@ -154,21 +169,23 @@ function addImageInput(container) {
         errorMessage.classList.remove('hidden');
         setTimeout(() => {
             errorMessage.classList.add('hidden');
-        }, 3000);
+        }, 5000);
         return;
     }
 
-    // If under the limit, add a new image input set
-    const index = imageInputSets.length; // Use the current count as the index
+    const index = imageInputSets.length;
     container.insertAdjacentHTML('beforeend', `
         <div class="image-input-set" data-index="${index}">
-            <button class="remove-image-btn bg-primary-green text-ui-white">Remove</button>
-            <input type="text" class="border border-ui-black" name="edit-media-URL-${index}">
-            <input type="text" class="border border-ui-black" name="edit-media-description-${index}">
+        <div class="flex items-center justify-between mb-2">
+            <label class="font-text text-ui-black font-light">Image URL</label>
+            <button class="remove-image-btn font-text font-light rounded-sm text-xs bg-primary-green p-1 items-center text-ui-white underline cursor-pointer hover:text-ui-black hover:bg-ui-white">Remove</button>
+        </div>
+            <input type="text" class="form-input font-text w-[280px] tablet:w-[480px] mb-4" name="edit-media-URL-${index}">
+            <label class="font-text text-ui-black font-light">Image Description</label>
+            <input type="text" class="form-input font-text w-[280px] tablet:w-[480px] mb-4" name="edit-media-description-${index}">
         </div>
     `);
 
-    // Update error message visibility in case it was previously shown
     updateErrorMessageVisibility(container);
 }
 
