@@ -10,7 +10,6 @@ Bid Boutique is a dynamic auction website where users can list items for auction
 - [Challenges Faced](#challenges-faced)
 - [Future Feautures](#future-features)
 - [Deployment and Project Links](#deployment-and-project-links)
-- [Licence](#licence)
 
 ## User Features
 * Registration and Authentication: Users with a valid "stud.noroff.no" email can register, login, and logout of the system.
@@ -29,7 +28,7 @@ Bid Boutique is a dynamic auction website where users can list items for auction
 
 ## Challenges Faced
 1. Complex API Interactions: Integrating complex auction and bidding functionalities using the API was challenging but provided valuable experience with real-world applications.
-2. 
+2. Search and Filtering with Pagination: Implementing a seamless search and filtering system that works in conjunction with pagination proved to be a complex task. It required maintaining the state across page transitions and ensuring the API could handle combined queries efficiently.
 
 
 ## Future Features
