@@ -67,7 +67,7 @@ export async function displaySingleListing() {
             ? `<div class="border border-notif-red text-notif-red p-2.5 font-text">This auction has ended.</div>`
             : isUserSeller
                 ? `<div class="border border-ui-gray text-ui-gray p-2.5 font-text">You cannot bid on your own listing.</div>`
-                : 
+                :
                 `
                     <input id="bid-amount" class="h-[50px] outline-none border border-ui-gray rounded-l-sm font-text text-ui-black px-6" type="text" min="${highestBid + 1}" placeholder="Enter bid amount">
                     <button id="place-bid-button" class="h-[50px] border border-ui-black bg-ui-black text-ui-white font-text rounded-r-sm p-2.5">Place Bid</button>

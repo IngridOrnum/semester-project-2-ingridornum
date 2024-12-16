@@ -28,14 +28,13 @@ export async function searchListings(query, limit = 40, page = 1, sortOption = '
     };
 
     const response = await fetch(`${API_LISTINGS}/search?${params.toString()}`, options);
-    console.log('search API', `${API_LISTINGS}?${params.toString()}`);
 
     if (!response.ok) {
         throw new Error(`Error fetching search data: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log('API response data in search:', data);
+
     return {
         listings: data.data || [],
         meta: data.meta || {},

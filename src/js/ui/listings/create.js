@@ -26,7 +26,7 @@ document.getElementById('add-image-btn').addEventListener('click', () => {
     }
 });
 
-document.getElementById('image-inputs-container').addEventListener('click', function(event) {
+document.getElementById('image-inputs-container').addEventListener('click', function (event) {
     if (event.target.classList.contains('remove-image-btn')) {
         const imageInputSet = event.target.closest('.image-input-set');
         if (imageInputSet) {
@@ -35,7 +35,7 @@ document.getElementById('image-inputs-container').addEventListener('click', func
     }
 });
 
-function collectImageData (form) {
+function collectImageData(form) {
     const media = [];
     const imageInputs = document.querySelectorAll('#image-inputs-container .image-input-set');
     imageInputs.forEach((inputSet, index) => {
@@ -72,8 +72,6 @@ export async function createListing(event) {
         tags: tagsInput.value ? tagsInput.value.split(",").map(tag => tag.trim()) : [],
         endsAt: new Date(endsAtInput.value).toISOString(),
     };
-
-    console.log("Payload being sent:", listingData);
 
     try {
         const {data: responseData, ok} = await apiCreateListing(listingData);

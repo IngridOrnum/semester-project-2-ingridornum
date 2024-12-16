@@ -1,0 +1,29 @@
+import{A as h}from"./input-CPdIg46K.js";import"./main-CYj49QAp.js";import{r as y}from"./read-Chv4pIDK.js";import{g as v,h as w,t as E}from"./listings-B-nIuWtN.js";async function L(e,n=40,s=1,t="latest",a="all"){const i=new URLSearchParams({q:e,limit:n,offset:(s-1)*n,_seller:!0,_bids:!0});t==="latest"?(i.append("sort","created"),i.append("sortOrder","desc")):t==="a-z"&&(i.append("sort","title"),i.append("sortOrder","asc")),a==="active"&&i.append("_active","true");const d={method:"GET",headers:{"Content-Type":"application/json"}},l=await fetch(`${h}/search?${i.toString()}`,d);if(!l.ok)throw new Error(`Error fetching search data: ${l.status}`);const x=await l.json();return{listings:x.data||[],meta:x.meta||{}}}let c="",r=0,I=40,p=[],f=[],m=!1,u="latest",o="all";async function g(e=1,n="",s="latest",t="all"){try{let a;e===1&&(p=[]);const i=I;n.trim()?a=await L(n,i,e,s,t):a=await y(i,e,s,n,t);const d=a.listings||[];f=a.meta||{totalCount:p.length+d.length},m=p.length+d.length>=f.totalCount,p=[...p,...d];const l=document.getElementById("loadMore");l.disabled=m,await b(p)}catch(a){console.error("Error displaying listings:",a),await b([])}}async function b(e){const n=document.querySelector(".listings-container"),s=document.querySelectorAll(".listings-count");if(n.innerHTML="",o==="active"&&(e=e.filter(t=>new Date(t.endsAt)>new Date)),e.length===0){n.innerHTML='<p class="text-ui-black font-subtitle text-4xl">No listings found.</p>',s.forEach(t=>{t.innerHTML="0 of 0 listings"});return}s.forEach(t=>{t.innerHTML=`
+        <span class="text-ui-black font-text text-sm">${e.length} of ${f.totalCount}</span>
+        `});for(const t of e){const a=await v(t.bids),i=w(t.endsAt),d=E(t.endsAt),l=document.createElement("li");l.classList.add("li-single-listing"),l.setAttribute("data-id",t.id),l.innerHTML=`
+            <div class="li-single-listing-content  flex flex-col relative cursor-pointer">
+                <div class="flex items-center gap-2 tablet:gap-4 p-2">
+                    <img class="rounded-full h-7 w-7 tablet:h-10 tablet:w-10 object-cover" src="${t.seller?.avatar.url||"public/assets/images/missing-img.jpg"}" alt="Avatar User">
+                    <span class="font-text text-ui-black text-sm">${t.seller?.name}</span>
+                </div>
+                <div>
+                    ${i?'<div id="ended-notif" class="font-text text-xs text-notif-red absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-red bg-notif-bg-red z-1 rounded-full">ENDED</div>':'<div id="active-notif" class=" font-text text-xs text-notif-green absolute m-3 mt-[68px] top-0 right-0 px-2 py-1 border border-notif-green bg-notif-bg-green z-1 rounded-full">ACTIVE</div>'}
+                </div>
+                <img class="listing-img" src="${t.media?.[0]?.url||"public/assets/images/missing-img.jpg"}" alt="${t.media?.[0]?.alt||"No image"}">
+                <div class="flex flex-col gap-4 p-4 min-h-[112px]">
+                    <span class="flex font-subtitle text-ui-black text-lg tablet:text-2xl overflow-hidden whitespace-nowrap max-w-full">${t.title}</span>
+                    ${i?' <span class="uppercase border-2 flex justify-center rounded-md border-notif-red p-3 text-notif-red font-text text-xs tablet:text-base">Ended</span>':`
+                    <div class="flex gap-5 justify-center items-center">
+                        <div class="flex flex-col w-[110px] tablet:w-[136px] tablet:p-[8px] items-center  py-3 border-2 border-transparent bg-primary-green text-ui-white rounded-md font-text text-xs gap-1 font-light ">
+                            <span class="text[8px]  uppercase">Highest bid</span>
+                            <span class="text-[14px] ">${a} credits</span>
+                        </div>
+                        <div class="flex flex-col w-[110px] tablet:w-[136px] tablet:p-[8px] items-center py-3 border-2 border-primary-green text-ui-black rounded-md font-text text-xs gap-1 font-light ">
+                            <span class="text[8px] font-medium uppercase">Ends in</span>
+                            <span class="text-[14px] "> ${d}</span>
+                        </div>
+                    </div>
+                </div>
+                `}
+            </div>
+        `,n.appendChild(l),l.addEventListener("click",()=>{localStorage.setItem("listingId",t.id),window.location.href="../../../../single-listing/"})}}document.getElementById("loadMore").addEventListener("click",async()=>{m?document.getElementById("loadMore").disabled=!0:(r++,await g(r,c,u,o))});function B(e,n){let s;return function(...a){const i=()=>{clearTimeout(s),e(...a)};clearTimeout(s),s=setTimeout(i,n)}}document.getElementById("filter-btn").addEventListener("click",()=>{const e=document.getElementById("filter-dropdown"),n=document.getElementById("dropdown-line");e.style.display=e.style.display==="flex"?"none":"flex",n.style.backgroundColor=n.style.backgroundColor==="rgb(198, 202, 199)"?"transparent":"rgb(198, 202, 199)"});document.querySelectorAll('input[name="filter-radio"]').forEach(e=>{e.addEventListener("change",async n=>{o=n.target.value,r=1,await g(r,c,u,o)})});document.getElementById("loadMore").addEventListener("click",async()=>{m||(r++,await g(r,c,u,o))});document.getElementById("searchButton").addEventListener("click",B(async()=>{c=document.getElementById("searchInput").value.trim(),r=1,await g(r,c,u,o)},300));document.getElementById("select-sorting").addEventListener("change",async e=>{u=e.target.value,r=1,await g(r,c,u,o)});document.querySelectorAll('input[name="filter-radio"]').forEach(e=>{e.addEventListener("change",async n=>{o=n.target.value,await g(r,c,u,o)})});document.getElementById("loginBtn").addEventListener("click",()=>{window.location="auth/login/index.html"});document.getElementById("registerBnt").addEventListener("click",()=>{window.location="auth/register/index.html"});g(1);

@@ -1,5 +1,5 @@
-import { API_KEY, API_PROFILES } from "../constants.js";
-import { getAccessToken } from "../auth/getAccessToken.js";
+import {API_KEY, API_PROFILES} from "../constants.js";
+import {getAccessToken} from "../auth/getAccessToken.js";
 
 export async function readProfile(username) {
     const accessToken = await getAccessToken();
@@ -21,7 +21,7 @@ export async function readProfile(username) {
     return data;
 }
 
-export async function readAllListingByLoggedInUser (username) {
+export async function readAllListingByLoggedInUser(username) {
 
     const accessToken = await getAccessToken();
 
@@ -45,7 +45,7 @@ export async function readAllListingByLoggedInUser (username) {
     return result.data;
 }
 
-export async function readAllWinsByUser (username) {
+export async function readAllWinsByUser(username) {
 
     const accessToken = await getAccessToken();
 
@@ -69,7 +69,7 @@ export async function readAllWinsByUser (username) {
     return result.data;
 }
 
-export async function readAllBidsByUser (username) {
+export async function readAllBidsByUser(username) {
 
     const accessToken = await getAccessToken();
 

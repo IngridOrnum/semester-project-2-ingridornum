@@ -32,13 +32,12 @@ export async function readAllListings(limit = 40, page = 1, sortOption = "latest
     };
 
     const response = await fetch(`${API_LISTINGS}?${params.toString()}`, options);
-    console.log(`${API_LISTINGS}?${params.toString()}`);
     if (!response.ok) {
         throw new Error(`Error fetching data: ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json();
-    console.log('API Response in listings:', data);
+
     return {
         listings: data.data || [],
         meta: data.meta || {},
@@ -64,7 +63,8 @@ export async function readSingleListing(id) {
         console.error('Failed to fetch profile data:', response);
         throw new Error(`Error fetching profile data: ${response.status}`);
     }
+
     const data = await response.json();
-    console.log(data);
+
     return data;
 }

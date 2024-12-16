@@ -1,11 +1,11 @@
-import { API_LISTINGS, API_KEY } from "../constants.js";
-import { getAccessToken } from "../auth/getAccessToken.js";
+import {API_LISTINGS, API_KEY} from "../constants.js";
+import {getAccessToken} from "../auth/getAccessToken.js";
 
-export async function apiUpdateListing (updatedData, listingId) {
+export async function apiUpdateListing(updatedData, listingId) {
     try {
         const accessToken = await getAccessToken();
 
-        if(!listingId) {
+        if (!listingId) {
             throw new Error("Could not find listing");
         }
 

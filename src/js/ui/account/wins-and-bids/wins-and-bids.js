@@ -23,8 +23,6 @@ export async function displayBidsByUser() {
         bidListing.classList.add('li-single-listing');
         bidListing.setAttribute('data-id', listing.id);
 
-        console.log(listing)
-
         bidListing.innerHTML = `
             <div class="li-single-listing-content flex flex-col relative rounded-xl">
                 <div>

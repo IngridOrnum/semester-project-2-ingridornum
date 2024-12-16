@@ -36,18 +36,18 @@ function buildListingHTML(listing) {
         <div class="flex flex-col text-ui-black font-light gap-2">
             <span class="font-subtitle text-xl">${listing.title}</span>
             ${ended
-            ?
-            `
+        ?
+        `
             ´<span>Ended</span>
             `
-            :
-            `
+        :
+        `
             <div class="font-text text-sm">
                 <span class="font-medium">Ends in:</span>
                 <span>${timeLeft}</span>
             </div>
             `
-            }
+    }
             <div class="font-text">
                 <span class="font-medium text-sm">Bids:</span> 
                 <span>${listing.count?.bids || '0'}</span>
@@ -69,7 +69,7 @@ function buildListingHTML(listing) {
             <button class="delete-btn cursor-pointer bg-ui-black text-ui-white p-2 border border-transparent rounded-sm hover:border-ui-black hover:bg-ui-white hover:text-ui-black">Delete</button>
         </div>
         `
-        }
+    }
         </div>
         <form class="edit-form hidden flex flex-col items-center" data-id="${listing.id}">
         <div class="line-divider bg-primary-green my-6"></div>
@@ -138,6 +138,7 @@ function initializeEditForm(form) {
     const addButton = form.querySelector('#add-image-btn');
     addButton.onclick = () => addImageInput(container);
 }
+
 document.addEventListener('click', (event) => {
     if (event.target.classList.contains('remove-image-btn')) {
         const container = event.target.closest('.image-container');

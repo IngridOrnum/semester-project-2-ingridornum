@@ -1,6 +1,6 @@
 import {searchListings} from "../../api/listings/search.js";
 import {readAllListings} from "../../api/listings/read.js";
-import {timeRemaining, hasAuctionEnded } from "../global/listings.js";
+import {timeRemaining, hasAuctionEnded} from "../global/listings.js";
 import {getHighestBid} from "../global/listings.js";
 
 let currentSearchData = '';
@@ -29,7 +29,7 @@ export async function loadListings(page = 1, searchData = '', sortOption = 'late
         }
 
         const fetchedListings = response.listings || [];
-        metaData = response.meta || { totalCount: allListings.length + fetchedListings.length };
+        metaData = response.meta || {totalCount: allListings.length + fetchedListings.length};
         isLastPage = allListings.length + fetchedListings.length >= metaData.totalCount;
         allListings = [...allListings, ...fetchedListings];
 
@@ -56,7 +56,6 @@ export async function displayListings(listings) {
     }
 
     if (listings.length === 0) {
-        console.log("Displaying listings:", listings);
         listingsContainer.innerHTML = '<p class="text-ui-black font-subtitle text-4xl">No listings found.</p>';
         listingsCount.forEach(counter => {
             counter.innerHTML = '0 of 0 listings'
@@ -130,7 +129,6 @@ document.getElementById('loadMore').addEventListener('click', async () => {
         currentPage++;
         await loadListings(currentPage, currentSearchData, sortOption, filterValue);
     } else {
-        console.log('No more listings to load');
         document.getElementById('loadMore').disabled = true;
     }
 });
@@ -152,7 +150,7 @@ document.getElementById('filter-btn').addEventListener('click', () => {
     const dropdownLine = document.getElementById('dropdown-line');
 
     filterDropdown.style.display = filterDropdown.style.display === 'flex' ? 'none' : 'flex';
-    dropdownLine.style.backgroundColor = dropdownLine.style.backgroundColor ===  'rgb(198, 202, 199)' ? 'transparent' : 'rgb(198, 202, 199)';
+    dropdownLine.style.backgroundColor = dropdownLine.style.backgroundColor === 'rgb(198, 202, 199)' ? 'transparent' : 'rgb(198, 202, 199)';
 });
 
 
@@ -160,7 +158,6 @@ document.querySelectorAll('input[name="filter-radio"]').forEach(radio => {
     radio.addEventListener('change', async (event) => {
         filterValue = event.target.value;
         currentPage = 1;
-        console.log(`Filter Value in API Call: ${filterValue}`);
 
         await loadListings(currentPage, currentSearchData, sortOption, filterValue);
     });
@@ -170,8 +167,6 @@ document.getElementById('loadMore').addEventListener('click', async () => {
     if (!isLastPage) {
         currentPage++;
         await loadListings(currentPage, currentSearchData, sortOption, filterValue);
-    } else {
-        console.log('No more listings to load');
     }
 });
 
