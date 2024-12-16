@@ -37,6 +37,10 @@ export async function displaySingleListing() {
         const loggedInUser = localStorage.getItem('loggedInUsername');
         const isUserSeller = loggedInUser === listing.data.seller.name;
 
+        const highestBidder = listing.data.bids.length > 0
+            ? listing.data.bids[listing.data.bids.length - 1].bidder // Assuming bids are sorted
+            : null;
+        const isHighestBidder = loggedInUser === highestBidder;
 
         const singleListingContainer = document.getElementById('single-listing-container');
         const auctionStatus = hasAuctionEnded(listing.data.endsAt);
@@ -58,14 +62,16 @@ export async function displaySingleListing() {
     </div>
     <div>
         <div class="flex">
-        ${auctionStatus || isUserSeller
-            ? `<div class="border border-red-600 text-red-600 p-2.5">
-           ${auctionStatus ? 'This auction has ended.' : 'You cannot bid on your own listing.'}
-       </div>`
-            : `
-       <input id="bid-amount" class="border border-slate-900" type="text" min="${highestBid + 1}" placeholder="Enter bid amount">
-       <button id="place-bid-button" class="border border-slate-900 p-2.5">Place Bid</button>
-    `
+        ${auctionStatus
+            ? `<div class="border border-red-600 text-red-600 p-2.5">This auction has ended.</div>`
+            : isUserSeller
+                ? `<div class="border border-yellow-600 text-yellow-600 p-2.5">You cannot bid on your own listing.</div>`
+                : isHighestBidder
+                    ? `<div class="border border-blue-600 text-blue-600 p-2.5">You are already the highest bidder.</div>`
+                    : `
+                    <input id="bid-amount" class="border border-slate-900" type="text" min="${highestBid + 1}" placeholder="Enter bid amount">
+                    <button id="place-bid-button" class="border border-slate-900 p-2.5">Place Bid</button>
+                    `
         }
           </div>
         </div>
@@ -164,8 +170,9 @@ export async function displaySingleListing() {
 
         updateCarousel(listing.data.media);
 
-        if (!hasAuctionEnded && !isUserSeller) {
+        if (!auctionStatus && !isUserSeller && !isHighestBidder) {
             const bidButton = document.getElementById('place-bid-button');
+
             bidButton.addEventListener('click', async () => {
                 const bidInput = document.getElementById('bid-amount');
                 const bidAmount = parseFloat(bidInput.value);
@@ -176,7 +183,7 @@ export async function displaySingleListing() {
                 }
 
                 if (bidAmount <= highestBid) {
-                    alert('Your bid must be higher than the current highest bid of ${highestBid} credits.');
+                    alert(`Your bid must be higher than the current highest bid of ${highestBid} credits.`);
                     return;
                 }
 

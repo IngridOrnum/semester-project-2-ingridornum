@@ -7,6 +7,7 @@ export async function searchListings(query, limit = 40, page = 1, sortOption = '
         limit,
         offset: (page - 1) * limit,
         _seller: true,
+        _bids: true,
     });
 
     if (sortOption === 'latest') {
