@@ -123,7 +123,7 @@ export async function displaySingleListing() {
         const listingAboutSeller = document.getElementById('listing-about-seller');
         listingAboutSeller.innerHTML += `
         <div class="flex items-center gap-4">
-            <img class="rounded-full w-10 h-10" src="${listing.data.seller.avatar.url || "public/assets/images/missing-img.jpg"}" alt="${listing.data.seller.avatar.alt || 'User Avatar'}">
+            <img class="rounded-full w-10 h-10 object-cover" src="${listing.data.seller.avatar.url || "public/assets/images/missing-img.jpg"}" alt="${listing.data.seller.avatar.alt || 'User Avatar'}">
             <span class="font-heading text-2xl">${listing.data.seller.name}</span>
         </div>
         <div class="flex flex-col items-center gap-6">

@@ -1,14 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=DM+Serif+Display:ital@0;1&family=DM+Serif+Text:ital@0;1&family=Fahkwang:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .form-input {
-    max-width: 280px;
     height: 44px;
     border: 1px solid #929292;
     border-radius: 4px;
     background-color: #f7f7f7;
     outline: none;
     padding: 12px;
-    width: 100%;
 }
 
 .hidden {
@@ -55,7 +53,7 @@
 
 .btn-primary {
     width: 220px;
-    height: 42px;
+    height: 44px;
     background-color: #2E2E2E;
     font-size: 18px;
     color: #FEFEFE;

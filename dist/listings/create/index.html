@@ -5,11 +5,11 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link rel="icon" href="../../assets/favicon-BUX6yV9-.png">
     <title>Bid Boutique - Create New Listing</title>
-  <script type="module" crossorigin src="../../assets/createSingleListing-BMA7t5Z_.js"></script>
-  <link rel="modulepreload" crossorigin href="../../assets/input-Ja31UEQ1.js">
-  <link rel="modulepreload" crossorigin href="../../assets/main-DkMhsuuT.js">
-  <link rel="stylesheet" crossorigin href="../../assets/input-CcxMNGhX.css">
-  <link rel="stylesheet" crossorigin href="../../assets/custom-DtBPJ5R_.css">
+  <script type="module" crossorigin src="../../assets/createSingleListing-GR9JGv2e.js"></script>
+  <link rel="modulepreload" crossorigin href="../../assets/input-GgqWnbqK.js">
+  <link rel="modulepreload" crossorigin href="../../assets/main-DGWhb2vD.js">
+  <link rel="stylesheet" crossorigin href="../../assets/input-CJwRCJEu.css">
+  <link rel="stylesheet" crossorigin href="../../assets/custom-M7uoeT2b.css">
 </head>
 <body class="bg-profile">
     <nav class="flex gap-5 justify-between items-center bg-public p-5 sticky top-0 z-20 tablet:px-10 laptop:px-14">
@@ -45,40 +45,40 @@
     </div>
     <main class="flex flex-col items-center gap-4 p-10">
         <h1 class="font-heading text-4xl bold items-center">Create Listing</h1>
-        <form class="flex flex-col gap-4" id="create-listing-form">
+        <form class="flex flex-col gap-4 items-center" id="create-listing-form">
             <div class="flex flex-col">
-                <label for="create-title">Title *</label>
-                <input class="border border-slate-900" id="create-title" name="create-title" required type="text">
+                <label class="font-text text-ui-black font-light mb-2" for="create-title">Title *</label>
+                <input class="form-input font-text w-[280px] tablet:w-[480px]" id="create-title" name="create-title" required type="text">
             </div>
             <div class="line-divider bg-[#7A917F50]"></div>
             <div class="flex flex-col">
-                <label for="create-description">Description</label>
-                <input class="border border-slate-900" id="create-description" name="create-description" type="text">
+                <label class="font-text text-ui-black font-light mb-2" for="create-description">Description</label>
+                <input class="form-input font-text w-[280px] tablet:w-[480px]" id="create-description" name="create-description" type="text">
             </div>
             <div class="line-divider bg-[#7A917F50]"></div>
-            <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-4 items-center">
                 <div id="image-inputs-container">
                     <div class="image-input-set flex flex-col">
-                        <label for="create-media-URL-0">Image URL</label>
-                        <input class="border border-slate-900" id="create-media-URL-0" name="create-media-URL-0" type="text">
-                        <label for="create-media-description-0">Image Description</label>
-                        <input class="border border-slate-900" id="create-media-description-0" name="create-media-description-0" type="text">
+                        <label class="font-text text-ui-black font-light mb-2" for="create-media-URL-0">Image URL</label>
+                        <input class="form-input font-text w-[280px] tablet:w-[480px] mb-4" id="create-media-URL-0" name="create-media-URL-0" type="text">
+                        <label class="font-text text-ui-black font-light mb-2" for="create-media-description-0">Image Description</label>
+                        <input class="form-input font-text w-[280px] tablet:w-[480px]" id="create-media-description-0" name="create-media-description-0" type="text">
                     </div>
                 </div>
                 <span id="image-error-message" class="font-text font-light text-notif-red hidden">You can only add 8 images to a listing.</span>
-                <button id="add-image-btn" type="button" class="bg-primary-green w-full p-2 font-light rounded-sm border border-transparent font-text text-ui-white hover:bg-ui-white hover:border-ui-black hover:text-ui-black">
+                <button id="add-image-btn" type="button" class="bg-primary-green w-[220px] tablet:w-[280px] p-2 font-light rounded-sm border border-transparent font-text text-ui-white hover:bg-ui-white hover:border-ui-black hover:text-ui-black">
                     + Add Another Image
                 </button>
             </div>
             <div class="line-divider bg-[#7A917F50]"></div>
             <div class="flex flex-col">
-                <label for="create-tags">Tags</label>
-                <input class="border border-slate-900" id="create-tags" name="create-tags" type="text">
+                <label class="font-text text-ui-black font-light mb-2" for="create-tags">Tags</label>
+                <input class="form-input font-text w-[280px] tablet:w-[480px]" id="create-tags" name="create-tags" type="text">
             </div>
             <div class="line-divider bg-[#7A917F50]"></div>
             <div class="flex flex-col">
-                <label for="create-endsAt">Listing Ends At *</label>
-                <input class="border border-slate-900" id="create-endsAt" name="create-endsAt" required
+                <label class="font-text text-ui-black font-light mb-2" for="create-endsAt">Listing Ends At *</label>
+                <input class="form-input font-text w-[280px] tablet:w-[480px]" id="create-endsAt" name="create-endsAt" required
                        type="datetime-local">
             </div>
             <button class="btn-primary" id="create-listing-form-btn" type="submit">Create Listing
