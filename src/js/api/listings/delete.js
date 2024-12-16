@@ -1,7 +1,7 @@
-import { API_KEY, API_LISTINGS } from "../constants.js";
+import {API_KEY, API_LISTINGS} from "../constants.js";
 import {getAccessToken} from "../auth/getAccessToken.js";
 
-export async function apiDeleteListing (id) {
+export async function apiDeleteListing(id) {
     const accessToken = await getAccessToken();
 
     const options = {
@@ -16,12 +16,12 @@ export async function apiDeleteListing (id) {
     try {
         const response = await fetch(`${API_LISTINGS}/${id}`, options);
 
-        if(!response.ok) {
+        if (!response.ok) {
             const data = await response.json;
             throw new Error(data.errors ? data.errors[0].message : 'An error occurred while deleting the listing');
         }
 
-        return { ok: response.ok}
+        return {ok: response.ok}
     } catch (error) {
         console.error('Error deleting listing:', error);
         throw error;

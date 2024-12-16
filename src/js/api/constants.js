@@ -11,8 +11,6 @@ export const API_AUTH_LOGIN = `${API_AUTH}/login`;
 
 export const API_AUTH_REGISTER = `${API_AUTH}/register`;
 
-export const API_AUTH_KEY = `${API_AUTH}/create-api-key`;
-
 export const API_LISTINGS = `${API_BASE_AUCTION}/listings`;
 
 export const API_PROFILES = `${API_BASE_AUCTION}/profiles`;

@@ -18,13 +18,8 @@ export async function apiBid(listingId, bidAmount) {
     const options = {
         method: 'POST',
         headers,
-        body: JSON.stringify({ amount: bidAmount }),
+        body: JSON.stringify({amount: bidAmount}),
     };
-
-    console.log('Sending API request to:', `${API_LISTINGS}/${listingId}/bids`);
-    console.log('Headers:', headers);
-    console.log('Body:', options.body);
-
 
     const response = await fetch(`${API_LISTINGS}/${listingId}/bids`, options);
 
@@ -34,6 +29,5 @@ export async function apiBid(listingId, bidAmount) {
         throw new Error(`Error placing bid: ${response.status}`);
     }
     const data = await response.json();
-    console.log('Bid API response:', data);
     return data;
 }

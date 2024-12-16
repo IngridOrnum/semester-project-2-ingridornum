@@ -1,7 +1,7 @@
 import {readProfile} from "../../api/profile/read.js";
 import {onLogout} from "../auth/logout.js";
 
-export async function displayUserNav () {
+export async function displayUserNav() {
     const loggedInUser = localStorage.getItem('loggedInUsername');
     const logoutBtn = document.getElementById('logoutBtn');
     const loginBtn = document.getElementById('loginBtn');
@@ -10,10 +10,10 @@ export async function displayUserNav () {
 
     if (loggedInUser) {
 
-        if(loginBtn) loginBtn.classList.add('hidden');
-        if(registerBtn) registerBtn.classList.add('hidden');
-        if(logoutBtn) logoutBtn.classList.remove('hidden');
-        if(accountAndMenu) accountAndMenu.classList.remove('hidden');
+        if (loginBtn) loginBtn.classList.add('hidden');
+        if (registerBtn) registerBtn.classList.add('hidden');
+        if (logoutBtn) logoutBtn.classList.remove('hidden');
+        if (accountAndMenu) accountAndMenu.classList.remove('hidden');
 
         try {
             const profileData = await readProfile(loggedInUser);
@@ -71,16 +71,18 @@ export async function displayUserNav () {
 
 export async function openAccountPage() {
     document.getElementById('my-account').addEventListener('click', () => {
-            window.location.href = '../../../../account/';
+        window.location.href = '../../../../account/';
     });
 }
-export async function openMenuDropdown () {
+
+export async function openMenuDropdown() {
     const dropdownMenu = document.getElementById('menu-dropdown');
     const menuBtn = document.getElementById('menu-btn');
 
     menuBtn.addEventListener('click', () => {
         toggleDropDown(dropdownMenu);
     })
+
     function toggleDropDown(dropdownMenu) {
         if (dropdownMenu.classList.contains('hidden')) {
             dropdownMenu.classList.remove('hidden');

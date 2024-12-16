@@ -1,4 +1,4 @@
-import { login } from "../../api/auth/login.js";
+import {login} from "../../api/auth/login.js";
 
 export async function onLogin(event) {
     event.preventDefault();
@@ -25,7 +25,7 @@ export async function onLogin(event) {
     }
 }
 
-export async function openRegisterPage (){
+export async function openRegisterPage() {
     const registerBtn = document.getElementById('register-btn');
     registerBtn.addEventListener('click', () => {
         window.location.href = '../../../../auth/register/index.html';

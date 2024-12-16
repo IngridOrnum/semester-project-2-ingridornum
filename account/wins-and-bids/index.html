@@ -7,13 +7,13 @@
     <script defer src="wins-and-bids.js" type="module"></script>
     <link href="../../src/css/input.css" rel="stylesheet">
     <link href="../../public/css/custom.css" rel="stylesheet">
-    <link rel="icon" href="../../public/assets/icons/favicon.png">
+    <link href="../../public/assets/icons/favicon.png" rel="icon">
     <title>Wins & Bids</title>
 </head>
-<body>
+<body class="bg-profile">
     <nav class="flex gap-5 justify-between items-center bg-public p-5 sticky top-0 z-20 tablet:px-10 laptop:px-14">
         <div class="font-logo text-lg cursor-pointer tablet:text-2xl hover:text-[#7A917F] transition-all flex items-center gap-4">
-            <img class="h-10 w-10" src="../../public/assets/icons/favicon.png" alt="bid boutique logo">
+            <img alt="bid boutique logo" class="h-10 w-10" src="../../public/assets/icons/favicon.png">
             <a href="../../">bid boutique</a>
         </div>
         <div class="flex">
@@ -21,7 +21,7 @@
                 <button class="login-btn" id="loginBtn">Login</button>
                 <button class="reg-btn" id="registerBnt">Register</button>
             </div>
-            <div id="account-menu" class="flex gap-4 laptop:gap-6">
+            <div class="flex gap-4 laptop:gap-6" id="account-menu">
                 <button id="my-account">
                     <img alt="profile icon" class="h-9 w-9 cursor-pointer"
                          src="../../public/assets/icons/nav/profile-nav.svg">
@@ -42,19 +42,22 @@
                 <a>Logout</a></button>
         </div>
     </div>
-    <main>
-        <section>
-            <h2>Bids</h2>
-            <ul class="bids-container"></ul>
+    <main class="main-wins-bids flex flex-col items-center gap-4 px-6 py-10 tablet:py-20 justify-center w-full">
+        <h1 class="font-heading mt-6 text-4xl tablet:text-5xl text-ui-black tablet:mb-6">Wins & Bids</h1>
+        <section
+                class="section-wins-bids bg-[#F2F1EF80] p-6 tablet:p-10 rounded w-full max-w-[1400px] items-center justify-center">
+            <h2 class="font-heading text-2xl text-ui-black mb-6 tablet:text-3xl">Your Bids</h2>
+            <ul class="bids-container flex flex-wrap gap-4 items-center"></ul>
         </section>
-        <section>
-            <h2>Wins</h2>
-            <ul class="wins-container"></ul>
+        <section
+                class="section-wins-bids bg-[#F2F1EF80] p-6 tablet:p-10 rounded w-full max-w-[1400px] items-center justify-center">
+            <h2 class="font-heading mb-6 text-2xl text-ui-black tablet:text-3xl">Your Wins</h2>
+            <ul class="wins-container flex flex-wrap gap-4 justify-center items-center"></ul>
         </section>
     </main>
     <footer class="bg-profile px-5 py-10 mt-16 flex flex-col items-center gap-10 tablet:gap-12 tablet:px-10 tablet:py-12 tablet:mt-20">
         <div class="flex flex-col items-center">
-            <img class="h-20 w-20" src="../../public/assets/icons/favicon.png" alt="">
+            <img alt="" class="h-20 w-20" src="../../public/assets/icons/favicon.png">
             <div class="font-logo text-xl text-ui-black tablet:text-2xl">bid boutique</div>
         </div>
         <div class="line-divider bg-ui-white"></div>

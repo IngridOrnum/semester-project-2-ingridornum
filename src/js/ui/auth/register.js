@@ -1,4 +1,4 @@
-import { register } from "../../api/auth/register.js";
+import {register} from "../../api/auth/register.js";
 import {login} from "../../api/auth/login.js";
 
 export async function onRegister(event) {
@@ -46,7 +46,7 @@ export async function onRegister(event) {
 
             const loginData = await login({email, password})
 
-            if(loginData.data && loginData.data.accessToken) {
+            if (loginData.data && loginData.data.accessToken) {
                 const accessToken = loginData.data.accessToken;
                 const loggedInUsername = loginData.data.name;
 
@@ -64,7 +64,7 @@ export async function onRegister(event) {
     }
 }
 
-export async function openLoginPage () {
+export async function openLoginPage() {
     const loginBtn = document.getElementById('login-btn');
     loginBtn.addEventListener('click', () => {
         window.location.href = '../../../../auth/login/index.html';

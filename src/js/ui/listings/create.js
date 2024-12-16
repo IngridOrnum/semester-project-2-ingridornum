@@ -13,20 +13,20 @@ document.getElementById('add-image-btn').addEventListener('click', () => {
         const newInputHTML = `
                     <div class="image-input-set flex flex-col">
                     <div class="line-divider bg-ui-white my-4"></div>
-                        <div class="flex items-center justify-between">
-                            <label for="create-media-URL-${newIndex}">Image URL</label>
-                            <button type="button" class="remove-image-btn font-text text-xs bg-primary-green p-1 items-center text-ui-white underline cursor-pointer">Remove</button>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="font-text text-ui-black font-light" for="create-media-URL-${newIndex}">Image URL</label>
+                            <button type="button" class="remove-image-btn font-text font-light rounded-sm text-xs bg-primary-green p-1 items-center text-ui-white underline cursor-pointer hover:text-ui-black hover:bg-ui-white">Remove</button>
                         </div>
-                        <input class="border border-slate-900" id="create-media-URL-${newIndex}" name="create-media-URL-${newIndex}" type="text">
-                        <label for="create-media-description-${newIndex}">Image Description</label>
-                        <input class="border border-slate-900" id="create-media-description-${newIndex}" name="create-media-description-${newIndex}" type="text">
+                        <input class="form-input font-text w-[280px] tablet:w-[480px] mb-4" id="create-media-URL-${newIndex}" name="create-media-URL-${newIndex}" type="text">
+                        <label class="font-text text-ui-black font-light mb-2" for="create-media-description-${newIndex}">Image Description</label>
+                        <input class="form-input font-text w-[280px] tablet:w-[480px]" id="create-media-description-${newIndex}" name="create-media-description-${newIndex}" type="text">
                     </div>
         `;
         imgContainer.insertAdjacentHTML("beforeend", newInputHTML);
     }
 });
 
-document.getElementById('image-inputs-container').addEventListener('click', function(event) {
+document.getElementById('image-inputs-container').addEventListener('click', function (event) {
     if (event.target.classList.contains('remove-image-btn')) {
         const imageInputSet = event.target.closest('.image-input-set');
         if (imageInputSet) {
@@ -35,7 +35,7 @@ document.getElementById('image-inputs-container').addEventListener('click', func
     }
 });
 
-function collectImageData (form) {
+function collectImageData(form) {
     const media = [];
     const imageInputs = document.querySelectorAll('#image-inputs-container .image-input-set');
     imageInputs.forEach((inputSet, index) => {
@@ -57,8 +57,6 @@ export async function createListing(event) {
     const form = event.target;
     const titleInput = form["create-title"];
     const descriptionInput = form["create-description"];
-    const mediaURLInput = form["create-media-URL"];
-    const mediaDescriptionInput = form["create-media-description"];
     const tagsInput = form["create-tags"];
     const endsAtInput = form["create-endsAt"];
 
@@ -74,8 +72,6 @@ export async function createListing(event) {
         tags: tagsInput.value ? tagsInput.value.split(",").map(tag => tag.trim()) : [],
         endsAt: new Date(endsAtInput.value).toISOString(),
     };
-
-    console.log("Payload being sent:", listingData);
 
     try {
         const {data: responseData, ok} = await apiCreateListing(listingData);
