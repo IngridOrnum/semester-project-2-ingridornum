@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <script defer src="/main.js" type="module"></script>
     <script defer src="single-listing.js" type="module"></script>
-    <link href="/css/styles.css" rel="stylesheet">
+    <link href="../src/css/input.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
     <link rel="icon" href="../public/assets/icons/favicon.png">
     <title>Single listing</title>
@@ -39,49 +39,53 @@
         </div>
     </div>
     <main>
+        <div class="flex flex-col m-6 tablet:flex-row gap-6 tablet:justify-self-center laptop:gap-20">
         <div id="carousel" class="relative w-full overflow-hidden">
             <button class="prev carousel-buttons" >
-                prev
+                <img src="../public/assets/icons/single-listing/left-arrow.svg" alt="left arrow icon">
             </button>
             <button class="next carousel-buttons" >
-                next
+                <img src="../public/assets/icons/single-listing/right-arrow.svg" alt="right arrow icon">
             </button>
         </div>
-        <div id="single-listing-container"></div>
-        <div id="single-listing-details">
-            <div class="details-dropdown dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>Description</span>
-                    <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+        <div class="flex flex-col w-full align-middle p-10">
+            <div id="single-listing-container" class="flex flex-col items-center w-full justify-center"></div>
+            <div id="single-listing-details" class="m-2">
+                <div class="details-dropdown dropdown-btn cursor-pointer">
+                    <div class="flex justify-between font-text font-medium p-2">
+                        <span class>Description</span>
+                        <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+                    </div>
                 </div>
-            </div>
-            <div class="dropdownContent hidden" id="listing-description"></div>
-            <div class="line-divider"></div>
-            <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>Tags</span>
-                    <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+                <div class="dropdownContent hidden font-text font-light text-ui-black p-2" id="listing-description"></div>
+                <div class="line-divider"></div>
+                <div class="line-divider bg-[#C6CAC7]"></div>
+                <div class="dropdown-btn cursor-pointer">
+                    <div class="flex justify-between font-text font-medium p-2">
+                        <span>Tags</span>
+                        <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+                    </div>
                 </div>
-            </div>
-            <div class="dropdownContent hidden" id="listing-tags"></div>
-            <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="details-dropdown dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>Bid History</span>
-                    <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+                <div class="dropdownContent hidden font-text font-light text-ui-black p-2" id="listing-tags"></div>
+                <div class="line-divider bg-[#C6CAC7]"></div>
+                <div class="details-dropdown dropdown-btn cursor-pointer">
+                    <div class="flex justify-between font-text font-medium p-2">
+                        <span>Bid History</span>
+                        <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+                    </div>
                 </div>
-            </div>
-            <ul class="dropdownContent hidden flex flex-col" id="listing-bid-history"></ul>
-            <div class="line-divider bg-[#C6CAC7]"></div>
-            <div class="details-dropdown dropdown-btn cursor-pointer">
-                <div class="flex">
-                    <span>About Seller</span>
-                    <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+                    <ul class="dropdownContent hidden flex flex-col font-text font-light text-ui-black p-2" id="listing-bid-history"></ul>
+                <div class="line-divider bg-[#C6CAC7]"></div>
+                <div class="details-dropdown dropdown-btn cursor-pointer">
+                    <div class="flex justify-between font-text font-medium p-2">
+                        <span>About Seller</span>
+                        <img alt="arrow icon" src="../public/assets/icons/single-listing/down-arrow.svg">
+                    </div>
                 </div>
+                <div class="dropdownContent hidden flex flex-col font-text font-light p-6 bg-primary-green rounded text-ui-white gap-6 items-center" id="listing-about-seller"></div>
+                <div class="line-divider bg-[#C6CAC7]"></div>
             </div>
-            <div class="dropdownContent hidden" id="listing-about-seller"></div>
-            <div class="line-divider bg-[#C6CAC7]"></div>
+        </div>
         </div>
     </main>
     <footer class="bg-profile px-5 py-10 mt-16 flex flex-col items-center gap-10 tablet:gap-12 tablet:px-10 tablet:py-12 tablet:mt-20">

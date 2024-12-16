@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <link rel="icon" href="../../assets/favicon-BUX6yV9-.png">
-    <title>Bid Boutique - Create New Listing</title>
-  <script type="module" crossorigin src="../../assets/createSingleListing-8rpqQlv9.js"></script>
+    <title>Wins & Bids</title>
+  <script type="module" crossorigin src="../../assets/windsAndBids-V9E7d1Wb.js"></script>
   <link rel="modulepreload" crossorigin href="../../assets/input-BRILGR-m.js">
   <link rel="modulepreload" crossorigin href="../../assets/main-CQCJvdNu.js">
+  <link rel="modulepreload" crossorigin href="../../assets/listings-B-nIuWtN.js">
   <link rel="stylesheet" crossorigin href="../../assets/input-oOtbVK5X.css">
   <link rel="stylesheet" crossorigin href="../../assets/custom-DBy6bm3j.css">
 </head>
-<body class="bg-profile">
+<body>
     <nav class="flex gap-5 justify-between items-center bg-public p-5 sticky top-0 z-20 tablet:px-10 laptop:px-14">
         <div class="font-logo text-lg cursor-pointer tablet:text-2xl hover:text-[#7A917F] transition-all flex items-center gap-4">
             <img class="h-10 w-10" src="../../assets/favicon-BUX6yV9-.png" alt="bid boutique logo">
@@ -43,47 +44,15 @@
                 <a>Logout</a></button>
         </div>
     </div>
-    <main class="flex flex-col items-center gap-4 p-10">
-        <h1 class="font-heading text-4xl bold items-center">Create Listing</h1>
-        <form class="flex flex-col gap-4" id="create-listing-form">
-            <div class="flex flex-col">
-                <label for="create-title">Title *</label>
-                <input class="border border-slate-900" id="create-title" name="create-title" required type="text">
-            </div>
-            <div class="line-divider bg-[#7A917F50]"></div>
-            <div class="flex flex-col">
-                <label for="create-description">Description</label>
-                <input class="border border-slate-900" id="create-description" name="create-description" type="text">
-            </div>
-            <div class="line-divider bg-[#7A917F50]"></div>
-            <div class="flex flex-col gap-4">
-                <div id="image-inputs-container">
-                    <div class="image-input-set flex flex-col">
-                        <label for="create-media-URL-0">Image URL</label>
-                        <input class="border border-slate-900" id="create-media-URL-0" name="create-media-URL-0" type="text">
-                        <label for="create-media-description-0">Image Description</label>
-                        <input class="border border-slate-900" id="create-media-description-0" name="create-media-description-0" type="text">
-                    </div>
-                </div>
-                <span id="image-error-message" class="font-text font-light text-notif-red hidden">You can only add 8 images to a listing.</span>
-                <button id="add-image-btn" type="button" class="bg-primary-green w-full p-2 font-light rounded-sm border border-transparent font-text text-ui-white hover:bg-ui-white hover:border-ui-black hover:text-ui-black">
-                    + Add Another Image
-                </button>
-            </div>
-            <div class="line-divider bg-[#7A917F50]"></div>
-            <div class="flex flex-col">
-                <label for="create-tags">Tags</label>
-                <input class="border border-slate-900" id="create-tags" name="create-tags" type="text">
-            </div>
-            <div class="line-divider bg-[#7A917F50]"></div>
-            <div class="flex flex-col">
-                <label for="create-endsAt">Listing Ends At *</label>
-                <input class="border border-slate-900" id="create-endsAt" name="create-endsAt" required
-                       type="datetime-local">
-            </div>
-            <button class="btn-primary" id="create-listing-form-btn" type="submit">Create Listing
-            </button>
-        </form>
+    <main>
+        <section>
+            <h2>Bids</h2>
+            <ul class="bids-container"></ul>
+        </section>
+        <section>
+            <h2>Wins</h2>
+            <ul class="wins-container"></ul>
+        </section>
     </main>
     <footer class="bg-profile px-5 py-10 mt-16 flex flex-col items-center gap-10 tablet:gap-12 tablet:px-10 tablet:py-12 tablet:mt-20">
         <div class="flex flex-col items-center">

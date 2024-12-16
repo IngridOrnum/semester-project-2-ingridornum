@@ -98,7 +98,7 @@ export async function displayListings(listings) {
                     <span class="flex font-subtitle text-ui-black text-lg tablet:text-2xl overflow-hidden whitespace-nowrap max-w-full">${listing.title}</span>
                     ${auctionStatus
             ?
-            ` <span class="uppercase border flex justify-center rounded-md border-notif-red p-3 text-notif-red font-text text-xs tablet:text-base">Ended</span>`
+            ` <span class="uppercase border-2 flex justify-center rounded-md border-notif-red p-3 text-notif-red font-text text-xs tablet:text-base">Ended</span>`
             :
             `
                     <div class="flex gap-5 justify-center items-center">

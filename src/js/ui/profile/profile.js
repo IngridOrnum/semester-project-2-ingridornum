@@ -66,15 +66,15 @@ export async function displayUserProfileInfo() {
                        `<div id="active-notif" class=" font-text text-xs text-notif-green absolute m-3 mt-4 top-0 right-0 px-2 py-1 border border-notif-green bg-notif-bg-green z-1 rounded-full">ACTIVE</div>`
                         }
                     </div>
-                    <img class="listing-img" src="${listing.media?.[0]?.url || "public/assets/images/missing-img.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
+                    <img class="object-cover w-full h-[200px] justify-center" src="${listing.media?.[0]?.url || "public/assets/images/missing-img.jpg"}" alt="${listing.media?.[0]?.alt || "No image"}">
                     <div class="flex flex-col gap-4 p-4 min-h-[112px]">
-                        <span class="flex justify-center font-subtitle text-ui-black text-lg tablet:text-2xl overflow-hidden whitespace-nowrap max-w-full">${listing.title}</span>
+                        <span class="flex font-subtitle text-ui-black text-xl tablet:text-2xl overflow-hidden whitespace-nowrap max-w-full">${listing.title}</span>
                         ${ended
                         ?
-                        ` <span class="uppercase border flex justify-center rounded-md border-notif-red p-3 text-notif-red font-text text-xs tablet:text-base">Ended</span>`
+                        ` <span class="uppercase flex justify-center border-2 border-notif-red rounded p-3 text-notif-red font-text text-xs tablet:text-base">Ended</span>`
                         :
                         `
-                        <div class="flex gap-5 justify-center items-center">
+                        <div class="flex gap-5 justify-center items-center mt-[8px]">
                             <div class="flex flex-col w-[110px] tablet:w-[136px] tablet:p-[8px] items-center  py-3 border-2 border-transparent bg-primary-green text-ui-white rounded-md font-text text-xs gap-1 font-light ">
                                 <span class="text[8px]  uppercase">Highest bid:</span>
                                 <span class="text-[14px] ">${highestBid} credits</span>
