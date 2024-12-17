@@ -162,10 +162,10 @@ export async function displaySingleListing() {
             const carousel = document.getElementById('carousel');
             carousel.insertAdjacentHTML('beforeend', `
             <button class="prev carousel-buttons flex justify-center items-center">
-                <img src="../../../../public/assets/icons/single-listing/left-arrow.svg" alt="left arrow icon">
+               <span class="rotate-180">►</span> 
             </button>
             <button class="next carousel-buttons flex justify-center items-center">
-                <img src="../../../../public/assets/icons/single-listing/right-arrow.svg" alt="right arrow icon">
+                <span>►</span>
             </button>
             `);
         }
