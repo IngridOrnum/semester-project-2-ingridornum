@@ -22,7 +22,7 @@ export async function displayUserNav() {
             if (userDisplayNav) {
                 userDisplayNav.innerHTML = `
 <button class="absolute top-5 right-5 tablet:top-10 tablet:right-10 h-12 w-12">
-    <img id="close-dropdown-btn" class="h-10 w-10 transition ease-in-out delay-150 hover:scale-110 duration-300" src="../../../../public/assets/icons/nav/close.svg" alt="close icon">
+    <img id="close-dropdown-btn" class="h-10 w-10 transition ease-in-out delay-150 hover:scale-110 duration-300" src="../../../../public/assets/icons/close.png" alt="close icon">
 </button>
 <div class="flex flex-col items-center gap-2">
     <div class="flex items-center gap-4">

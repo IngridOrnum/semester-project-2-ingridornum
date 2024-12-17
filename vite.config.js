@@ -21,7 +21,6 @@ export default defineConfig({
                 updateProfile: resolve(__dirname, "/profile/update/index.html"),
                 account: resolve(__dirname, "/account/index.html"),
                 windsAndBids: resolve(__dirname, "/account/wins-and-bids/index.html"),
-                public: resolve(__dirname, "public/"),
             },
         },
     },
