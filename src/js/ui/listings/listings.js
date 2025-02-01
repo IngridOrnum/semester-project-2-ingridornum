@@ -118,8 +118,13 @@ export async function displayListings(listings) {
         listingsContainer.appendChild(listItem);
 
         listItem.addEventListener('click', () => {
-            localStorage.setItem('listingId', listing.id);
-            window.location.href = '../../../../single-listing/';
+            const accessToken = localStorage.getItem('accessToken') || sessionStorage.getItem('accessToken');
+            if (accessToken) {
+                localStorage.setItem('listingId', listing.id);
+                window.location.href = '../../../../single-listing/';
+            } else {
+                window.location.href = '../../../../auth/login/'
+            }
         })
     }
 }
